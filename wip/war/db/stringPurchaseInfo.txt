@@ -1,0 +1,15 @@
+
+<table>
+<tr>
+<td>Buy: </td><td id="picost"></td>
+</tr>
+<tr>
+<td>Sell: </td><td id="pisell"></td>
+</tr>
+<tr>
+<td>Own: </td><td id="piown"></td>
+</tr>
+<tr>
+<td>Using: </td><td id="piuse"></td>
+</tr>
+</table>

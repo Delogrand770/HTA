@@ -1,0 +1,100 @@
+<html>
+<head><title>Created by Gavin Delphia</title>
+<!--<link rel=StyleSheet href="xcss.css" type="text/css">-->
+<script>var xdev = 0;</script>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+
+<script>
+if (xdev!=1){
+	alert('Please extract all files before running');
+	window.close();
+}
+XU.ResizeWindow(230,400);
+var dropbox   = "C:\\Users\\C14Gavin.Delphia\\Documents\\My Dropbox\\iTunes Remote\\";
+var iTunesApp = new ActiveXObject("iTunes.Application");
+var cmds     = new Array('Play','Stop','Next','Pause','Previous','Voldown','Volup','Mute','Unmute','Quit');
+var iTunes = {
+	Play:function(){
+		iTunesApp.Play();
+	},
+	Stop:function(){
+		iTunesApp.Stop();
+	},
+	Next:function(){
+		iTunesApp.NextTrack();
+	},
+	Pause:function(){
+		iTunesApp.Pause();
+	},
+	Previous:function(){
+		iTunesApp.PreviousTrack();
+	},
+	Voldown:function(){
+		 iTunesApp.SoundVolume -= 25;
+	},
+	Volup:function(){
+		iTunesApp.SoundVolume -=- 25;
+	},
+	Mute:function(){
+		iTunesApp.Mute = true;
+	},
+	Unmute:function(){
+		iTunesApp.Mute = false;
+	},
+	Quit:function(){
+		window.close();
+	},
+	Monitor:function(){
+		for (i=0;i<=cmds.length-1;i++){
+			if (XS.File(dropbox+cmds[i]+'.txt','exist')){
+				XS.File(dropbox+cmds[i]+'.txt','delete');
+				apptxt.value    += cmds[i] + '\n';
+				apptxt.scrollTop = apptxt.scrollHeight;
+				eval('iTunes.'+cmds[i]+'()');
+				break;
+			}
+		}
+	},
+	Ini:function(){
+		XI.New('mainarea','appinfo','1:1','200:400',1);
+		XI.Fill('appinfo','iTunes Remote','<textarea style="background-Color:transparent;color:silver;height:80%;width:100%;border:0;overflow:auto;cursor:arrow;" readonly onfocus="this.blur()" id="apptxt"></textarea>');
+		XU.CenterElement('appinfo','b');
+		setInterval("iTunes.Monitor()",2000);
+	}
+};
+
+</script>
+</head>
+<body onload="iTunes.Ini();" bgcolor="black">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id='mainarea'></span>
+
+</body>
+</html>

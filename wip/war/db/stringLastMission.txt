@@ -1,0 +1,11 @@
+<table>
+<tr>
+<td style="text-align:right;">Name: </td><td id="lastmission_name"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Outcome: </td><td id="lastmission_outcome"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Reward: </td><td id="lastmission_reward"></td>
+</tr>
+</table>

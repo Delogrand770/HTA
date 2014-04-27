@@ -1,0 +1,34 @@
+<html>
+<head><title>Schedule</title>
+<script>
+var test ={
+  ini:function(){
+    q1 = prompt('','');
+    document.getElementById('out').value = escape(q1);
+  }
+}
+</script>
+
+</head>
+<body text = "white">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no" />
+<textarea id="out" oncontextmenu="test.ini()"></textarea>
+</body>
+</html>

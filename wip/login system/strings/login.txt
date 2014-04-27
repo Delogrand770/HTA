@@ -1,0 +1,6 @@
+<center>
+Insert a CAC then select an option below<br><br>
+<input type="button" value="Login" class="btn" onclick="App.Login()">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" value="Register" class="btn" onclick="App.Register()">
+</center>

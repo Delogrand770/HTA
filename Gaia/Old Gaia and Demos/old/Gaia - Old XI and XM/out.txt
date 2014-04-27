@@ -1,0 +1,122 @@
+<DIV id=xm_container0>
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen></DIV>
+
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 300px; DISPLAY: none; TOP: 10px; LEFT: 10px" id=xm_window0 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title0>&nbsp;</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body0>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons0>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE></DIV>
+
+<DIV id=xm_container1>
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen5></DIV>
+</DIV>
+
+-------------------------
+
+<DIV id=xm_container0>
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen></DIV>
+
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 170px; DISPLAY: block; TOP: 1px; LEFT: 1px" id=xm_window0 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title0>Scores</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body0><BR>Score1: 100<BR>Score2: 200<BR>Score3: 50</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons0><SPAN style="CURSOR: hand" id=btntrue0 seed="0" result="true">Accept</SPAN></TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE>
+</DIV>
+
+<DIV id=xm_container1>
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen5></DIV>
+
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 300px; DISPLAY: none; TOP: 10px; LEFT: 10px" id=xm_window1 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title1>&nbsp;</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body1>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons1>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE>
+</DIV>
+
+---------------------------------
+
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen></DIV>
+
+<DIV id=xm_container0>
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 300px; DISPLAY: none; TOP: 10px; LEFT: 10px" id=xm_window0 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title0>&nbsp;</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body0>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons0>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE>
+</DIV>
+
+--------------------------------
+ 
+<DIV style="Z-INDEX: 19998; BORDER-BOTTOM: medium none; POSITION: absolute; FILTER: alpha(opacity = 20); BORDER-LEFT: medium none; BACKGROUND-COLOR: #000; WIDTH: 100%; ZOOM: 1; DISPLAY: none; HEIGHT: 100%; BORDER-TOP: medium none; TOP: 0px; CURSOR: default; BORDER-RIGHT: medium none; LEFT: 0px; opacity: 0.2" id=xm_screen></DIV>
+
+<DIV id=xm_container0>
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 170px; DISPLAY: block; TOP: 1px; LEFT: 1px" id=xm_window0 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title0>Scores</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body0><BR>Score1: 100<BR>Score2: 200<BR>Score3: 50</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons0><SPAN style="CURSOR: hand" id=btntrue0 seed="0" result="true">Accept</SPAN></TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE>
+</DIV>
+
+<DIV id=xm_container1>
+<TABLE style="Z-INDEX: 19999; POSITION: absolute; WIDTH: 300px; DISPLAY: none; TOP: 10px; LEFT: 10px" id=xm_window1 cellSpacing=0 cellPadding=0>
+<TBODY>
+<TR>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopLeft.png); HEIGHT: 32px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowTopCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_title1>&nbsp;</TD>
+<TD style="WIDTH: 15px; BACKGROUND: url(xres/WindowTopRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowCenterLeft.png); OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: left; OVERFLOW-X: auto; WORD-WRAP: break-word; BACKGROUND: url(xres/WindowCenter.png); COLOR: silver; OVERFLOW: hidden" id=xm_body1>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowCenterRight.png); OVERFLOW: hidden">&nbsp;</TD></TR>
+<TR>
+<TD style="BACKGROUND: url(xres/WindowBottomLeft.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD>
+<TD style="TEXT-ALIGN: center; BACKGROUND: url(xres/WindowBottomCenter.png); HEIGHT: 39px; COLOR: silver; OVERFLOW: hidden" id=xm_buttons1>&nbsp;</TD>
+<TD style="BACKGROUND: url(xres/WindowBottomRight.png); HEIGHT: 39px; OVERFLOW: hidden">&nbsp;</TD></TR></TBODY></TABLE>
+</DIV>
+
+

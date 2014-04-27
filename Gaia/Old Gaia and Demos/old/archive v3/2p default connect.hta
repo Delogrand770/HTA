@@ -1,0 +1,73 @@
+<html>
+<head><title>Chess</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+
+<script>
+var xall_vars = new Array('appstate','tempdata');
+var tempdata = new Array();
+var appstate = 0;
+var App = {
+	Ini:function(){
+		XMessage.Ini();
+		XConnect.Ini("K:\\PL\\PL\\PLA\\IT Fix\\Cant verify credentials\\",'App.ReceiveData','App.SendData','connapp',2,2,'App.UpdateUsers','App.GameReady');
+		document.title += ' ['+xusername+']';
+		XUtil.ResizeWindow(200,450);
+		XConnect.Connect();
+	},
+	SendData:function(){
+		//send function container
+	},
+	ReceiveData:function(){
+		eval(xreceived);
+		XConnect.Wait(0);
+	},
+	GameReady:function(){	
+		XConnect.TwoPlayerName();
+		App.UpdateUsers();
+		if (XConnect.Role()){
+			
+		}else{
+			XConnect.Wait(1000);
+		}
+	},
+	UpdateUsers:function(){
+		userlist.innerHTML = "Opponent: " + oppo;	
+	}
+};
+</script>
+</head>
+
+<body bgcolor="white" onload="App.Ini()" text="black" scroll="no" onbeforeunload="XConnect.Disconnect()" onkeypress="if (event.keyCode==96){XDataSystem.VarState()}">
+<HTA:APPLICATION ID=""
+    APPLICATIONNAME=""
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="userlist"></span>
+
+</body>
+</html>

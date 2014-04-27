@@ -1,0 +1,3 @@
+<center>
+<select id="cretstorelist" onchange="Store.ShowItem(this.value,2)" class="blk" size=30 style="height:400;width:200;"></select>
+</center>

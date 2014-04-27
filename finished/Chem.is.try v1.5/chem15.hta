@@ -1,0 +1,503 @@
+<html>
+<head><title>Chem.is.try</title>
+<script src="gaia.js"></script>
+<script src="res/chemdata.js"></script>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.mmenubtn{
+ background-image:url('res/block2.png');
+ height:76;
+ width:284;
+ cursor:hand;
+ text-align:center;
+ color:black;
+ font-size:20;
+ line-height:3.5em;
+ white-space:normal;
+}
+#backbtn{
+ display:none;
+ position:absolute;
+ top:10;left:10;
+ background-image:url('res/block1.png');
+ height:75;
+ width:77;
+ cursor:hand;
+ text-align:center;
+ color:black;
+ font-size:20;
+ line-height:3.5em;
+}
+#span_score{
+ display:none;
+ position:absolute;top:10;left:50;
+ font-size:20;
+ color:#0099ff;
+ text-align:center;
+}
+#span_list{
+ position:absolute;
+ top:0;
+ left:0;
+ overflow-y:scroll;
+ height:450;
+ width:500;
+ display:none;
+ font-size:11pt;
+ background-color:black;
+ scrollbar-face-color:black;
+ scrollbar-shadow-color:white;
+ scrollbar-highlight-color:white;
+ scrollbar-track-color:#0099ff;
+ scrollbar-arrow-color:white;
+}
+#span_input{
+ display:none;
+ position:absolute;
+ top:380;
+ left:190;
+}
+#typeans{
+ border:1 solid white;
+ color:white;
+ background-Color:transparent;
+ font-size:35;
+ text-align:center;
+ width:600;
+ height:50;
+}
+</style>
+
+<script>
+XU.ErrorHandler(0);
+XU.ResizeWindow(620,824,0,1);
+var cz       = 0;
+var datalist = new Array('element_table','acid_table','ions_table','nonionic_table','ionic_table','alkanes_table');
+var qsets    = new Array('topic','question type','question number');
+var tdata    = new Array();
+var Sys = {
+	Ini:function(){
+		XM.Ini('#0099ff','white','silver');
+		Sys.SplashScreen(1);
+	},
+	SplashScreen:function(it){
+		if (it==1){
+			XM.Alert('<font color="#0099ff">Chem.is.try</font>','<font size=2em color=white>Created by Gavin Delphia and Mathieu Lefebvre<br><br>Prep class 2010 / USAFA class 2014</font>',0,0,1,0);
+			setTimeout("Sys.SplashScreen(0);",2500);
+		}else{
+			Sys.MainMenu();
+		}
+	},
+	MainMenu:function(){
+			XM.Close();
+			span_score.style.color     = '#0099ff';
+			span_score.innerHTML       = 'v1.5';
+			span_score.style.display   = 'block';
+			XU.CenterElement('span_score','h');
+			XU.DFB('span_score',10);
+			span_input.style.display     = 'none';
+			backbtn.style.display        = 'none';
+			span_quiztype.style.display  = 'none';
+			span_blocks.style.display = 'none';
+			span_list.style.display      = 'none';
+			span_mainmenu.style.display  = 'block';
+			XU.CenterElement('span_mainmenu','b');
+	},
+	QuizPrep:function(it,it2){
+		if (it!=-1){
+			span_score.innerHTML           = '';
+			span_mainmenu.style.display    = "none";
+			span_quiztype_header.innerHTML = event.srcElement.innerHTML;
+			backbtn.style.display          = "block";
+			span_quiztype.style.display    = "block";
+			qsets[2]                       = 0;
+			qsets[0]                       = it;
+			XU.CenterElement('span_quiztype','b');
+		}
+		else if (it==-1 && it2!=-1){
+			qsets[1]                      = it2;
+			span_quiztype.style.display   = 'none';	
+			cz                            = new Quiz.Question(qsets[0],qsets[1]);
+			cz.Generate();
+		}
+	},
+	List:function(){
+		tdata[0] = '<center><span style="color:white;text-align:center;font-size:35;">'+span_quiztype_header.innerHTML+'</span></center><br><br>';
+		span_list.innerHTML = '';
+		for (i=1;i<=window[datalist[qsets[0]]].length-1;i++){
+			tdata[1] = window[datalist[qsets[0]]][i].split(':');
+			if (datalist[qsets[0]]=='element_table'){
+				tdata[0] += "<font color='#0099ff'>" + tdata[1][1]+"</font> - <font color='cyan'>"+tdata[1][2]+"</font><br>";
+			}else{
+				tdata[0] += "<font color='#0099ff'>" + tdata[1][3]+"</font> | <font color='cyan'>"+tdata[1][2]+"</font> | "+tdata[1][1];
+				if (tdata[1][4]!=undefined){
+					tdata[0] += " | <font color='red'>"+tdata[1][4]+"</font><br>";
+				}else{
+					tdata[0] += " <br>";
+				}
+			}
+		}
+		span_list.innerHTML         = tdata[0];
+		span_list.style.display     = 'block';
+		span_list.scrollTop         = 0;
+		span_quiztype.style.display = 'none';
+		XU.CenterElement('span_list','b');
+	},
+	CapFirst:function(str){
+		return str.toLowerCase().replace(/\b[a-z]/g,Sys.Cnvrt);
+	},
+	Cnvrt:function(){
+		return arguments[0].toUpperCase();
+	},
+	Help:function(){
+		XM.Alert('<font color="#0099ff">Chem.is.try</font>','<font size=2em color=white>No help is available at this time.<br>Have you tried Extra Instruction with your teacher?</font>',0,0,0,0);
+	},
+	Reposition:function(){
+		XU.CenterElement('span_score','h');
+		XU.DFB('span_score',10);
+		XU.CenterElement('span_mainmenu','b');
+		XU.CenterElement('span_quiztype','b');
+		XU.CenterElement('span_input','b');
+		XU.CenterElement('span_blocks','b');
+		XU.CenterElement('span_list','b');
+		XU.CenterElement('xmsg','b');
+	}
+};
+var Quiz = {
+	Question:function(itopic,iqtype){
+		this.topic  = itopic; //0elements, 1acids, 2ions, 3covalent.c, 4ionic.c, 5alkanes
+		this.qtype  = iqtype; //0cn, 1cs, 2tn, 3ts
+		this.last   = -1;
+		this.allow  = 1;
+		this.qdex   = 0;
+		this.adex   = 0;
+		this.tans   = new Array();
+		this.lcase  = 0;
+		this.tquest = 0;
+		this.corrt  = 0;
+		this.nocred = 0;
+
+		this.Generate = function(it){
+			this.indexs = new Array();
+			this.indexs = this.indexs.splice(0,0);
+			this.tans   = this.tans.splice(0,0);
+			for (i=0;i<=4;i++){ //Generate 5 index numbers from the question list
+				this.indexs[i] = Math.round(Math.random()*(window[datalist[this.topic]].length-1));
+				if (this.indexs[i] == 0){
+					i -= 1;
+				}
+			}
+			if (this.indexs.unique().length!=5){ //verify there are no duplicates
+				this.Generate(it);
+			}else{
+				this.answer = this.indexs[i];
+				if (this.answer == this.last){
+					this.Generate(it);
+				}else{
+					this.last = this.answer;
+					this.indexs.shuffle();
+					this.Ask(it);
+				}
+			}
+		}
+
+		this.Ask = function(it){
+			this.tquest++;
+			this.nocred = 0;
+			this.allow  = 1;
+			this.lcase  = 0;
+			if (this.qtype == 0){
+				if (this.topic == 0){
+					this.qdex = 1;
+					this.adex = 2;
+					span_blocks_task.innerHTML =  'Choose the correct name';
+				}
+				else if (this.topic == 1 || this.topic == 2 || this.topic == 3 || this.topic == 4 || this.topic == 5){
+					this.qdex = 2;
+					this.adex = 3;
+					span_blocks_task.innerHTML =  'Choose the correct symbol';
+				}
+			}
+			else if (this.qtype == 1){
+				if (this.topic == 0){
+					this.qdex = 2;
+					this.adex = 1;
+					span_blocks_task.innerHTML =  'Choose the correct name';
+				}
+				else if (this.topic == 1 || this.topic == 2 || this.topic == 3 || this.topic == 4 || this.topic == 5){
+					this.qdex = 3;
+					this.adex = 2;
+					span_blocks_task.innerHTML =  'Choose the correct formula';
+				}
+			}
+
+			else if (this.qtype == 2){
+				if (this.topic == 0){
+					this.qdex = 1;
+					this.adex = 2;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					this.tans[1] = Sys.CapFirst(this.tans[0]);
+					span_type_task.innerHTML = 'Type the element name';
+				}
+				else if (this.topic == 1){
+					this.qdex  = 2;
+					this.adex  = 3;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					this.tans[1] = Sys.CapFirst(this.tans[0]);
+					span_type_task.innerHTML = 'Type the correct name';
+				}
+				else if (this.topic == 2 || this.topic == 4 || this.topic == 5){
+					this.qdex  = 2;
+					this.adex  = 3;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					if (this.topic == 5){
+						this.tans[1] = Sys.CapFirst(this.tans[0]);
+					}else{
+						this.lcase = 1;
+					}
+					span_type_task.innerHTML = 'Type the correct name';
+				}
+				else if (this.topic == 3){
+					this.qdex = 2;
+					this.adex = 3;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					if (window[datalist[this.topic]][this.answer].split(':')[4]){
+						this.tans[2] = window[datalist[this.topic]][this.answer].split(':')[4];
+						this.tans[3] = Sys.CapFirst(this.tans[2]);
+					}
+					this.tans[1] = Sys.CapFirst(this.tans[0]);
+					span_type_task.innerHTML = 'Type the correct name';
+				}
+			}
+
+			else if (this.qtype == 3){
+				if (this.topic == 0){
+					this.qdex = 2;
+					this.adex = 1;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					span_type_task.innerHTML = 'Type the element symbol';
+				}
+				else if (this.topic == 1 || this.topic == 3 || this.topic == 4 || this.topic == 5){
+					this.qdex = 3;
+					this.adex = 1;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					span_type_task.innerHTML = 'Type the correct formula';
+				}
+				else if (this.topic == 2){
+					this.qdex = 3;
+					this.adex = 1;
+					this.tans[0] = window[datalist[this.topic]][this.answer].split(':')[this.adex];
+					if (window[datalist[this.topic]][this.answer].split(':')[4]){
+						this.tans[1] = window[datalist[this.topic]][this.answer].split(':')[4];
+					}
+					span_type_task.innerHTML = 'Type the correct formula';
+				}
+			}
+
+			//XM.Alert('<font color="#0099ff">Debug</font>',this.tans+'<br>case doesnt matter: '+this.lcase);
+			if (this.qtype == 0 || this.qtype == 1){
+				span_blocks_clue.innerHTML = window[datalist[this.topic]][this.answer].split(':')[this.qdex];
+				for (a=0;a<=4;a++){
+					XU.El('span_big'+a).style.color = 'black';
+					XU.El('span_big'+a).innerHTML   = window[datalist[this.topic]][this.indexs[a]].split(':')[this.adex];
+					XU.El('span_big'+a).it          = this.indexs[a];
+				}
+				span_blocks.style.display = 'block';
+				XU.CenterElement('span_blocks','b');
+			}else{
+				typeans.style.color      = "white";
+				typeans.value            = '';
+				span_type_clue.innerHTML = window[datalist[this.topic]][this.answer].split(':')[this.qdex];
+				span_input.style.display = 'block';
+				XU.CenterElement('span_input','b');
+				if (it!=1){
+					setTimeout("if (span_input.style.display == 'block'){typeans.focus()}",300);
+				}
+			}
+		}
+
+		this.Status = function(){
+			alert('topic: '+this.topic+'\nqtype: '+this.qtype+'\nindexs: '+this.indexs);
+		}
+
+		this.Answer = function(it){
+			if (this.allow == 1){
+				if (this.lcase == 1){
+					it = it.toLowerCase();
+				}
+				if (this.qtype == 0 || this.qtype == 1){
+					if (this.answer == it){
+						if (this.nocred == 0){
+							this.corrt++;
+						}
+						this.allow = 0;
+						event.srcElement.style.color = '#0099ff';
+						setTimeout("cz.Generate();",1000);
+					}else{
+						this.nocred = 1;
+						event.srcElement.style.color = 'red';
+					}
+				}else{
+					if (this.tans.indexOf(it)!=-1){
+						if (this.nocred == 0){
+							this.corrt++;
+						}
+						this.allow = 0;
+						event.srcElement.style.color = '#0099ff';
+						setTimeout("cz.Generate();",1000);
+					}else{
+						this.nocred = 1;
+						typeans.style.color = 'red';
+						setTimeout('typeans.style.color = "white"',500);
+					}
+				}
+				this.Score();
+			}
+		}
+
+		this.Skip = function(){
+			if (this.allow == 1){
+				XM.Alert('<font color="#0099ff">Answer</font>','<center>'+span_type_clue.innerHTML+'<br><br><font size=2em color=red>'+this.tans.join(" <font color=\"white\">or</font> ")+'</font></center>',0,0,0,0);
+				this.allow           = 0;
+				this.nocred          = 1;
+				typeans.style.color  = 'red';
+				this.Score();
+				setTimeout("cz.Generate(1);",1000);
+			}
+		}
+
+		this.Score = function(){
+			if (Math.round(this.corrt/this.tquest*100)>=80){
+				span_score.style.color = '#0099ff';
+			}else{
+				span_score.style.color = 'red';
+			}
+			span_score.innerHTML = this.corrt + '/' + this.tquest + ' | ' + Math.round(this.corrt/this.tquest*100)+'%';
+			XU.CenterElement('span_score','h');
+		}
+	}
+};
+</script>
+</head>
+<body bgcolor="black" onload="Sys.Ini()" text="white" onresize="Sys.Reposition()">
+<HTA:APPLICATION ID="chem"
+    APPLICATIONNAME="chem"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+
+<span id="span_mainmenu" style="display:none;position:absolute;top:10;left:50;">
+<table><tr>
+<td colspan=2 style="color:white;text-align:center;font-size:35;">Chem.is.try</td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr>
+<td colspan=2 style="color:#0099ff;text-align:center;font-size:35;">Select a topic to study</td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(0);">Elements</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(1);">Acids</div>
+</td></tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(2);">Ions</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(3);">Covalent Compounds</div>
+</td></tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(4);">Ionic Compounds</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(5);">Alkanes</div>
+</td></tr></table>
+</span>
+
+<span id="span_quiztype" style="display:none;position:absolute;top:10;left:50;">
+<table><tr>
+<td colspan=2 style="color:white;text-align:center;font-size:35;" id="span_quiztype_header"></td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr>
+<td colspan=2 style="color:#0099ff;text-align:center;font-size:35;">Select a way to study</td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(-1,0)">Choose the name</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(-1,1)">Choose the symbol</div>
+</td></tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(-1,2)">Type the name</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.QuizPrep(-1,3)">Type the symbol</div>
+</td></tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.List()">Master list</div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="Sys.Help()">Help</div>
+</td></tr></table>
+</span>
+
+<span id="span_blocks" style="display:none;position:absolute;top:10;left:50;">
+<table><tr>
+<td colspan=2 style="color:white;text-align:center;font-size:35;" id="span_blocks_task"></td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr>
+<td colspan=2 style="color:#0099ff;text-align:center;font-size:35;" id="span_blocks_clue"></td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Answer(this.it)" id="span_big0"></div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Answer(this.it)" id="span_big1"></div>
+</td></tr><tr><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Answer(this.it)" id="span_big2"></div>
+</td><td>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Answer(this.it)" id="span_big3"></div>
+</td></tr><tr><td colspan=2><center>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Answer(this.it)" id="span_big4"></div>
+</center></td></tr></table>
+</span>
+
+<span id="span_input">
+<table><tr>
+<td colspan=2 style="color:white;text-align:center;font-size:35;" id="span_type_task"></td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr>
+<td colspan=2 style="color:#0099ff;text-align:center;font-size:35;" id="span_type_clue"></td>
+</tr><tr>
+<td colspan=2 style="height:50;"></td>
+</tr><tr><td>
+<input type="textarea" onkeypress="if (event.keyCode==13){cz.Answer(this.value)}" id="typeans"><br><br><center>
+<div class="mmenubtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.2.2a.png" onclick="cz.Skip()">Skip</div></center>
+</td></tr></table>
+</span>
+
+<span id="span_list"></span>
+
+<div id="backbtn" onmouseover="XU.Roll()" onmouseout="XU.Roll()" ityp="res.block.1.1a.png" onclick="Sys.MainMenu()">Back</div>
+
+<span id="span_score"><img src="res/block1.png"><img src="res/block1a.png"><img src="res/block2.png"><img src="res/block2a.png"></span>
+
+</body>
+</html>

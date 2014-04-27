@@ -1,0 +1,95 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>App</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+v\:* {behavior:url(#default#VML);}
+.block{
+ position:absolute;
+}
+
+</style>
+
+<script>
+var colors = new Array('#0099ff','#0000ff');
+var cube = "m 1,1 l 1,200, 200,200, 200,1 x m 1,1 l 100,-100 300,-100 200,1 x m 200,200 l 300,100 300,-100 200,1 x e";
+var tria = "m 1,1 l 100,100 -100,100 x m 1,1 l 100,-100 200,0 100,100e";
+var hw = 20;
+var x  = 7;
+var y  = 7;
+var z  = 7;
+var s  = 1;
+var r  = 1;
+var t  = 3;
+var temp = "";
+var App={
+	Ini:function(){
+		temp = "";
+		for (b=0;b<z;b++){
+			for (a=0;a<y;a++){
+				for (i=0;i<x;i++){
+					temp += '<v:shape id="rect'+i+'_'+a+'_'+b+'" fillcolor="#0099ff" strokecolor="black" coordorigin="0 0" coordsize="200 200" class="block" path=""></v:shape>';
+				}
+			}
+		}
+		mainwin.innerHTML = temp;
+		App.Update();
+	},
+	Update:function(){
+		if (s<-2){s = -2;}
+		if (r<-2){r = -2;}
+		if (t<-2){t = -2;}
+		if (s>1){s = 1;}
+		if (r>3){r = 3;}
+		if (t>3){t = 3;}
+		for (b=0;b<z;b++){
+			for (a=0;a<y;a++){
+				for (i=0;i<x;i++){
+					temp              = XU.El('rect'+i+'_'+a+'_'+b);
+					temp.path         = cube;
+					temp.fillcolor    = colors[Math.round(a%2)];
+					temp.style.height = hw;
+					temp.style.width  = hw;
+					temp.style.top    = Math.round(a*hw/((3-t+1)/4))+200-(b*(hw/(2-s)));
+					temp.style.left   = Math.round(i*hw/((3-r+1)/4))+200+(b*(hw/(2-s)));
+					temp.style.zIndex = Math.round(((2-a)*10)+((2-b)*10));
+				}
+			}
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onclick="document.title=event.x+','+event.y">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainwin"></span>
+<input type="button" onclick="s=prompt('z spacing -2 to 1','0');r=prompt('x spacing -2 to 3','0');t=prompt('y spacing -2 to 3','0');App.Update()" value="Modify">
+<input type="button" value="x -" onclick="r--;App.Update();"><input type="button" value="x +" onclick="r++;App.Update();">
+<input type="button" value="y -" onclick="t--;App.Update();"><input type="button" value="y +" onclick="t++;App.Update();">
+<input type="button" value="z -" onclick="s--;App.Update();"><input type="button" value="z +" onclick="s++;App.Update();">
+</body>
+</html>

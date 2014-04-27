@@ -1,0 +1,32 @@
+<html><head><title>Ice Slide - Winter Blast [Level Downloader]</title><link rel="stylesheet" type="text/css" href="res/css/main.css"><script src="res/scripts/fso_library.js"></script><script>
+var map_index=-1;var crc_fail=0;
+function UpdateMaps(){
+map_index++;info.value+="** Checking for res/maps/premade/map"+map_index+".js\n";
+if (!XScripting.FileExist('res/maps/premade/map'+map_index+'.js')){info.value+="Downloading javag.f2g.net/maps/map"+map_index+".js\n";
+XScripting.DownloadFile('http://javag.f2g.net/maps/map'+map_index+'.js','res/maps/premade/map'+map_index+'.js');
+if (XScripting.FileSize('res/maps/premade/map'+map_index+'.js')==8023){XScripting.DeleteFile('res/maps/premade/map'+map_index+'.js');info.value+="Size check failed for res/maps/premade/map"+map_index+".js\n";info.value+="Deleting res/maps/premade/map"+map_index+".js\n";crc_fail++;}
+info.scrollTop=info.scrollHeight-info.clientHeight;
+if (crc_fail>=3){if (confirm('There have been 3 failed file size checks. (Its Normal)\n\nMost likely you have all the levels available. Exit?')){window.opener=null;window.close()}
+else{crc_fail=0;}}}}
+setInterval("UpdateMaps()",100);XUtilities.ResizeWindow(700,800);
+</script></head>
+<body scroll=no bgcolor="white" text="black">
+<HTA:APPLICATION ID="IceSlideWinterBlastGetMaps"
+    APPLICATIONNAME="Ice Slide - Winter Blast Get Maps"
+    BORDER="dialog"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="skins/favicon.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="yes"
+    SELECTION="no">
+<center><img src="res/skins/title.png"></center><textarea id="info" style="height:550;width:100%;font-size:11;border:1 solid black;" readonly></textarea></body></html>

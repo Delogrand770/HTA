@@ -1,0 +1,4 @@
+<center>
+<input type="button" class="blk2" value="Save Game" onclick="GameGlobal.Save()"><br>
+<span id="actions_info">&nbsp;</span>
+</center>

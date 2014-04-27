@@ -1,0 +1,2 @@
+run cmd window as admin in dir of capicom.dll
+regsvr32 capicom.dll

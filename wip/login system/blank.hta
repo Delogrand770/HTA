@@ -1,0 +1,173 @@
+<html>
+<head><title>EI Tracker</title>
+<!--<link rel=StyleSheet href="xcss.css" type="text/css">-->
+<script>var xdev = 0;</script>
+<script src="gaia.js"></script>
+<script src="accessdb.js"></script>
+<style>
+body{
+  font-size: 9;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+  color:silver;
+}
+.text{
+ background-Color:transparent;
+ color:grey;
+ border:1 solid silver;
+}
+.btn{
+ background-Color:transparent;
+ color:silver;
+ border:0 solid silver;
+ height:20;
+ cursor:hand;
+}
+</style>
+
+<script>
+XU.ResizeWindow(768,1024);
+if (xdev!=1){
+	alert('Please extract all files before running');
+	window.close();
+}
+var iname      = XN.Name('computer');
+var ikey       = '';
+var itoken     = '46 DC EA D3 17 FE 45 D8 09 23';
+var myDB       = 0;
+var server     = 'Game.mdb';
+var SQL        = 'SELECT UID FROM Accounts';
+var resultset  = '';
+var uidlist    = '';
+var userlist   = '';
+var userindex  = -1;
+var Access = {
+	Do:function(it){
+		myDB = new ACCESSdb(server);
+		if (it){
+			resultset = myDB.query(SQL,{json:true});
+		}else{
+			myDB.query(SQL);
+		}
+		myDB.kill();
+	},
+	Parse:function(it){
+		resultset = resultset+'';
+		resultset = resultset.replace(/"/g,'');
+		resultset = resultset.replace(/\]/g,'');
+		resultset = resultset.replace(/\[/g,'');
+		resultset = resultset.replace(new RegExp(it+':','g'),'');
+		resultset = resultset.split('},{');
+		resultset[0] = resultset[0].replace(/{/g,'');
+		resultset[resultset.length-1] = resultset[resultset.length-1].replace(/}/g,'');
+		for (i=0;i<=resultset.length-1;i++){
+			resultset[i] = resultset[i].split(',');
+		}
+	}
+};
+
+var App={
+	Ini:function(){
+		XL.Ini();
+		//XU.ErrorHandler(0);
+		XM.Ini();
+		XI.New('dialogs','loginform','1:1','200:400',0);
+		App.Dialog('login');
+	},
+	Dialog:function(it){
+		if (it=='login'){
+			XI.Fill('loginform','Welcome to '+document.title,App.iStrings('login'));
+			XI.Show('loginform');
+			XU.CenterElement('loginform','b');
+		}
+	},
+	iStrings:function(it){
+		return XS.File('strings\\'+it+'.txt','open');
+	},
+	Resize:function(){
+		XU.CenterElement('loginform','b');
+	},
+	Register:function(){
+		var fail   = 0;
+		CAPI_ERROR = 0;
+		ikey       = XCap.Encrypt(itoken,XCap.UseCard('2014'),4).slice(0,50);
+		if (CAPI_ERROR){return false;}
+		SQL        = "SELECT UID FROM Accounts";
+		resultset  = "";
+		Access.Do(1);
+		Access.Parse('UID');
+		for (i=0;i<=resultset.length-1;i++){
+			if (ikey == resultset[i]){
+				fail = 1;
+				XI.Hide('dialogs');
+				XM.Alert('Error','You seem to have already registered',0,0);
+				nxmbtn.onclick = function(){XM.Close();XI.Show('dialogs');};
+				break;
+			}
+		}
+		if (fail==0){
+			SQL = 'INSERT INTO Accounts VALUES("'+iname+'","'+ikey+'")';
+			Access.Do();
+			XI.Hide('dialogs');
+			XM.Alert('Registration Success','You may now login',0,0);
+			nxmbtn.onclick = function(){XM.Close();XI.Show('dialogs');};
+		}
+	},
+	Login:function(){
+		fail       = 1;
+		CAPI_ERROR = 0;
+		ikey       = XCap.Encrypt(itoken,XCap.UseCard('2014'),4).slice(0,50);
+		if (CAPI_ERROR){return false;}
+		SQL        = "SELECT User FROM Accounts";
+		resultset  = "";
+		Access.Do(1);
+		Access.Parse('User');
+		userlist   = resultset.copy();
+		SQL        = "SELECT UID FROM Accounts";
+		resultset  = "";
+		Access.Do(1);
+		Access.Parse('UID');
+		uidlist    = resultset.copy();
+		for (i=0;i<=resultset.length-1;i++){
+			if (ikey == resultset[i]){
+				userindex = i;
+				iname     = userlist[i];
+				fail      = 0;
+				XI.Fill('loginform','Welcome to '+document.title,'<center>Logged in as<br><br>'+iname+'</center>');
+				break;
+			}
+		}
+		if (fail==1){
+			XI.Hide('dialogs');
+			XM.Alert('Error','You have not registered',0,0);
+			nxmbtn.onclick = function(){XM.Close();XI.Show('dialogs');};
+		}		
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" background="bg.png" onresize="App.Resize()">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="dialogs"></span>
+
+</body>
+</html>

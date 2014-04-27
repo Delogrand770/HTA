@@ -1,0 +1,114 @@
+<html>
+<head><title>CQ Link Builder</title>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.spectd{
+border:1 solid black;
+width:100;
+height:40;
+text-align:center;
+color:white;
+}
+.btn{
+border:1 solid black;
+color:black;
+}
+.txt{
+border:1 solid white;
+color:black;
+background-Color:transparent;
+color:white;
+}
+</style>
+
+<script>
+XU.ResizeWindow(763,1017);
+XU.MoveWindow(0,0);
+var App = {
+	total:0,
+	strings:new Array('Reveille','1st','2nd','3rd','4th','Lunch','5th','6th','7th','Dinner','Intramurals Finished','ACQ','Weekday Taps','Weekend Taps'),
+	hrs:new Array(1,1.17,1,1,1,1.5,1.17,1,1,2,2,1.5,1,2.5),
+	time:new Array('0645-0745','0735-0845','0845-0945','0945-1045','1045-1145','1145-1320','1315-1425','1425-1525','1525-1625','1625-1830','1830-2030','2030-2200','2200-2300','2300-0130'),
+	Ini:function(){
+		XM.Ini();
+		XI.New('screen','stable','1:1','100:1000',1);
+		var inject = '<table cellpadding=0 cellspacing=0>';
+		inject    += '<tr style="background-Color:blue;"><td class="spectd">Period</td><td class="spectd">Value</td><td class="spectd">Time</td><td class="spectd">Monday</td><td class="spectd">Tuesday</td><td class="spectd">Wednseday</td><td class="spectd">Thursday</td><td class="spectd">Friday</td><td class="spectd">Saturday</td><td class="spectd">Sunday</td></tr>';
+		for (i=0;i<14;i++){
+			inject += '<tr>';
+			inject += '<td class="spectd" style="background-Color:#0066ff;">'+App.strings[i]+'</td><td class="spectd" style="background-Color:#0066ff;">'+App.hrs[i]+'</td><td class="spectd" style="background-Color:#0066ff;">'+App.time[i]+'</td>';
+			for (j=1;j<=7;j++){
+				inject += '<td day='+j+' period='+(i+1)+' active=0 onclick="App.Sit()" id="x'+j+'x'+(i+1)+'x" style="cursor:hand;" class="spectd">Sit</td>';
+			}
+			inject += '</tr>';
+		}
+		inject += '</table><br>&nbsp;<input type="button" value="Create Link" onclick="App.CreateLink()" class="btn">';
+		inject += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hours: <span id="hours">0</span>';
+		XI.Fill('stable','CQ Shifts',inject,1);
+	},
+	Sit:function(){
+		App.total                             += App.hrs[event.srcElement.period-1];
+		event.srcElement.innerHTML             = "Don't Sit";
+		event.srcElement.onclick               = App.UnSit;
+		event.srcElement.active                = 1;
+		event.srcElement.style.backgroundColor = 'red';
+		hours.innerHTML                        = App.total;
+	},
+	UnSit:function(){
+		App.total                             -= App.hrs[event.srcElement.period-1];
+		event.srcElement.innerHTML             = 'Sit';
+		event.srcElement.onclick               = App.Sit;
+		event.srcElement.active                = 0;	
+		event.srcElement.style.backgroundColor = 'transparent';
+		hours.innerHTML                        = App.total;	
+	},
+	CreateLink:function(){
+		XM.Alert('CQ Link','&nbsp;<textarea id="linkout" style="width:98%;height:100;" readonly class="txt"></textarea>');
+		var cur    = 0;
+		var inject = "javascript:q1=window.location.href.split('=')[2];q2=insertsitlink.toString().split(\"','\")[4];";
+		
+		for (i=0;i<14;i++){
+			for (j=1;j<=7;j++){
+				cur = XU.El('x'+j+'x'+(i+1)+'x');
+				if (cur.active == 1){
+					inject += "getCustomer('submitsit',q1,"+cur.day+","+cur.period+",q2,'#d"+cur.day+"p"+cur.period+"');";
+				}
+			}
+		}
+		inject 	     += 'void(0);';
+		linkout.value = inject;
+		linkout.select();
+		document.execCommand("Copy");
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();">
+<HTA:APPLICATION ID="cqlinkbuilder"
+    APPLICATIONNAME="cqlinkbuilder"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id='screen'></span>
+</body>
+</html>

@@ -1,0 +1,112 @@
+-----[Ice Slide - Winter Blast]-----
+
+[Object]
+The goal of the game is to collect the required amount 
+of gems and make it to the black exit square.
+
+[Rules]
+You are a block on a field of ice.
+Whenever you move you go as far as you can until you hit a obstacle.
+To collect the gems you only have to slide over them.
+Whatever color the gem is that you last collect will change your block the same color.
+Blocks on the field that are not your color act as walls.
+If blocks are the same color as your own you will slide through them.
+
+[Controls]
+Arrow Keys are used to move
+
+[Fakes]
+Sometimes you will come across blocks that you can pass through regardless of your color.
+These blocks are known as "fakes".
+They can be anything from gems to even the exit block!
+These blocks provide an extra challenge as you will not know which blocks are real and which are fakes.
+
+[Level Progression]
+Levels are unlocked in groups of five.
+You must complete four out of the five levels to unlock the next group.
+
+
+
+
+-----[Level Editor]-----
+
+[Grid]
+The heart of the editor is the grid. This is where you actually draw the level.
+To draw on the map you simply pick a block from the long row of blocks and then click the grid square.
+
+[Brushes]
+These are similar to the paint brush style brush system.
+If you left click on a pallete block the left block will show you what your left mouse will draw.
+The same is true for the right mouse button.
+
+[Fill Map]
+The fill map is used to fill either the background or foreground will all the same block.
+To use this change the block to the right of the button to the desired color and click fill map.
+It will ask you to confirm to avoid erased work.
+You cannot use this on the "Both" view.
+
+[View]
+The view has 3 options.
+"Foreground" (default)
+"Background"
+"Both"
+
+The foreground is where you place all the blocks that you want to be real. You can make a entire map on this view only.
+
+The background is where you place anything that you want to be fakes. Nothing in the background will ever trigger a action such as exiting or hitting a wall. (It is reccomended that you dont place gems on this view as they will look out of place)
+
+The both view is used to see the background and foreground as they would appear in the actual level. The map fill option cannot be used on this view and any editing you do on this view occurs to the foreground only.
+
+[Player Start X,Y]
+These options control where you start on the map.
+Just select the x,y position you want.
+To make it easier when you hover over a block on the map it gives you that blocks position.
+
+[Player Start Color]
+This is the color you start as when the level begins. Change this by right or left click on it to your corresponding brush.
+
+[Required Gems]
+This is how many gems you need to collect before you can exit the map.
+This number has to be less than or equal to the Gems on Map.
+
+[Gems on Map]
+This is how many gems available on the map.
+This is calculated by using the "Count Gems" button.
+
+[Count Gems]
+This button is used to count the number of gems on the map.
+When it finishes counting it ask to set the number of gems found equal to the number of gems required.
+You can say no to leave it at you current number.
+
+[Music]
+There are only ten default songs available.
+Random will randomly choose a different song everytime the map is played.
+
+[Play]
+Plays the current music selection (Except Random).
+
+[Stop]
+Stops the current music selection.
+
+[Generate]
+Have to click this before you can save.
+It generates the map code.
+
+[Save Map]
+You will have to verify your map first in order to save.
+This means you will have to beat it.
+Once beaten you click this button again and it will as for a map name.
+Enter a name and your done. You are not allowed to overwrite other maps!
+
+[Important - Before you Save Again]
+If you make changes to your map
+Don't foreget to update the gem count (only if you added gems)
+Don't foreget to click Generate again to update the code.
+
+[Secret]
+Seeing how you took the time to read this hears a secret to the level editor.
+To load a existing map into the editor (only maps in the "res/maps/" folder)
+open the editor but don't do anything. Next type the word "loadmap" no caps.
+It will prompt you for a map name to load.
+
+If you messup typing right click anywhere off the grid and type it again.

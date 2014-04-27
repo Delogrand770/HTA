@@ -1,0 +1,341 @@
+<html>
+<head><title>Database Modifier</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+.txt{
+ border:1 solid white;
+ background-Color:black;
+ color:white;
+}
+.txt2{
+ border:1 solid black;
+ background-Color:black;
+ color:white;
+}
+.btn{
+ border:1 solid white;
+ background-Color:black;
+ color:white;
+ width:100;
+}
+</style>
+
+<script>
+XU.ResizeWindow(750,1152,0,1);
+var dbmode      = 0;
+var temp_val    = 0;
+var output_temp = "";
+
+var card_list   = 0;
+var cardlisttxtsize = new Array(120,100,25,50,50,80,30,190,370);
+var Card = {
+	Load:function(){
+		document.title = 'Database Modifier [Cards]';
+		dbmode = 0;
+		q1 = "db/cards.js";
+		eval(XS.File(q1,'open'));
+		output_temp="<table style='border:1 solid white;width:100%;'>";
+		for (i=0;i<=card_list.length-1;i++){
+			output_temp+="<tr>";
+			for (x=0;x<=card_list[i].length-1;x++){
+				if (x==0){
+					output_temp+="<td><input type='textarea' value='"+i+".' style='width:25;' readonly class='txt2'></td>";
+					output_temp+="<td><input type='textarea' value='"+card_list[i][x]+"' style='width:"+cardlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}else{
+					output_temp+="<td><input type='textarea' value='"+card_list[i][x]+"' style='width:"+cardlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}
+			}
+			output_temp+="</tr>";
+		}
+		output_temp+="</table>";
+		output.innerHTML = output_temp;
+	},
+	Save:function(){
+		eval(XS.File(q1,'open'));
+		output_temp = "var card_list = new Array();\r\n";
+		for (i=0;i<=card_list.length-1;i++){
+			output_temp += "card_list["+i+"] = new Array(";
+			for (x=0;x<=card_list[i].length-1;x++){
+				temp_val = document.getElementById("x"+i+"y"+x).value;
+				if (x<=card_list[i].length-2){
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ",";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "',";
+					}
+				}else{
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ");\r\n";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "');\r\n";
+					}
+				}
+			}
+		}
+		XS.File(q1,'create',output_temp);
+		XM.Alert('Database Modifier','Cards saved!');
+	}
+};
+
+var cret_list = 0;
+var cretlisttxtsize = new Array(120,100,25,50,50,80,30,190,370);
+var Cret = {
+	Load:function(){
+		document.title = 'Database Modifier [Creatures]';
+		dbmode = 1;
+		q1 = "db/crets.js";
+		eval(XS.File(q1,'open'));
+		output_temp="<table style='border:1 solid white;width:100%;'>";
+		for (i=0;i<=cret_list.length-1;i++){
+			output_temp+="<tr>";
+			for (x=0;x<=cret_list[i].length-1;x++){
+				if (x==0){
+					output_temp+="<td><input type='textarea' value='"+i+".' style='width:25;' readonly class='txt2'></td>";
+					output_temp+="<td><input type='textarea' value='"+cret_list[i][x]+"' style='width:"+cretlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}else{
+					output_temp+="<td><input type='textarea' value='"+cret_list[i][x]+"' style='width:"+cretlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}
+			}
+			output_temp+="</tr>";
+		}
+		output_temp+="</table>";
+		output.innerHTML = output_temp;
+	},
+	Save:function(){
+		eval(XS.File(q1,'open'));
+		output_temp = "var cret_list = new Array();\r\n";
+		for (i=0;i<=cret_list.length-1;i++){
+			output_temp += "cret_list["+i+"] = new Array(";
+			for (x=0;x<=cret_list[i].length-1;x++){
+				temp_val = document.getElementById("x"+i+"y"+x).value;
+				if (x<=cret_list[i].length-2){
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ",";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "',";
+					}
+				}else{
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ");\r\n";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "');\r\n";
+					}
+				}
+			}
+		}
+		XS.File(q1,'create',output_temp);
+		XM.Alert('Database Modifier','Creatures saved!');
+	}
+};
+
+var mission_list = 0;
+var missionlisttxtsize   = new Array(120,50,50,50,120,120,180,180,25,120);
+var Mission = {
+	Load:function(){
+		document.title = 'Database Modifier [Missions]';
+		dbmode = 2;
+		q1 = "db/missions.js";
+		eval(XS.File(q1,'open'));
+		output_temp="<table style='border:1 solid white;width:100%;'>";
+		for (i=0;i<=mission_list.length-1;i++){
+			output_temp+="<tr>";
+			for (x=0;x<=mission_list[i].length-1;x++){
+				if (x==0){
+					output_temp+="<td><input type='textarea' value='"+i+".' style='width:25;' readonly class='txt2'></td>";
+					output_temp+="<td><input type='textarea' value='"+mission_list[i][x]+"' style='width:"+missionlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}else{
+					output_temp+="<td><input type='textarea' value='"+mission_list[i][x]+"' style='width:"+missionlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}
+			}
+			output_temp+="</tr>";
+		}
+		output_temp+="</table>";
+		output.innerHTML = output_temp;
+	},
+	Save:function(){
+		eval(XS.File(q1,'open'));
+		output_temp = "var mission_list = new Array();\r\n";
+		for (i=0;i<=mission_list.length-1;i++){
+			output_temp += "mission_list["+i+"] = new Array(";
+			for (x=0;x<=mission_list[i].length-1;x++){
+				temp_val = document.getElementById("x"+i+"y"+x).value;
+				if (x<=mission_list[i].length-2){
+					if (Math.round(temp_val*1)!=temp_val || x==3){
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "',";
+					}else{
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ",";
+					}
+				}else{
+					if (Math.round(temp_val*1)!=temp_val || x==3){
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "');\r\n";
+					}else{
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ");\r\n";
+					}
+				}
+			}
+		}
+		XS.File(q1,'create',output_temp);
+		XM.Alert('Database Modifier','Missions saved!');
+	}
+};
+
+var challenge_list = 0;
+var challengelisttxtsize = new Array(120,50,50,50,120,120,180,180,25,120);
+var Challenge = {
+	Load:function(){
+		document.title = 'Database Modifier [Challenges]';
+		dbmode = 3;
+		q1 = "db/challenges.js";
+		eval(XS.File(q1,'open'));
+		output_temp="<table style='border:1 solid white;width:100%;'>";
+		for (i=0;i<=challenge_list.length-1;i++){
+			output_temp+="<tr>";
+			for (x=0;x<=challenge_list[i].length-1;x++){
+				if (x==0){
+					output_temp+="<td><input type='textarea' value='"+i+".' style='width:25;' readonly class='txt2'></td>";
+					output_temp+="<td><input type='textarea' value='"+challenge_list[i][x]+"' style='width:"+challengelisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}else{
+					output_temp+="<td><input type='textarea' value='"+challenge_list[i][x]+"' style='width:"+challengelisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}
+			}
+			output_temp+="</tr>";
+		}
+		output_temp+="</table>";
+		output.innerHTML = output_temp;
+	},
+	Save:function(){
+		eval(XS.File(q1,'open'));
+		output_temp = "var challenge_list = new Array();\r\n";
+		for (i=0;i<=challenge_list.length-1;i++){
+			output_temp += "challenge_list["+i+"] = new Array(";
+			for (x=0;x<=challenge_list[i].length-1;x++){
+				temp_val = document.getElementById("x"+i+"y"+x).value;
+				if (x<=challenge_list[i].length-2){
+					if (Math.round(temp_val*1)!=temp_val || x==3){
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "',";
+					}else{
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ",";
+					}
+				}else{
+					if (Math.round(temp_val*1)!=temp_val || x==3){
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "');\r\n";
+					}else{
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ");\r\n";
+					}
+				}
+			}
+		}
+		XS.File(q1,'create',output_temp);
+		XM.Alert('Database Modifier','Challenges saved!');
+	}
+};
+
+var award_list = 0;
+var awardlisttxtsize = new Array(130,130,150,200,200,200);
+var Award = {
+	Load:function(){
+		document.title = 'Database Modifier [Awards]';
+		dbmode = 4;
+		q1 = "db/awards.js";
+		eval(XS.File(q1,'open'));
+		output_temp="<table style='border:1 solid white;width:100%;'>";
+		for (i=0;i<=award_list.length-1;i++){
+			output_temp+="<tr>";
+			for (x=0;x<=award_list[i].length-1;x++){
+				if (x==0){
+					output_temp+="<td><input type='textarea' value='"+i+".' style='width:25;' readonly class='txt2'></td>";
+					output_temp+="<td><input type='textarea' value='"+award_list[i][x]+"' style='width:"+awardlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}else{
+					output_temp+="<td><input type='textarea' value='"+award_list[i][x]+"' style='width:"+awardlisttxtsize[x]+";' id='x"+i+"y"+x+"' class='txt'></td>";
+				}
+			}
+			output_temp+="</tr>";
+		}
+		output_temp+="</table>";
+		output.innerHTML = output_temp;
+	},
+	Save:function(){
+		eval(XS.File(q1,'open'));
+		output_temp = "var award_list = new Array();\r\n";
+		for (i=0;i<=award_list.length-1;i++){
+			output_temp += "award_list["+i+"] = new Array(";
+			for (x=0;x<=award_list[i].length-1;x++){
+				temp_val = document.getElementById("x"+i+"y"+x).value;
+				if (x<=award_list[i].length-2){
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ",";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "',";
+					}
+				}else{
+					if (Math.round(temp_val*1)==temp_val){
+						output_temp+="" + document.getElementById("x"+i+"y"+x).value + ");\r\n";
+					}else{
+						output_temp+="'" + document.getElementById("x"+i+"y"+x).value + "');\r\n";
+					}
+				}
+			}
+		}
+		XS.File(q1,'create',output_temp);
+		XM.Alert('Database Modifier','Awards saved!');
+	}
+};
+
+var Both={
+	Ini:function(){
+		XM.Ini();
+		XU.CenterElement('menuselect','h');
+		XU.DFB('menuselect',20);
+		XU.MoveWindow('c',2);
+	},
+	Determine:function(){
+		if (dbmode==1){
+			Cret.Save();
+		}else if (dbmode==0){
+			Card.Save();
+		}else if (dbmode==2){
+			Mission.Save();
+		}else if (dbmode==3){
+			Challenge.Save();
+		}else if (dbmode==4){
+			Award.Save();
+		}
+	},
+	Exit:function(){
+		window.close();
+	}
+};
+</script>
+
+</head>
+
+<body bgcolor="black" onload="Both.Ini();" text="white">
+<HTA:APPLICATION ID="dbmod"
+    APPLICATIONNAME="dbmod"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="output" style="position:absolute;top:5;left:20;height:650;overflow-x:hidden;overflow-y:auto;"></span>
+
+
+<span id="menuselect" style="position:absolute;">
+<input type="button" value="Card" class="btn" onclick="Card.Load()">&nbsp;&nbsp;&nbsp;<input type="button" value="Creature" class="btn" onclick="Cret.Load()">&nbsp;&nbsp;&nbsp;<input type="button" value="Mission" class="btn" onclick="Mission.Load()">&nbsp;&nbsp;&nbsp;<input type="button" value="Challenge" class="btn" onclick="Challenge.Load()">&nbsp;&nbsp;&nbsp;<input type="button" value="Award" class="btn" onclick="Award.Load()">&nbsp;&nbsp;&nbsp;<input type="button" value="Save" class="btn" onclick="Both.Determine()">&nbsp;&nbsp;&nbsp;<input type="button" value="Exit" class="btn" onclick="Both.Exit()">
+</span>
+
+
+</body>
+</html>

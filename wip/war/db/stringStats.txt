@@ -1,0 +1,14 @@
+<table>
+<tr>
+<td style="text-align:right;">Money: </td><td id="dashboard_money"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Cards: </td><td id="dashboard_cards"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Creatures: </td><td id="dashboard_crets"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Win/Loss: </td><td id="dashboard_wlratio"></td>
+</tr>
+</table>

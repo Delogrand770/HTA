@@ -1,0 +1,674 @@
+Name: Northwestern Oil Emirate
+Type: Land
+ID#: 1
+Bonus: North America(5/5)
+Connects to:
+	Nunavut
+	Alberta
+	Pevek
+
+Name: Nunavut
+Type: Land
+ID#: 2
+Bonus: North America(5/5)
+Connects to:
+	Northwestern Oil Emirate
+	Alberta
+	Canada
+	Exiled States of America
+
+Name: Alberta
+Type: Land
+ID#: 3
+Bonus: North America(5/5)
+Connects to:
+	Northwestern Oil Emirate
+	Nunavut
+	Canada
+	Continental Biospheres
+
+Name: Canada
+Type: Land
+ID#: 4
+Bonus: North America(5/5)
+Connects to:
+	Alberta
+	Continental Biospheres
+	American Republic
+	Republique du Quebec
+
+Name: Continental Biospheres
+Type: Land
+ID#: 5
+Bonus: North America(5/5)
+Connects to:
+	Posidon
+	Alberta
+	Canada
+	American Republic
+	Mexico
+
+Name: Mexico
+Type: Land
+ID#: 6
+Bonus: North America(5/5)
+Connects to:
+	Continental Biospheres
+	American Republic
+	Nuevo Timoto
+
+Name: American Republic
+Type: Land
+ID#: 7
+Bonus: North America(5/5)
+Connects to:
+	Continental Biospheres
+	Mexico
+	New York
+	Republique du Quebec
+
+Name: Republique du Quebec
+Type: Land
+ID#: 8
+Bonus: North America(5/5)
+Connects to:
+	Canada
+	Exiled States of America
+	American Republic
+
+Name: Exiled States of America
+Type: Land
+ID#: 9
+Bonus: North America(5/5)
+Connects to:
+	Nunavut
+	Republique du Quebec
+	Iceland GRC
+
+Name: Nuevo Timoto
+Type: Land
+ID#: 10
+Bonus: South America(2/2)
+Connects to:
+	Mexico
+	Andean Nations
+	Amazon Desert
+	New Atlantis
+
+Name: Andean Nations
+Type: Land
+ID#: 11
+Bonus: South America(2/2)
+Connects to:
+	Nuevo Timoto
+	Amazon Desert
+	Argentina
+
+Name: Argentina
+Type: Land
+ID#: 12
+Bonus: South America(2/2)
+Connects to:
+	Andean Nations
+	Amazon Desert
+
+Name: Amazon Desert
+Type: Land
+ID#: 13
+Bonus: South America(2/2)
+Connects to:
+	Argentina
+	Andean Nations
+	Nuevo Timoto
+	Neo Paulo
+	Nova Brasillia
+	Saharan Empire
+
+Name: Saharan Empire
+Type: Land
+ID#: 14
+Bonus: Africa(3/3)
+Connects to:
+	Amazon Desert
+	Ivory Reef
+	Egypt
+	Zaire Military Zone
+	Andorra
+
+Name: Egypt
+Type: Land
+ID#: 15
+Bonus: Africa(3/3)
+Connects to:
+	Saharan Empire
+	Imperial Balkania
+	Middle East
+	Ministry of Dijibouti
+
+Name: Ministry of Dijibouti
+Type: Land
+ID#: 16
+Bonus: Africa(3/3)
+Connects to:
+	Egypt
+	Saharan Empire
+	Zaire Military Zone
+	Madagascar
+	Lesotho
+
+Name: Zaire Military Zone
+Type: Land
+ID#: 17
+Bonus: Africa(3/3)
+Connects to:
+	Saharan Empire
+	Ministry of Dijibouti
+	Lesotho
+
+Name: Madagascar
+Type: Land
+ID#: 18
+Bonus: Africa(3/3)
+Connects to:
+	Ministry of Dijibouti
+	Lesotho
+	Microcorp
+
+Name: Lesotho
+Type: Land
+ID#: 19
+Bonus: Africa(3/3)
+Connects to:
+	Zaire Military Zone
+	Ministry of Dijibouti
+	Madagascar
+
+Name: Java Cartel
+Type: Land
+ID#: 20
+Bonus: Australia(2/2)
+Connects to:
+	Angkhor Wat
+	Sung Tzu
+	New Guinea
+	Aboriginal League
+
+Name: New Guinea
+Type: Land
+ID#: 21
+Bonus: Australia(2/2)
+Connects to:
+	Java Cartel
+	Aboriginal League
+	Australian Testing Ground
+
+Name: Aboriginal League
+Type: Land
+ID#: 22
+Bonus: Australia(2/2)
+Connects to:
+	Java Cartel
+	Akara
+	Australian Testing Ground
+	New Guinea
+
+Name: Australian Testing Ground
+Type: Land
+ID#: 23
+Bonus: Australia(2/2)
+Connects to:
+	Aboriginal League
+	New Guinea
+
+Name: Iceland GRC
+Type: Land
+ID#: 24
+Bonus: Europe(5/5)
+Connects to:
+	Exiled States of America
+	New Avalon
+	Jotenheim
+
+Name: New Avalon
+Type: Land
+ID#: 25
+Bonus: Europe(5/5)
+Connects to:
+	Iceland GRC
+	Jotenheim
+	Warsaw Republic
+	Andorra
+	Western Ireland
+
+Name: Andorra
+Type: Land
+ID#: 26
+Bonus: Europe(5/5)
+Connects to:
+	New Avalon
+	Warsaw Republic
+	Imperial Balkania
+	Saharan Empire
+
+Name: Jotenheim
+Type: Land
+ID#: 27
+Bonus: Europe(5/5)
+Connects to:
+	Iceland GRC
+	New Avalon
+	Imperial Balkania
+	Ukrayina
+
+Name: Warsaw Republic
+Type: Land
+ID#: 28
+Bonus: Europe(5/5)
+Connects to:
+	Jotenheim
+	New Avalon
+	Andorra
+	Imperial Balkania
+	Ukrayina
+
+Name: Imperial Balkania
+Type: Land
+ID#: 29
+Bonus: Europe(5/5)
+Connects to:
+	Warsaw Republic
+	Andorra
+	Saharan Empire
+	Egypt
+	Ukrayina
+	Middle East
+
+Name: Ukrayina
+Type: Land
+ID#: 30
+Bonus: Europe(5/5)
+Connects to:
+	Jotenheim
+	Warsaw Republic
+	Imperial Balkania
+	Middle East
+	Afghanistan
+	Enclave of the Bear
+
+Name: Middle East
+Type: Land
+ID#: 31
+Bonus: Asia(7/7)
+Connects to:
+	Egypt
+	Imperial Balkania
+	Ukrayina
+	Afghanistan
+	United Indiastan
+
+Name: Afghanistan
+Type: Land
+ID#: 32
+Bonus: Asia(7/7)
+Connects to:
+	Ukrayina
+	Middle East
+	Enclave of the Bear
+	Hong Kong
+	United Indiastan
+
+Name: Enclave of the Bear
+Type: Land
+ID#: 33
+Bonus: Asia(7/7)
+Connects to:
+	Ukrayina
+	Siberia
+	Hong Kong
+	Afghanistan
+
+Name: Siberia
+Type: Land
+ID#: 34
+Bonus: Asia(7/7)
+Connects to:
+	Enclave of the Bear
+	Alden
+	Sakha
+	Khan Industrial State
+	Hong Kong
+
+Name: United Indiastan
+Type: Land
+ID#: 35
+Bonus: Asia(7/7)
+Connects to:
+	Middle East
+	Afghanistan
+	Hong Kong
+	Angkhor Wat
+	South Ceylon
+
+Name: Hong Kong
+Type: Land
+ID#: 36
+Bonus: Asia(7/7)
+Connects to:
+	Khan Industrial State
+	Siberia
+	Enclave of the Bear
+	Afghanistan
+	United Indiastan
+	Angkhor Wat
+	Neo Tokyo
+
+Name: Khan Industrial State
+Type: Land
+ID#: 37
+Bonus: Asia(7/7)
+Connects to:
+	Hong Kong
+	Siberia
+	Alden
+	Pevek
+	Japan
+
+Name: Alden
+Type: Land
+ID#: 38
+Bonus: Asia(7/7)
+Connects to:
+	Siberia
+	Sakha
+	Pevek
+	Khan Industrial State
+
+Name: Sakha
+Type: Land
+ID#: 39
+Bonus: Asia(7/7)
+Connects to:
+	Siberia
+	Pevek
+	Alden
+
+Name: Pevek
+Type: Land
+ID#: 40
+Bonus: Asia(7/7)
+Connects to:
+	Sakha
+	Alden
+	Khan Industrial State
+	Japan
+	Northwestern Oil Emirate
+
+Name: Japan
+Type: Land
+ID#: 41
+Bonus: Asia(7/7)
+Connects to:
+	Pevek
+	Khan Industrial State
+	Neo Tokyo
+
+Name: Angkhor Wat
+Type: Land
+ID#: 42
+Bonus: Asia(7/7)
+Connects to:
+	United Indiastan
+	Hong Kong
+	Java Cartel
+
+Name: Posidon
+Type: Sea
+ID#: 43
+Bonus: U.S. Pacific(2/2)
+Connects to:
+	Continental Biospheres
+	Hawaiian Preserve
+
+Name: Hawaiian Preserve
+Type: Sea
+ID#: 44
+Bonus: U.S. Pacific(2/2)
+Connects to:
+	Posidon
+	New Atlantis
+
+Name: New Atlantis
+Type: Sea
+ID#: 45
+Bonus: U.S. Pacific(2/2)
+Connects to:
+	Hawaiian Preserve
+	Nuevo Timoto
+	Neo Tokyo
+
+Name: Neo Paulo
+Type: Sea
+ID#: 46
+Bonus: South Atlantic(1/1)
+Connects to:
+	Ivory Reef
+	Amazon Desert
+
+Name: Ivory Reef
+Type: Sea
+ID#: 47
+Bonus: South Atlantic(1/1)
+Connects to:
+	Neo Paulo
+	Saharan Empire
+
+Name: Nova Brasillia
+Type: Sea
+ID#: 48
+Bonus: North Atlantic(2/2)
+Connects to:
+	New York
+	Amazon Desert
+
+Name: New York
+Type: Sea
+ID#: 49
+Bonus: North Atlantic(2/2)
+Connects to:
+	Nova Brasillia
+	Western Ireland
+	American Republic
+
+Name: Western Ireland
+Type: Sea
+ID#: 50
+Bonus: North Atlantic(2/2)
+Connects to:
+	New York
+	New Avalon
+
+Name: South Ceylon
+Type: Sea
+ID#: 51
+Bonus: Indian(2/2)
+Connects to:
+	Microcorp
+	United Indiastan
+
+Name: Microcorp
+Type: Sea
+ID#: 52
+Bonus: Indian(2/2)
+Connects to:
+	South Ceylon
+	Akara
+	Madagascar
+
+Name: Akara
+Type: Sea
+ID#: 53
+Bonus: Indian(2/2)
+Connects to:
+	Microcorp
+	Aboriginal League
+
+Name: Neo Tokyo
+Type: Sea
+ID#: 54
+Bonus: Asia Pacific(1/1)
+Connects to:
+	Sung Tzu
+	Hong Kong
+	New Atlantis
+
+Name: Sung Tzu
+Type: Sea
+ID#: 55
+Bonus: Asia Pacific(1/1)
+Connects to:
+	Neo Tokyo
+	Java Cartel
+
+Name: Bay of Dew
+Type: Space
+ID#: 56
+Bonus: Cresinon(2/2)
+Connects to:
+	Harpalus
+	Sea of Rains
+	Ocean of Storms
+
+Name: Harpalus
+Type: Space
+ID#: 57
+Bonus: Cresinon(2/2)
+Connects to:
+	Bay of Dew
+	Sea of Rains
+	Ocean of Storms
+	Aristotle
+
+Name: Sea of Rains
+Type: Space
+ID#: 58
+Bonus: Cresinon(2/2)
+Connects to:
+	Bay of Dew
+	Harpalus
+	Ocean of Storms
+	Aristotle
+	Sea of Serenity
+	Rhaeticus
+	Sea of Clouds
+
+Name: Ocean of Storms
+Type: Space
+ID#: 59
+Bonus: Cresinon(2/2)
+Connects to:
+	Bay of Dew
+	Sea of Rains
+	Byrgius
+	Sea of Clouds
+
+Name: Aristotle
+Type: Space
+ID#: 60
+Bonus: Delphot(2/2)
+Connects to:
+	Harpalus
+	Sea of Rains
+	Sea of Crisis
+	Sea of Serenity
+
+Name: Sea of Crisis
+Type: Space
+ID#: 61
+Bonus: Delphot(2/2)
+Connects to:
+	Aristotle
+	Sea of Serenity
+	Sea of Nectar
+
+Name: Sea of Serenity
+Type: Space
+ID#: 62
+Bonus: Delphot(2/2)
+Connects to:
+	Aristotle
+	Sea of Crisis
+	Sea of Nectar
+	Sea of Rains
+	Rhaeticus
+
+Name: Sea of Nectar
+Type: Space
+ID#: 63
+Bonus: Delphot(2/2)
+Connects to:
+	Sea of Serenity
+	Sea of Crisis
+	Rhaeticus
+	Straight Wall
+
+Name: Byrgius
+Type: Space
+ID#: 64
+Bonus: Sajon(4/4)
+Connects to:
+	Bay of Dew
+	Ocean of Storms
+	Sea of Clouds
+	Marsh of Diseases
+
+Name: Sea of Clouds
+Type: Space
+ID#: 65
+Bonus: Sajon(4/4)
+Connects to:
+	Tycho
+	Marsh of Diseases
+	Byrgius
+	Ocean of Storms
+	Rhaeticus
+	Straight Wall
+
+Name: Marsh of Diseases
+Type: Space
+ID#: 66
+Bonus: Sajon(4/4)
+Connects to:
+	Byrgius
+	Sea of Clouds
+	Tycho
+
+Name: Rhaeticus
+Type: Space
+ID#: 67
+Bonus: Sajon(4/4)
+Connects to:
+	Straight Wall
+	Sea of Clouds
+	Sea of Rains
+	Sea of Serenity
+	Sea of Nectar
+
+Name: Straight Wall
+Type: Space
+ID#: 68
+Bonus: Sajon(4/4)
+Connects to:
+	Tycho
+	Sea of Clouds
+	Rhaeticus
+	Sea of Nectar
+
+Name: Tycho
+Type: Space
+ID#: 69
+Bonus: Sajon(4/4)
+Connects to:
+	Marsh of Diseases
+	Sea of Clouds
+	Straight Wall
+

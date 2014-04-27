@@ -1,0 +1,95 @@
+<html>
+<head><title>EI Tracker</title>
+<script src="gaia.js"></script>
+<script src="accessdb.js"></script>
+<style>
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family: arial,sans-serif;
+ background-Color: #1A1D1F;
+ background-Image: url('xres/bg.png');
+}
+.list{
+ width: 260;
+ height: 330;
+ border: 1 solid black;
+ background-Color: black;
+ color: white;
+}
+.sq_box span{
+    cursor: hand;
+    margin: 10;
+    font: 18px Arial,sans-serif;
+    color: white;
+}
+.sq_box:hover span{
+    color: red;
+}
+.txt{
+ background-Color:transparent;
+ color:white;
+ border:1 solid white;
+ width:200;
+}
+.btn{
+ border:1 solid white;
+ background-Color:transparent;
+ color:white;
+ height:20;
+}
+</style>
+
+<script>
+XU.resizeWindow({centered:true, height:600, width:900});
+var App = {
+	main:function(){
+        var squadronBox = XM.static({top:5, left:5, width:330, height:100,
+            title:"Squadrons", 
+            body:'<span class="sq_box"><center><span>PLT1</span><span>PLT2</span><span>PLT3</span></span>'});
+
+        var nameBox = XM.static({top:120, left:5, width:330, height:400, 
+            title:"Student List", 
+            body:'<center><select class="list" size=20 onchange=""></select></center>'});
+
+        var searchBox = XM.static({top:5, left:345, width:530, height:100, 
+            title:"Search", 
+            body:'<center><input type="textarea" class="txt"> <input type="button" value="Search" class="btn"></center>'});
+
+        var entryBox = XM.static({top:120, left:345, width:530, height:420, 
+            title:"Track", 
+            body:''});
+	},
+	draw:{
+		ini:function(){
+           
+		}
+	}
+};
+window.attachEvent('onload', App.main);
+</script>
+</head>
+<body text = "white">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no" />
+<span id="allspace"></span>
+</body>
+</html>

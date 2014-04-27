@@ -1,0 +1,195 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>App</title>
+<script src="gaia.js"></script>
+<style>
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family:arial,sans-serif;
+ background-Color:#1a1d1f;
+ background-Image:url('bg.png');
+ ba
+}
+.block{
+ position:absolute;
+ height:100;
+ width:100;
+ display:block;
+}
+v\:* {behavior:url(#default#VML);}
+</style>
+
+<script>
+var XM2 = {
+  trueButton:"Accept",
+  falseButton:"Cancel",
+  hoverColor:"#0099ff",
+  defaultColor:"silver",
+  defaultSpace:30,
+  help:function(){
+    var message = XM2.confirm({
+      title:'Title', 
+      body:'Message Data', 
+      screen:false, 
+      top:100, 
+      left:'centered', 
+      callback:function(result){alert(result)}});
+    XM2.get('body',message).innerHTML = 'new body';
+    XM2.get('title',message).innerHTML = 'new title';
+    var b = XM2.alert({title:'Scores',body:'<br>Score1: 100<br>Score2: 200<br>Score3: 50',top:1,left:1,width:170,callback:function(result){alert(result)}});
+    var a = XM2.static({title:'test',body:'test'}); //can't have a callback
+    alert(message+','+a+','+b); //alerts the seed number for the message so you can manipulate it later
+  },
+  alert:function(params){
+    XM2.private.universal(params);
+    XM2.get('buttons', XM2.private.seed).innerHTML = XM2.private.button(true);
+    return XM2.private.seed;
+  },
+  static:function(params){
+    XM2.private.universal(params);
+    XM2.get('buttons', XM2.private.seed).innerHTML = "";
+    return XM2.private.seed;
+  },
+  confirm:function(params){
+    XM2.private.universal(params);
+    XM2.get('buttons', XM2.private.seed).innerHTML = XM2.private.button(true) + XM2.private.space(XM2.defaultSpace) + XM2.private.button(false);
+    return XM2.private.seed;
+  },
+  get:function(field, seed){
+    return document.getElementById('xm_' + field + seed);
+  },
+  destroy:function(seed){
+    var ele = document.getElementById('xm_window' + seed);
+    ele.parentNode.removeChild(ele);
+  },
+  screenCover:function(state){
+    xm_screen.style.display = (state) ? "block" : "none";
+  },
+  private:{
+    seed:-1,
+    iniVar:false,
+    ini:function(){
+      try{
+        var ele = document.getElementById('xm_container');
+        ele.parentNode.removeChild(ele);
+      }catch(e){}
+        document.body.innerHTML += '<div id="xm_screen" style="background-color:#000;cursor:default;filter:alpha(opacity = 20);opacity:0.2;position:absolute;z-index:19998;left:0px;top:0px;width:100%;height:100%;border:none;zoom:1;display:none;"></div>';
+        XM2.private.iniVar = true;
+    },
+    space:function(amt){
+      var temp = "";
+      for (var i = 0; i < amt; i++) {
+        temp += "&nbsp;";
+      }
+      return temp;
+    },
+    universal:function(params){
+      XM2.private.draw();
+      XM2.screenCover(params.screen);
+      XM2.get('title', XM2.private.seed).innerHTML = params.title || "";
+      XM2.get('body', XM2.private.seed).innerHTML = params.body || "";
+      XM2.get('window', XM2.private.seed).style.display = 'block';
+      XM2.private.positions(params);
+      XM2.private.sizes(params);
+
+      XM2.get('window', XM2.private.seed).onmouseover = function(){
+        var source = event.srcElement;
+        if (source.seed){
+          source.style.color = XM2.hoverColor;
+        }
+      }
+
+      XM2.get('window', XM2.private.seed).onmouseout = function(){
+        var source = event.srcElement;
+        if (source.seed){
+          source.style.color = XM2.defaultColor;
+        }
+      }
+
+      XM2.get('window', XM2.private.seed).onclick = function(){
+        var source = event.srcElement;
+        if (source.seed){
+          XM2.private.callback(source.result, params, source.seed);
+        }
+      }
+    },
+    sizes:function(params){
+      if (params.width){
+        XM2.get('window',XM2.private.seed).style.width = params.width;
+      }
+      if (params.height){
+        XM2.get('window',XM2.private.seed).style.height = params.height;
+      }
+    },
+    positions:function(params){
+      var source = document.getElementById('xm_window' + XM2.private.seed);
+      params.top = params.top || 'centered';
+      params.left = params.left || 'centered';
+      if (params.top == 'centered'){
+        params.top = Math.round((parseInt(document.body.offsetHeight)/2) - (source.offsetHeight/2));
+      }
+      if (params.left == 'centered'){
+        params.left = Math.round((parseInt(document.body.offsetWidth)/2) - (source.offsetWidth/2));
+      }
+      XM2.get('window', XM2.private.seed).style.top = params.top;
+      XM2.get('window', XM2.private.seed).style.left = params.left;
+    },
+    callback:function(result, params, seed){
+      var usercall = params.callback;
+      if (usercall){
+        usercall(result);
+      }
+      XM2.screenCover(false);
+      XM2.destroy(seed);
+    },
+    button:function(type){
+      var btnText = (type == true) ? XM2.trueButton : XM2.falseButton;
+      return '<span result='+type+' style="cursor:hand;" seed='+XM2.private.seed+' id="btn'+type+XM2.private.seed+'">'+btnText+'</span>';
+    },
+    draw:function(){
+      XM2.private.seed++;
+      if (!XM2.private.iniVar){
+        XM2.private.ini();
+      }
+      var container = document.createElement("DIV");
+      container.innerHTML = '<table style="position:absolute;top:10;left:10;width:300;display:none;z-index:19999;" cellpadding=0 cellspacing=0 id="xm_window'+XM2.private.seed+'"><tr><td style="overflow:hidden;background:url(\'xres/WindowTopLeft.png\') repeat scroll 0% 0% transparent;width:15px;height:32px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowTopCenter.png\') repeat scroll 0% 0% transparent;color:'+XM2.defaultColor+';" id="xm_title'+XM2.private.seed+'">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowTopRight.png\') repeat scroll 0% 0% transparent;width:15px;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowCenterLeft.png\') repeat scroll 0% 0% transparent;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowCenter.png\') repeat scroll 0% 0% transparent;text-align:left;color:'+XM2.defaultColor+';overflow-x:auto;word-wrap:break-word;" id="xm_body'+XM2.private.seed+'">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowCenterRight.png\') repeat scroll 0% 0% transparent;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowBottomLeft.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomCenter.png\') repeat scroll 0% 0% transparent;height:39px;color:'+XM2.defaultColor+';text-align:center;" id="xm_buttons'+XM2.private.seed+'">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomRight.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td></tr></table>';
+      document.body.appendChild(container);
+    }     
+  }
+};
+
+var App = {
+	main:function(){
+    XM2.help();
+	},
+	draw:{
+		ini:function(){
+
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.main();">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+</body>
+</html>

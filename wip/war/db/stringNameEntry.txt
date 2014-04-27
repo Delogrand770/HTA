@@ -1,0 +1,6 @@
+<center><font size="3em"><br>
+Enter a Name: <input type="textarea" id="iname" class="blk"> </font>
+<input type="button" value="Submit" onclick="MainWindow.NewGame(2,iname.value)" class="blk"><br>
+<span id="iinfo"></span>
+</center><br>
+<span style="text-align:right;width:99%;color:white;" onclick="MainWindow.FindSaves()">Cancel</span>

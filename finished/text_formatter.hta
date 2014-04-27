@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Text Reformatter</title>
+<script>
+var  App = {
+	ini:function(){
+		inout.focus();
+		document.execCommand('paste');
+		inout.select();
+		document.execCommand('copy');
+	}
+}
+</script>
+</head>
+<body onload="App.ini()">
+
+<textarea style="height:95%;width:95%;" id="inout"></textarea>
+</body>
+</html>

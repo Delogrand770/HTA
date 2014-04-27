@@ -1,0 +1,69 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>App</title>
+<script src="gaia.js"></script>
+<style>
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family:arial,sans-serif;
+ background-Color:#1a1d1f;
+ background-Image:url('xres/bg.png');
+ ba
+}
+.block{
+ position:absolute;
+ height:100;
+ width:100;
+ display:block;
+}
+v\:* {behavior:url(#default#VML);}
+</style>
+
+<script>
+XU.resizeWindow({centered:true, height:600, width:800});
+var App = {
+    dialog:null,
+	main:function(){
+       errorTrace = "App.main";
+        XC.ini();
+        App.dialog = XM.prompt({
+            title:'Enter your name', 
+            defaultText:'Gavin', 
+            callback:function(result){
+                XM.alert({title:'Result', body: result});
+            }
+        });
+	},
+	draw:{
+		ini:function(){
+            
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.main();" text = "white" onresize="XM.reCenter(App.dialog)">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no" />
+<span id="allspace"></span>
+</body>
+</html>
+<!--<script>Auth.setup()</script>-->

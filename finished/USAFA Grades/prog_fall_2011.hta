@@ -1,0 +1,79 @@
+<html>
+<head><title>ProgGrades</title>
+<script>var xdev=0;</script>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+td{
+  font-size:11;
+}
+.txt{
+  border:1 solid silver;
+  background-Color:transparent;
+  color:silver;
+}
+</style>
+<script>
+if (xdev!=1){
+	alert('Please extract all files before running');
+	window.close();
+}
+XU.ResizeWindow(600,880,0,1);
+var errload = 0;
+var timer   = 0;
+var tog     = 0;
+//window.onerror = function(){alert('Invalid Login\nDo not try and enter your password.\n\nInstead close this box');window.close();}
+var App = {
+	Ini:function(){
+		XM.Ini();
+		XL.Ini();
+		XI.New('mainarea','loginform','10:10','100:800',1);
+		XI.Fill('loginform','CAMIS Login','<center><table><tr><td>Username</td><td><input type="textarea" class="txt" id="myu" value=""></td></tr><tr><td>Password</td><td><input type="password" class="txt" id="myp" onkeypress="if (event.keyCode==13){App.Login()}" value=""></td></tr></table>Press Enter to login</center>');
+		XU.CenterElement('loginform','h');
+	},
+	Login:function(){
+		frames['cont1'].location ='https://'+myu.value+':'+myp.value+'@cadet.usafa.edu/pls/cadet/prg_www.frames';
+		XI.Fill('loginform','Camis Login','<center>Loading...</center>');
+		setTimeout("App.Finish()",1000);
+	},
+	Finish:function(){
+		frames['cont1'].frames['middle_left'].document.body.innerHTML ='<TABLE BORDER=1><TH>Select</TH><FORM ACTION="prg_www.prg_grade_card" METHOD="POST"><TR><TD>Semester: <SELECT NAME="p_aca_year_term"><OPTION value="2011B">Fall 2011</OPTION></SELECT></TD><TR><TD ALIGN="CENTER"><INPUT TYPE="submit" VALUE="Display" id="btnsub"></TD></TR></FORM></TABLE>';
+		frames['cont1'].frames['middle_left'].document.getElementById('btnsub').click();
+		setTimeout("App.Finish2()",1000);			
+	},
+	Finish2:function(){
+		var temp = frames['cont1'].frames['middle_left'].document.body.innerHTML;
+		XI.Fill('loginform','Fall 2011',temp);
+	}
+};
+</script>
+</head>
+<body scroll="auto" onload="App.Ini()" text="white">
+<HTA:APPLICATION ID="proggrades"
+    APPLICATIONNAME="proggrades"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="favicon2.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainarea" style="height:100%;width:100%;overflow-y:scroll;"></span>
+<iframe src="" trusted="yes" application="yes" style="position:absolute;top:0;left:0;height:0%;width:0%;" onload="" id="cont1" name="cont1"></iframe>
+</body>
+</html>

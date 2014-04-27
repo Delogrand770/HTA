@@ -1,0 +1,335 @@
+<html>
+<head><title>EI Tracker</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script>var xdev = 0;</script>
+<script src="gaia.js"></script>
+<script src="accessdb.js"></script>
+<script>if (xdev == 0){alert('Please extract all files before running the program');window.close();}</script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.list{
+ width:260;
+ height:330;
+ border:1 solid black;
+ background-Color:black;
+ color:white;
+}
+#creds{
+ position:absolute;
+ top:0;
+ left:0;
+}
+#cdostatus{
+ position:absolute;
+ top:0;
+ left:0;
+ height:30;
+ width:30;
+}
+.txt{
+ background-Color:transparent;
+ color:white;
+ border:1 solid white;
+ width:200;
+}
+.btn{
+ border:1 solid white;
+ background-Color:transparent;
+ color:white;
+ height:20;
+}
+</style>
+
+<script>
+XU.ResizeWindow(600,900,0,1);
+var prep       = 0;
+var plt1       = new Array();
+var plt2       = new Array();
+var plt3       = new Array();
+var myDB       = 0;
+var server     = "EILOG.mdb";
+var SQL        = "SELECT * FROM EI";
+var resultset  = "";
+var classes    = new Array('Algebra','Calculus','Chemistry','English','History','Physics');
+var Access = {
+	Ini:function(){
+		for (a=1;a<=3;a++){
+			resultset = "";
+			SQL = "SELECT * FROM PLT"+a;
+			Access.Do(1);
+			resultset = resultset+'';
+			resultset = resultset.replace(/"/g,'');
+			resultset = resultset.replace(/\]/g,'');
+			resultset = resultset.replace(/\[/g,'');
+			resultset = resultset.replace(/Students:/g,'');
+			//resultset = resultset.replace(/, /g,' ');
+			resultset = resultset.split('},{');
+			resultset[0] = resultset[0].replace(/{/g,'');
+			resultset[resultset.length-1] = resultset[resultset.length-1].replace(/}/g,'');
+			for (i=0;i<=resultset.length-1;i++){
+				resultset[i] = resultset[i].split(',');
+			}	
+			window['plt'+a] = resultset.copy();
+			window['plt'+a].unshift('PLT'+a);
+		}
+		Tracker.FillLists();
+	},
+	Do:function(it){
+		myDB = new ACCESSdb(server);
+		if (it){
+			resultset = myDB.query(SQL,{json:true});
+		}else{
+			myDB.query(SQL);
+		}
+		myDB.kill();
+	}
+};
+
+var Tracker={
+	Ini:function(){
+		XU.CreateShortcut('EI Tracker','EI Tracker.hta','xres\\ico.ico','EI tracking software');
+		if (XS.File('server.ini','exist')){
+			server = XS.File('server.ini','open');
+		}
+		XM.Ini();
+		XM.Alert('EI Tracker','Connecting to Outlook',0,0,1);
+		XU.DFB('creds',10);
+		XU.DFR('creds',60);
+		XU.DFB('cdostatus',10);
+		XU.DFR('cdostatus',10);
+		XI.New('mainmenu','sq1','1:1','10:330',1);
+		XU.El('sq1').style.top = 120;
+		XI.Fill('sq1','PLT1','<center><select id="plt1" class="list" size=20 onchange="Tracker.Deselect(2,3);sfield.value=Tracker.Format(1,this.value);"></select></center>');
+		XI.New('mainmenu','sq2','1:1','10:330',0);
+		XU.El('sq2').style.top = 120;
+		XI.Fill('sq2','PLT2','<center><select id="plt2" class="list" size=20 onchange="Tracker.Deselect(1,3);sfield.value=Tracker.Format(2,this.value);"></select></center>');
+		XI.New('mainmenu','sq3','1:1','10:330',0);
+		XU.El('sq3').style.top = 120;
+		XI.Fill('sq3','PLT3','<center><select id="plt3" class="list" size=20 onchange="Tracker.Deselect(1,2);sfield.value=Tracker.Format(3,this.value);"></select></center>');
+		XI.New('mainmenu','pl1btn','1:1','100:330',1);
+		XI.Fill('pl1btn','Select Squadron','<center><span style="cursor:hand;" onclick="Tracker.Toggle(1);sfield.value=\'PLT1\';"><font size=4 color="white">PLT1</font></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="cursor:hand;" onclick="Tracker.Toggle(2);sfield.value=\'PLT2\';"><font size=4 color="white">PLT2</font></span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="cursor:hand;" onclick="Tracker.Toggle(3);sfield.value=\'PLT3\';"><font size=4 color="white">PLT3</font></span></center>');
+		XI.New('mainmenu','sresults','1:1','10:'+(document.body.offsetWidth-5),0);
+		XI.New('mainmenu','otherinfo','1:1','100:350',1);
+		XI.New('mainmenu','search','1:1','100:550',0);
+		XI.Fill('search','Search','Name: <input type="textarea" class="txt" id="sfield" onkeypress="return Tracker.Keys()" onclick="if (this.it==0){this.select();this.it=1}" onblur="this.it=0;" it=0> <input type="button" value="Search" class="btn" onclick="Tracker.Search(sfield.value)"> &nbsp;&nbsp;&nbsp;<span id="nresult">Leave blank for all entries.</span>',1,1);
+		XU.El('search').style.left = 330;
+		XI.Fill('otherinfo','Track','<table style="color:white;"><tr><td style="text-align:right;"><b>Instructor:</b></td><td><input type="textarea" id="teacher" class="txt" onclick="if (this.it==0){this.select();this.it=1}" onblur="this.it=0;" it=0></td></tr><tr><td style="text-align:right;"><b>Subject:</b></td><td><select id="subjects" style="width:200;" class="list"></select></td></tr><tr><td style="text-align:right;"><b>Time:</b></td><td><input type="textarea" id="time" class="txt" maxlength=4 onclick="if (this.it==0){this.select();this.it=1}" onblur="this.it=0;" it=0></td></tr><tr><td style="text-align:right;"><b>Date:</b></td><td><input type="textarea" id="date" class="txt" onclick="if (this.it==0){this.select();this.it=1}" onblur="this.it=0;" it=0 maxlength=11></td></tr><tr><td style="text-align:right;"><b>View:</b></td><td><input type="button" class="btn" onclick="Tracker.Verify()" value="Submit"></td></tr></table>');
+		XU.El('otherinfo').style.left = 400;
+		teacher.value = XN.Name('user');
+		Access.Ini();
+		if (XS.File('pref.ini','exist')){
+			subjects.selectedIndex = XS.File('pref.ini','open');
+		}
+		XM.Close();
+		mainmenu.style.display = "block";
+		XU.CenterElement('otherinfo','v');
+	},
+	Format:function(it,it2){
+		var temp = window['plt'+it][it2]+'';
+		temp = temp.replace(/, /g,' ');
+		return temp;
+	},
+	Keys:function(){
+		if (event.keyCode == 13){
+			Tracker.Search(sfield.value);
+		}
+		if  ((event.keyCode>32 && event.keyCode<48) || (event.keyCode>57 && event.keyCode<65) || (event.keyCode> 90 && event.keyCode<97)){
+			return false;
+		}
+	},
+	Resize:function(){
+		XU.DFB('cdostatus',10);
+		XU.DFR('cdostatus',10);
+		XU.DFB('creds',10);
+		XU.DFR('creds',60);
+		try{
+			mytable.style.height = (document.body.offsetHeight-114);
+			mytable.style.width  = (document.body.offsetWidth-65);
+			sresults.style.width = (document.body.offsetWidth-5);
+		}catch(e){}
+	},
+	Toggle:function(it){
+		XI.Hide('sq1');
+		XI.Hide('sq2');
+		XI.Hide('sq3');
+		XI.Show('sq'+it);
+		nresult.style.color = 'white';
+		nresult.innerHTML   = "Leave blank for all entries.";
+	},
+	Search:function(it){
+		sfield.blur();
+		var reg     = new RegExp(it,'gi');
+		var srchidx = 0;
+		it = it.toLowerCase();
+		if (it.split('plt').length == 2){
+			srchidx = 1;
+			it      = it.split('plt')[1];
+		}
+		Tracker.DatabaseData();
+		if (resultset!='false'){
+			var temp  = new Array();
+			var temp2 = '<span style="height:'+(document.body.offsetHeight-114)+';width:'+(document.body.offsetWidth-65)+';overflow-y:auto;" id="mytable"><table style="color:white;" cellspacing=10><tr><td><b>Student</b></td><td><b>Sq</b></td><td><b>Instructor</b></td><td><b>Subj</b></td><td><b>Date</b></td><td><b>Time</b></td></tr>';
+			for (i=0;i<=resultset.length-1;i++){
+				if (resultset[i][srchidx].search(reg)!=-1 || resultset[i][srchidx]==it){
+					temp[temp.length] = i;
+				}
+			}
+			for (i=0;i<=temp.length-1;i++){
+				temp2 += Tracker.Hash(temp[i],'all');
+			}
+			temp2 += '</table></span>';
+			if (temp.length>=1){
+				if (it == ''){
+					it = 'All Entries';
+				}else if (srchidx == 1){
+					it = 'PLT' + it;
+				}
+				XI.Fill('sresults','<span style="cursor:hand;font-family:Marlett;color:red;" onclick="XI.Hide(\'sresults\')">r</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Search results for - <i>'+it+'</i>',temp2,1);
+				XI.ZIndex('sresults',110);
+				Tracker.Resize();
+				nresult.style.color = 'white';
+				nresult.innerHTML   = "Leave blank for all entries.";
+			}else{
+				nresult.style.color = 'red';
+				nresult.innerHTML   = "No Results";
+			}
+		}else{
+			nresult.style.color = 'red';
+			nresult.innerHTML   = "No Results";
+		}
+	},
+	DatabaseData:function(){
+		resultset = "";
+		SQL = "SELECT * FROM EI";
+		Access.Do(1);
+		resultset = resultset+'';
+		resultset = resultset.replace(/"/g,'');
+		resultset = resultset.replace(/\]/g,'');
+		resultset = resultset.replace(/\[/g,'');
+		resultset = resultset.replace(/Student:/g,'');
+		resultset = resultset.replace(/Squadron:/g,'');
+		resultset = resultset.replace(/Teacher:/g,'');
+		resultset = resultset.replace(/Subject:/g,'');
+		resultset = resultset.replace(/_Date:/g,'');
+		resultset = resultset.replace(/Time:/g,'');
+		resultset = resultset.replace(/, /g,' ');
+		resultset = resultset.split('},{');
+		resultset[0] = resultset[0].replace(/{/g,'');
+		resultset[resultset.length-1] = resultset[resultset.length-1].replace(/}/g,'');
+		for (i=0;i<=resultset.length-1;i++){
+			resultset[i] = resultset[i].split(',');
+		}
+	},
+	Hash:function(it,it2){
+		if (it2 == 'student'){
+			return resultset[it][0];
+		}else if (it2 == 'squadron'){
+			return resultset[it][1];
+		}else if (it2 == 'teacher'){
+			return resultset[it][2];
+		}else if (it2 == 'subject'){
+			return resultset[it][3];
+		}else if (it2 == 'date'){
+			return resultset[it][4];
+		}else if (it2 == 'time'){
+			return resultset[it][5];
+		}else if (it2 == 'all'){
+			return '<tr><td>' + resultset[it][0] + '</td><td>' + resultset[it][1] + '</td><td>' +resultset[it][2] + '</td><td>' +resultset[it][3] + '</td><td>' +resultset[it][4] + '</td><td>' +resultset[it][5] + '</td></tr>';
+		}
+	},
+	FillLists:function(){
+		var temp = new Array();
+		for (a=1;a<=3;a++){
+			temp[2]       = window['plt'+a];
+			temp[0]       = document.createElement('option');
+			temp[0].text  = '';
+			temp[0].value = 0;
+			XU.El('plt'+a).options.add(temp[0]);
+			temp[0].selectedIndex = 0;
+			for (b=1;b<=temp[2].length-1;b++){
+				temp[0]       = document.createElement('option');
+				temp[0].text  = temp[2][b];
+				temp[0].value = b;
+				if (temp[0].text != 'undefined'){
+					XU.El('plt'+a).options.add(temp[0]);
+				}
+			}
+		}
+		for (a=0;a<=classes.length-1;a++){
+			temp[0]       = document.createElement('option');
+			temp[0].text  = classes[a];
+			temp[0].value = a;
+			XU.El('subjects').options.add(temp[0]);
+		}
+		Tracker.Deselect(0,0,1);
+		time.value = XU.Time();
+		date.value = XU.Date(1);
+	},
+	Deselect:function(it1,it2,it3){
+		if (it3){
+			XU.El('plt1').selectedIndex = 0;
+			XU.El('plt2').selectedIndex = 0;
+			XU.El('plt3').selectedIndex = 0;
+		}else{
+			XU.El('plt'+it1).selectedIndex = 0;
+			XU.El('plt'+it2).selectedIndex = 0;
+		}
+		time.value = XU.Time();
+		nresult.style.color = 'white';
+		nresult.innerHTML   = "Leave blank for all entries.";
+	},
+	Verify:function(){
+		var temp = new Array(0,0);
+		for (a=1;a<=3;a++){
+			temp[0] = XU.El('plt'+a);
+			if (temp[0].value!=0){
+				temp[1] = window['plt'+a][temp[0].value];
+				temp[2] = a;
+			}
+		}
+		if (temp[1]!=0){
+			SQL = 'INSERT INTO EI VALUES("'+temp[1]+'",'+temp[2]+',"'+teacher.value+'","'+classes[subjects.value]+'","'+date.value+'","'+time.value+'")';
+			Access.Do();
+			XM.Alert('EI Tracker - PLT'+temp[2],'<b>Student:</b> '+temp[1]+'<br><b>Date:</b> '+date.value+'<br><b>Time:</b> '+time.value+'<br><br><b>Instructor:</b> '+teacher.value+'<br><b>Subject:</b> '+classes[subjects.value],1);
+			Tracker.Deselect(1,1,1);
+			XI.Hide('mainmenu');
+			setTimeout("XM.Close();XI.Show('mainmenu')",2000);
+		}
+	},
+	SaveSettings:function(){
+		XS.File('pref.ini','create',subjects.selectedIndex);
+	}
+};
+</script>
+
+</head>
+<body onload="Tracker.Ini();" onresize="Tracker.Resize()" onbeforeunload="Tracker.SaveSettings()">
+<HTA:APPLICATION ID="eitracker"
+    APPLICATIONNAME="eitracker"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="creds">Created by Gavin Delphia<br>Prep 2010 / USAFA 2014<br></span>
+<img src="xres/ico.png" id="cdostatus">
+<span id="mainmenu" style="display:none;"></span>
+</body>
+</html>

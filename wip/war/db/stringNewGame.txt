@@ -1,0 +1,7 @@
+<center><font size="3em"><br>
+<span style="color:red;" onclick="MainWindow.NewGame(1,'violence')">Violence</span>&nbsp;&nbsp;&nbsp;
+<span style="color:blue;" onclick="MainWindow.NewGame(1,'counter')">Counter</span>&nbsp;&nbsp;&nbsp;
+<span style="color:green;" onclick="MainWindow.NewGame(1,'poison')">Poison</span>&nbsp;&nbsp;&nbsp;
+<span style="color:orange;" onclick="MainWindow.NewGame(1,'healing')">Healing</span>
+</font></center><br>
+<span style="text-align:right;width:99%;color:white;" onclick="MainWindow.FindSaves()">Cancel</span>

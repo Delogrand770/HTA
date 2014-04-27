@@ -1,0 +1,107 @@
+<html>
+<head><title>TTWS</title>
+<script>
+document.write('<script src="http://ttws.zzl.org/js/gaia_online.js?v='+Math.random()+'"><'+'/script>');
+document.write('<script src="http://ttws.zzl.org/js/login.js?v='+Math.random()+'"><'+'/script>');
+</script>
+<style>
+body{
+  font-size: 9;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+  color:silver;
+}
+.text{
+ background-Color:transparent;
+ color:grey;
+ border:1 solid silver;
+}
+.btn{
+ background-Color:transparent;
+ color:silver;
+ border:0 solid silver;
+ height:20;
+ cursor:hand;
+}
+</style>
+
+<script>
+XU.ResizeWindow(768,1024);
+var AJAX = {
+	xmlhttp:0,
+	state:'idle',
+	data:0,
+	resp:0,
+	delay:1000,
+	Ini:function(){
+		if (window.XMLHttpRequest){
+  			AJAX.xmlhttp = new XMLHttpRequest();
+  		}else{
+  			AJAX.xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+		AJAX.xmlhttp.onreadystatechange=function(){
+  			if (AJAX.xmlhttp.readyState == 4 && AJAX.xmlhttp.status == 200){
+    				AJAX.resp = AJAX.xmlhttp.responseText;
+				AJAX.HandleResp();
+    			}
+		}
+	},
+	HandleResp:function(){
+		XL.Log('[AJAX]['+AJAX.state+'] '+AJAX.resp);
+		if (AJAX.state == 'login'){
+			if (AJAX.resp == 'error'){
+				XI.Hide('nxms');
+				XM.Alert('Error','Invalid Username / Password','inform');
+				setTimeout("XM.Close();",AJAX.delay);
+			}else{
+				XI.Hide('nxms');
+				AJAX.state = 'idle';
+				XI.Hide('loginform');
+				XM.Alert('Welcome','Login Success','inform');
+				setTimeout("XM.Close();",AJAX.delay);
+				document.title += ' - ' + Login.u;
+			}
+		}else if (AJAX.state == 'register'){
+			if (AJAX.resp == 'error'){
+				XI.Hide('nxms');
+				XM.Alert('Error','Username already in use','inform');
+				setTimeout("XM.Close();",AJAX.delay);
+			}else{
+				XI.Hide('nxms');
+				XI.Hide('loginform');
+				XM.Alert('Welcome','Register Success<br>You may now login','inform');
+				setTimeout("Login.Dialog();XM.Close();",AJAX.delay);
+			}
+		}
+	}
+};
+
+
+</script>
+</head>
+<body onload="Login.Ini();" background="http://ttws.zzl.org/js/xres/bg.png" onresize="Login.Resize()">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="http://ttws.zzl.org/js/xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="dialogs"></span>
+
+</body>
+</html>

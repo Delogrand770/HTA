@@ -1,0 +1,310 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>3D Tic Tac Toe</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+v\:* {behavior:url(#default#VML);}
+.block{
+ position:absolute;
+}
+#board{
+  position:absolute;
+}
+
+</style>
+<script>
+XU.ResizeWindow(600,800,0,1);
+var rec     = new Array(0,0,0);
+var turn    = 1;
+var tgt     = 0;
+var bdata   = new Array();
+var misc    = new Array('0','1','2');
+var tcolors = new Array('white','#0099ff','red','yellow');
+var moves   = 0;
+var winc    = 0;
+var hlight  = new Array();
+var App={
+	Ini:function(){
+		XWS.Launch('app.hta');
+		turn = 0;
+		XM.Ini();
+		ThreeD.Ini();
+		setTimeout("ThreeD.AniStep(1);",1000);
+		XU.CenterElement('board','b',-280,-137);
+		XI.New('board','gstatus','-104:1','170:200',1);
+		XI.Fill('gstatus','Game Status','Welcome<br><br><br>',1);
+		XI.New('board','info','190:1','100:200',0);
+		XI.New('board','winrec','460:1','100:200',1);
+		App.UpRec();
+	},
+	Format:function(){
+		moves = 0;
+		turn  = Math.round(Math.random()*1);
+		if (turn == 0){
+			turn = 2;
+		}
+		bdata = new Array(2);
+		for (i=0;i<=2;i++){
+			bdata[i] = new Array(2);
+			for (a=0;a<=2;a++){
+				bdata[i][a] = new Array(2);
+			}
+		}
+	},
+	Reset:function(){
+		XI.Hide('info');
+		App.Format();
+		App.Turn();
+	},
+	UpRec:function(){
+		XI.Fill('winrec','Current Records','<table style="color:white;font-size:12;"><tr><td style="text-align:right;">You:</td><td>'+rec[0]+'</td></tr><tr><td style="text-align:right;">Computer:</td><td>'+rec[1]+'</td></tr><tr><td style="text-align:right;">Tie:</td><td>'+rec[2]+'</td></tr></table>');
+	},
+	Win:function(){
+		App.Highlight()
+		if (turn == 1){
+			XI.Fill('info','You Win!','Nice job!',1);
+			rec[0]++;
+			App.UpRec();
+		}else if (turn == 2){
+			XI.Fill('info','Computer wins','Better luck next time',1);
+			rec[1]++;
+			App.UpRec();
+		}
+		turn = 0;
+		App.Turn();
+	},
+	Highlight:function(){
+		if (hlight[0] == 1){
+			for (k=0;k<=2;k++){
+				document.getElementById('rect'+k+'_'+hlight[1]+'_'+hlight[2]).fillcolor = tcolors[3];
+			}
+		}
+		else if (hlight[0] == 2){
+			for (k=0;k<=2;k++){
+				document.getElementById('rect'+hlight[3]+'_'+hlight[1]+'_'+k).fillcolor = tcolors[3];
+			}
+		}
+		else if (hlight[0] == 3){
+			for (k=0;k<=2;k++){
+				document.getElementById('rect'+hlight[3]+'_'+k+'_'+hlight[2]).fillcolor = tcolors[3];
+			}
+		}
+		else if (hlight[0] == 4){
+			if (hlight[2]==1){
+				for (k=0;k<=2;k++){
+					document.getElementById('rect'+k+'_'+hlight[1]+'_'+k).fillcolor = tcolors[3];
+				}
+			}else if (hlight[2]==2){
+				document.getElementById('rect'+0+'_'+hlight[1]+'_'+2).fillcolor = tcolors[3];
+				document.getElementById('rect'+1+'_'+hlight[1]+'_'+1).fillcolor = tcolors[3];
+				document.getElementById('rect'+2+'_'+hlight[1]+'_'+0).fillcolor = tcolors[3];
+			}
+		}
+	},
+	WinCheck:function(){
+		for (z=0;z<=2;z++){
+			for (a=0;a<=2;a++){
+				winc = 0;
+				for (i=0;i<=2;i++){
+					if (bdata[z][a][i] != turn){
+						i    = 3;
+						winc = 0;
+					}else{
+						winc++;
+					}
+				}
+				if (winc == 3){hlight = new Array(1,z,a,i);App.Win()}
+			}
+		}
+		for (z=0;z<=2;z++){
+			for (a=0;a<=2;a++){
+				winc = 0;
+				for (i=0;i<=2;i++){
+					if (bdata[z][i][a] != turn){
+						i    = 3;
+						winc = 0;
+					}else{
+						winc++;
+					}
+				}
+				if (winc == 3){hlight = new Array(2,z,i,a);App.Win()}
+			}
+		}
+		for (z=0;z<=2;z++){
+			for (a=0;a<=2;a++){
+				winc = 0;
+				for (i=0;i<=2;i++){
+					if (bdata[i][a][z] != turn){
+						i    = 3;
+						winc = 0;
+					}else{
+						winc++;
+					}
+				}
+				if (winc == 3){hlight = new Array(3,i,a,z);App.Win()}
+			}
+		}
+		for (a=0;a<=2;a++){
+			if (bdata[a][0][0] == turn && bdata[a][1][1] == turn && bdata[a][2][2] == turn){
+				hlight = new Array(4,a,1,0);
+				a      = 3;
+				App.Win();
+			}
+			else if (bdata[a][0][2] == turn && bdata[a][1][1] == turn && bdata[a][2][0] == turn){
+				hlight = new Array(4,a,2,0);
+				a      = 3;
+				App.Win();
+			}
+		}
+	},
+	Turn:function(it,it2){
+		var temp = 0;
+		if (it && turn != 0){
+			tgt    = it.split('_');
+			tgt[0] = tgt[0].split('rect')[1];
+			temp   = document.getElementById(it);
+			if (temp.fillcolor == tcolors[0]){
+				moves++;
+				bdata[tgt[1]][tgt[2]][tgt[0]] = turn;
+				temp.fillcolor                = tcolors[turn];
+				App.WinCheck();
+				if (moves == 27 && turn != 0){
+					turn = 0;
+					XI.Fill('info','Tie game','Amazing!',1);
+					rec[2]++;
+					App.UpRec();
+				}
+				if (turn == 1){
+					turn = 2;
+				}else if (turn == 2){
+					turn = 1;
+				}
+				
+			}
+		}
+		if (it2){
+			turn = it2;
+		}
+		if (turn == 0){
+			XI.Fill('gstatus','Game Status','<a onclick="ThreeD.AniStep2(1);this.style.display=\'none\';" style="cursor:hand;">Click here for new game</a><br><br><br>');
+		}else if (turn == 1){
+			XI.Fill('gstatus','Game Status','Your turn<br><br>Move '+moves);
+		}else if (turn == 2){
+			XI.Fill('gstatus','Game Status','Computer is thinking<br><br>Move '+moves);
+		}
+	},
+	Logic:function(){
+		
+	}
+};
+
+var colors = new Array('#ffffff','#ffffff');
+var cube   = "m 1,1 l 1,200, 200,200, 200,1 x m 1,1 l 100,-100 300,-100 200,1 x m 200,200 l 300,100 300,-100 200,1 x e";
+var hw = 20;
+var x  = 3;
+var y  = 3;
+var z  = 3;
+var s  = 0;
+var r  = 1;
+var t  = 1;
+var temp   = 0;
+var t1     = 0;
+var tturn  = 0;
+var ThreeD = {
+	Ini:function(){
+		temp = "";
+		for (b=0;b<z;b++){
+			for (a=0;a<y;a++){
+				for (i=0;i<x;i++){
+					temp += '<v:shape id="rect'+i+'_'+a+'_'+b+'" fillcolor="#0099ff" strokecolor="black" coordorigin="0 0" coordsize="150 150" class="block" path="" onclick="if (turn!=0){App.Turn(this.id)}" oncontextmenu="alert(this.id)"></v:shape>';
+				}
+			}
+		}
+		board.innerHTML = temp;
+		ThreeD.Update();
+	},
+	Update:function(it){
+		if (it!=1){
+			a=b=i=0;
+			x=y=z=3;
+		}
+		if (s<-2){s  = -2;}
+		if (r<-2){r  = -2;}
+		if (t<-2){t  = -2;}
+		if (s>1){s   = 1;}
+		if (r>3){r   = 3;}
+		if (t>3.3){t = 3.3;}
+		for (b=0;b<z;b++){
+			for (a=0;a<y;a++){
+				for (i=0;i<x;i++){
+					temp      = XU.El('rect'+i+'_'+a+'_'+b);
+					temp.path = cube;
+					if (it != 1){
+						temp.fillcolor = colors[0];
+					}
+					temp.style.height = hw;
+					temp.style.width  = hw;
+					temp.style.top    = Math.round(a*hw/((3-t+1)/4))+200-(b*(hw/(2-s)));
+					temp.style.left   = Math.round(i*hw/((3-r+1)/4))+200+(b*(hw/(2-s)));
+					temp.style.zIndex = Math.round(((2-a)*10)+((2-b)*10));
+				}
+			}
+		}
+	},
+	AniStep:function(it){
+		turn = 0;
+		if (it == 1){
+			t1 = setInterval("t+=.1;ThreeD.Update(1);if (t>=3.3){t=3.3;clearInterval(t1);ThreeD.AniStep(2);}",1);
+		}
+		if (it == 2){
+			t1 = setInterval("s+=.1;ThreeD.Update(1);if (s>=1){s=1;clearInterval(t1);ThreeD.AniStep(3);}",1);
+		}
+		if (it == 3){
+			t1 = setInterval("r+=.1;ThreeD.Update(1);if (r>=2){r=2;clearInterval(t1);App.Reset();}",1);
+		}
+	},
+	AniStep2:function(it){
+		turn = 0;
+		if (it == 1){
+			t1 = setInterval("t-=.1;ThreeD.Update(1);if (t<=1){t=1;clearInterval(t1);ThreeD.AniStep2(2);}",1);
+		}
+		if (it == 2){
+			t1 = setInterval("s-=.1;ThreeD.Update(1);if (s<=0){s=0;clearInterval(t1);ThreeD.AniStep2(3);}",1);
+		}
+		if (it == 3){
+			t1 = setInterval("r-=.1;ThreeD.Update(1);if (r<=1){r=1;clearInterval(t1);setTimeout('ThreeD.Update();ThreeD.AniStep(1);',500)}",1);
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onkeypress="XM.Close();App.Logic();">
+<HTA:APPLICATION ID="3dttt"
+    APPLICATIONNAME="3dttt"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="board"></span>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<html>
+<head><title>Gui 2.0</title>
+<script src="fsol3.js"></script>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+</head>
+<!---->
+<body bgcolor="black" onload="XGUI.Ini('ico.png','GUI 2.0',600,800,0,0,1,0,0,1);XGUI.Update('enable','close');XMessage.Ini('#0099ff','white','blue');XMessage.Alert('XMessage','This is a test',0,400);" oncontextmenu="q1=prompt('cmd','');q2=prompt('arg','');XGUI.Update(q1,q2);" text="white">
+<HTA:APPLICATION ID="hta"
+    APPLICATIONNAME="gui"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span style="position:absolute;top:40;left:40;">
+Right click to test a command.<br>
+Demo initiated with the following
+</span>
+<pre style="position:absolute;top:100;left:40;">XGUI.Ini('ico.png','GUI 2.0',600,800,0,0,1,0,0,1);</pre>
+<pre style="position:absolute;top:150;left:40;">
+Initialize
+-----------
+XGUI.Ini(arg1,arg2,ect);
+---------------------------
+ARG Positions    ARG Values            
+-------------    ----------
+0- icon          'filename'
+1- title         'text'
+2- height        #>=0
+3- width         #>=0
+4- xpos          + or - # 
+5- ypos          + or - #
+6- center        1 or 0
+7- full          1 or 0
+8- lock          1 or 0
+9- theme         1,2,3
+</pre>
+
+<pre style="position:absolute;top:150;left:340;">
+Commands
+---------
+XGUI.Update(cmd,arg);
+----------------------------
+CMD's                  ARG's
+------                 -----
+icon                   'filename'
+title                  'text'
+height                 #>=1
+width                  #>=1
+xpos                   + or - # that !=0
+ypos                   + or - # that !=0
+screen                 full,normal,minimize,center
+exit                   no arg
+theme                  1,2,3
+enable                 close,minimize,restore,all
+disable                close,minimize,restore,all
+</pre>
+</body>
+</html>

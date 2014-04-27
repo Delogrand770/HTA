@@ -1,0 +1,7 @@
+<center>
+<table>
+<tr><td>Username: </td><td><input type="textarea" class="text" id="uname"></td></tr>
+<tr><td>Password: </td><td><input type="password" class="text" id="upass"></td></tr>
+<tr><td></td><td><input type="button" value="Login" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Register" class="btn"></td></tr>
+</table>
+</center>

@@ -1,0 +1,156 @@
+<html>
+<head><title>InfoBar</title>
+<script>var xdev = 0;</script>
+<script src="gaia_opt.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.closebtn{
+  cursor:arrow;
+  border:solid 0px #ccc;
+  background:transparent;
+  font-size:.9em;color:#666;
+  fontweight:bold;
+  padding:0px;
+  font-family:Marlett;
+  z-index:100;
+}
+</style>
+
+<script>
+//XU.ErrorHandler(-1);
+if (xdev!=1){
+	alert('Please extract all files before running');
+	window.close();
+}
+XU.MoveWindow(0,0);
+XU.ResizeWindow(20,parseInt(screen.width)/2,0,0);
+var reset = Math.round(60*1000*60*8);
+var timer = new Array();
+var tdata = new Array();
+var settings = new Array('#0099ff','orange',1,3,200,'black');
+eval(XS.File('settings.ini','open'));
+var ela = 0;
+var elb = 0;
+var App={
+	Ini:function(){
+		ela = XU.El('barspan');
+		elb = XU.El('txtspan');
+		App.CheckSettings();
+		XWS.Launch('nircmdc.exe win settopmost title "InfoBar" 1');
+		if (settings[2] == 1){
+			XWS.Launch('nircmdc.exe win trans title "InfoBar" '+settings[4]);
+		}
+		App.Update();
+		setInterval("App.Update();",1000);
+		XU.CenterElement('options','v');
+		XU.DFR('options',5);
+		App.Show();
+		App.Delay();
+		setTimeout("App.LeakFix()",reset);
+		XU.CenterElement('txtspan','v');
+	},
+	CheckSettings:function(){
+		if (settings[4]<0 || settings[4]>255){
+			settings[4] = 200;
+		}
+		if (!settings[0]){
+			settings[0] = '#0099ff';
+		}
+		if (!settings[1]){
+			settings[1] = 'orange';
+		}
+		if (!settings[5]){
+			settings[5] = 'black';
+		}
+		txtspan.style.color = settings[5];
+	},
+	Update:function(){
+		var temp   = 0;
+		var mytime = XU.Time();
+		var toadd  = XU.Date() + ' - ' + XU.Time(1);
+		var secs   = (new Date().getSeconds()/60);
+		for (i=0;i<=tdata.length-1;i++){
+			temp    = tdata[i].split('::');
+			temp[0] = temp[0];
+			temp[1] = temp[1];
+			if (mytime>=temp[0] && mytime<temp[1]){
+				try{
+					ela.style.width = (XU.MilTimeDiff(temp[0],temp[1])-XU.MilTimeDiff(XU.Time(),temp[1])+secs)/XU.MilTimeDiff(temp[0],temp[1])*100 + '%';
+				}catch(e){}
+				toadd += ' - ' + temp[2];
+				if (i%2==0){
+					App.Colors(1);
+				}else{
+					App.Colors(0);
+				}
+				i = tdata.length;
+			}
+		}
+		elb.innerHTML = '&nbsp;'+toadd;
+	},
+	Hide:function(){
+		clearInterval(timer[0]);
+		XU.MoveWindow(0,-18);
+	},
+	Show:function(){
+		clearInterval(timer[0]);
+		XU.MoveWindow(0,0);
+	},
+	Delay:function(){
+		if (settings[3]!=0){
+			timer[0] = setTimeout('App.Hide()',Math.round(settings[3]*1000));
+		}
+	},
+	About:function(){
+		XWS.Launch('nircmdc.exe win close title "About"');
+		XWS.Launch('nircmdc.exe infobox "Info Bar\nCreated by Gavin Delphia" "About"');
+	},
+	Colors:function(it){
+		if (it==1){
+			document.body.bgColor         = settings[1];
+			barspan.style.backgroundColor = settings[0];
+		}else{
+			document.body.bgColor         = settings[0];
+			barspan.style.backgroundColor = settings[1];
+		}
+	},
+	LeakFix:function(){
+		XWS.Launch('infobar.hta');
+		window.close();
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onmouseover="App.Show()" onmouseout="App.Delay()">
+<HTA:APPLICATION ID="InfoBar"
+    APPLICATIONNAME="InfoBar"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="no"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="options" style="position:absolute;top:0;left:0;z-index:100;">
+<input type="button" value="s" class="closebtn" onclick="App.About()" id="cbtn">
+<input type="button" value="r" class="closebtn" onclick="if (confirm('Close InfoBar?')){window.close()}" id="cbtn">
+</span>
+<span id="barspan" style="position:absolute;top:0;left:0;background-Color:white;z-index:50;width:100%;height:100%;"></span>
+<span id="txtspan" style="position:absolute;top:0;left:0;background-Color:transparent;z-index:75;font-weight:bold;"></span>
+</body>
+</html>

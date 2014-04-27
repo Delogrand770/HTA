@@ -1,0 +1,160 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+
+<head><title>App</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+v\:* {behavior:url(#default#VML);}
+</style>
+
+<script>
+var player = 0;
+var App={
+	Ini:function(){
+		player = new App.Unit('test','player');
+		player.y = 100;
+		player.x = 50;
+	},
+	Unit:function(it,it2){
+		this.vname  = it2;
+		this.name   = it;
+		this.h      = 20;
+		this.w      = 20;
+		this.x      = 0;
+		this.y      = 0;
+		this.vy     = 1;
+		this.ay     = .2;
+		this.vx     = 1;
+		this.ax     = 0;
+		this.jmp    = 0;
+
+		this.Update = function(){
+			if (this.y <=480){
+				this.vy -=- this.ay;
+				this.y  -=- this.vy;
+				//hit head up check
+
+				if (this.x>=80 && this.x<=140){
+					if (this.y<=420 && this.jmp == 1){
+						this.vy = 0;
+						this.ay = .2;
+						this.y  = 421;
+					}else if (this.y<=400 && this.jmp == 0){
+						this.vy = 0;
+						this.ay = .2;
+						this.y  = 400;
+					}
+				}
+				
+
+
+
+
+				if (this.y>=480){
+					this.jmp = 0;
+					this.y   = 480;
+					this.vy  = 0;
+					this.ay  = 0;
+				}
+				if (this.vy<=-5){
+					this.ay = .2;
+				}
+			}else{
+				this.vy = 1;
+			}
+			if (this.ax!=0){
+				this.vx -=- this.ax;
+				if (this.vx >= 10){
+					this.vx = 10;
+				}else if (this.vx <= -10){
+					this.vx = -10;
+				}
+				this.x  -=- this.vx;
+			}else if (this.ax == 0 && this.vx>0){
+				this.vx -= .7;
+				if (this.vx<0){
+					this.vx = 0;
+				}
+				this.x -=- this.vx;
+			}else if (this.ax == 0 && this.vx<0){
+				this.vx -=- .7;
+				if (this.vx>0){
+					this.vx = 0;
+				}
+				this.x -=- this.vx;
+			}
+			if (this.x<4){
+				this.x = 4;
+			}else if (this.x>884){
+				this.x = 884;
+			}
+			this.hand.style.top    = this.y;
+			this.hand.style.left   = this.x;
+			this.Stats();
+		}
+		this.Morph = function(){
+			this.hand.style.height = this.h;
+			this.hand.style.width  = this.w;
+		}
+		this.Stats = function(){
+			document.title = 'x:'+Math.round(this.x)+';y:'+Math.round(this.y)+';vx:'+Math.round(this.vx)+';vy:'+Math.round(this.vy)+';ax:'+Math.round(this.ax)+';ay:'+this.ay;
+		}
+
+		document.getElementById('board').innerHTML += '<v:roundrect id="'+this.name+'" fillcolor="red" strokecolor="black" style="position:absolute;height:0;width:0;"></v:roundrect>';
+
+		this.hand   = document.getElementById(this.name);
+		this.Morph();
+		this.timer  = setInterval(this.vname+".Update()",1);
+	},
+	HandleKeys:function(){
+		if (event.keyCode == 37){ //left
+			player.ax = -.6;
+		}
+		else if (event.keyCode == 39){ //right
+			player.ax = .6;
+		}
+		else if (event.keyCode == 38){ //up
+			if (player.jmp == 0){
+				player.jmp = 1;
+				player.vy  = -1;
+				player.ay -= 1;
+			}
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onkeydown="App.HandleKeys()" onkeyup="if (event.keyCode!=38){player.ax = 0;}">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id='board'>
+<v:roundrect id="rect1" fillcolor="#0099ff" strokecolor="black" style="position:absolute;top:500;left:4;height:20;width:900;"></v:roundrect>
+<v:roundrect id="rect2" fillcolor="green" strokecolor="black" style="position:absolute;top:400;left:100;height:20;width:40;"></v:roundrect>
+</span>
+
+</body>
+</html>

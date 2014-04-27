@@ -1,0 +1,424 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>P.I. Solver</title>
+<script src="gaia.js"></script>
+<style>
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family:arial,sans-serif;
+ background-Color:#1a1d1f;
+ background-Image:url('xres/bg.png');
+}
+.block{
+ position:absolute;
+ height:100;
+ width:100;
+ display:block;
+}
+select {
+	width: 100;
+}
+v\:* {behavior:url(#default#VML);}
+</style>
+
+<script>
+XU.resizeWindow({centered:true, height:800, width:1445});
+
+var Logic = {
+	nodeConnections: [
+		{parentNode: 0, connections: [1, 2, 3]},
+		{parentNode: 1, connections: [0, 3, 4]},
+		{parentNode: 2, connections: [0, 3, 5, 6]},
+		{parentNode: 3, connections: [0, 1, 2, 4, 6, 7]},
+		{parentNode: 4, connections: [1, 3, 7, 8]},
+		{parentNode: 5, connections: [2, 6, 9]},
+		{parentNode: 6, connections: [2, 3, 5, 7, 9, 10]},
+		{parentNode: 7, connections: [3, 4, 6, 8, 10, 11]},
+		{parentNode: 8, connections: [4, 7, 11]},
+		{parentNode: 9, connections: [5, 6, 10, 12]},
+		{parentNode: 10, connections: [6, 7, 9, 11, 12, 13]},
+		{parentNode: 11, connections: [7, 8, 10, 13]},
+		{parentNode: 12, connections: [9, 10, 13]},
+		{parentNode: 13, connections: [10, 11, 12]}
+	],
+	suspects : ["Queenie", "Bubbles", "Dutch", "Shorty", "Maurice", "Earl", "Doc", "Pop", "Pinky", "Knuckles", "Rusty", "Frenchy"], //12
+	places : ["Lakeside", "Forest Park", "Little Italy", "Trocadero", "Ocean<br>Drive", "China Town", "Central Station", "Main Street", "Roadhouse", "Union Square", "Downtown", "Rick's Cafe", "Waterfront", "Skid Row"], //14
+	crimes : ["Smuggling", "Forgery", "Kidnapping", "Murder", "Police Corruption","Mob Killing", "Blackmail", "Jewellery Heist", "Bank Job", "Protection Racket"], //10
+	evidenceList : null, //36
+	ev: [0, 1], //Used for list building
+	squareCircle : [0, 1, 2, 3], //Used for list building
+	players: [0, 1, 2, 3, 4], //Used for list building
+	colors: ['green', 'blue', 'purple', 'gold', 'yellow', 'red', 'black'],
+	allowedInvestigations: 5,
+	nodeDimensions : {height: 100, width: 200},
+	nodes: [],
+	evidences: [],
+	investigations: [],
+	facts: [],
+	node:function(suspect, place, crime){
+		this.suspect = suspect;
+		this.place = place;
+		this.crime = crime;
+		this.suspectStatus = (this.suspect == "No suspect") ? 5 : 6;
+		this.placeStatus = 6;
+		this.crimeStatus = (this.crime == "No Crime") ? 5 : 6;
+	},
+	investigation:function(player, place, circles, squares){
+		this.t = "INVST";
+		this.player = player;
+		this.place = place;
+		this.node = Logic.findNodeWith(this.place);
+		this.circles = circles;
+		this.squares = squares;
+	},
+	evidence:function(player, item, circles, squares){
+		this.t = "EVDNC";
+		this.player = player;
+		this.item = item;
+		this.node = Logic.findNodeWith(this.item);
+		this.circles = circles;
+		this.squares = squares;
+	},
+	toString:function(obj){
+		var data = "";
+		for (var prop in obj){
+			data += prop + ": " + obj[prop] + "\n";
+		}
+		return data;
+	},
+	player:function(suspect, place, crime, investigationCount){
+		this.suspect = suspect;
+		this.place = place;
+		this.crime = crime;
+		this.investigationCount = investigationCount;
+	},
+	fact:function(player, item, doesntOwn){
+		this.t = "FACT";
+		this.player = player;
+		this.item = item;
+		this.node = Logic.findNodeWith(this.item);
+		this.doesntOwn = doesntOwn;
+	},
+	buildEvidence:function(){
+		Logic.evidenceList = Logic.suspects.concat(Logic.places).concat(Logic.crimes);
+	},
+	showGameDataset:function(){
+		alert("Suspects: \n" + Logic.suspects + "\n\nPlaces: \n" + Logic.places + "\n\nCrimes: \n" + Logic.crimes + "\n\nConnections: \n" + Logic.nodeConnections);
+	},
+	drawBoard:function(posTop, posLeft){
+		Logic.drawNode(0, posTop + Logic.nodeDimensions.height * 0, posLeft + Logic.nodeDimensions.width * 1, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(1, posTop + Logic.nodeDimensions.height * 0, posLeft + Logic.nodeDimensions.width * 2, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+
+		Logic.drawNode(2, posTop + Logic.nodeDimensions.height * 1, posLeft + Logic.nodeDimensions.width * 0.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(3, posTop + Logic.nodeDimensions.height * 1, posLeft + Logic.nodeDimensions.width * 1.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(4, posTop + Logic.nodeDimensions.height * 1, posLeft + Logic.nodeDimensions.width * 2.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+
+		Logic.drawNode(5, posTop + Logic.nodeDimensions.height * 2, posLeft + Logic.nodeDimensions.width * 0, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(6, posTop + Logic.nodeDimensions.height * 2, posLeft + Logic.nodeDimensions.width * 1, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(7, posTop + Logic.nodeDimensions.height * 2, posLeft + Logic.nodeDimensions.width * 2, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(8, posTop + Logic.nodeDimensions.height * 2, posLeft + Logic.nodeDimensions.width * 3, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		
+		Logic.drawNode(9,  posTop + Logic.nodeDimensions.height * 3, posLeft + Logic.nodeDimensions.width * 0.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(10, posTop + Logic.nodeDimensions.height * 3, posLeft + Logic.nodeDimensions.width * 1.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(11, posTop + Logic.nodeDimensions.height * 3, posLeft + Logic.nodeDimensions.width * 2.5, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+
+		Logic.drawNode(12, posTop + Logic.nodeDimensions.height * 4, posLeft + Logic.nodeDimensions.width * 1, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+		Logic.drawNode(13, posTop + Logic.nodeDimensions.height * 4, posLeft + Logic.nodeDimensions.width * 2, Logic.nodeDimensions.height, Logic.nodeDimensions.width);
+	},
+	drawNode:function(nodeNumber, nodeTop, nodeLeft, nodeHeight, nodeWidth){
+		var data = '<v:roundrect fillcolor="white" style="position:absolute;top:' + nodeTop + ';left:' + nodeLeft + ';height:' + nodeHeight + ';width:' + nodeWidth + ';" id="node' + nodeNumber + '_parentBox"></v:roundrect><div style="position:absolute;top:' + (nodeTop + 5) + ';left:' + nodeLeft + ';height:' + nodeHeight + ';width:' + nodeWidth + ';text-align:center;" id="node' + nodeNumber + '_childBox"><v:roundrect style="height:45%;width:30%;color:black;text-align:center;" id="node' + nodeNumber + '_suspect"><br>' + Logic.nodes[nodeNumber].suspect + '</v:roundrect><v:roundrect fillcolor="white" style="height:45%;width:30%;color:black;text-align:center;" id="node' + nodeNumber + '_place"><br>' + Logic.nodes[nodeNumber].place + '</v:roundrect><v:roundrect fillcolor="white" style="height:45%;width:30%;color:black;text-align:center;" id="node' + nodeNumber + '_crime"><br>' + Logic.nodes[nodeNumber].crime + '</v:roundrect></div>';
+		document.getElementById('gameNodes').innerHTML += data;
+		if (Logic.nodes[nodeNumber].suspect == 'No Suspect'){
+			Logic.disableNode(nodeNumber, 'suspect');
+		}
+		if (Logic.nodes[nodeNumber].crime == 'No Crime'){
+			Logic.disableNode(nodeNumber, 'crime');
+		}
+	},
+	generateNodes:function(){
+		for (var i=0; i< Logic.nodeConnections.length; i++){
+			Logic.nodes[i] = new Logic.node(Logic.suspects[i], Logic.places[i], Logic.crimes[i]);
+		}
+	},
+	buildSelect:function(selectID, sourceData){
+	    var select = document.getElementById(selectID);
+		for (var i = 0; i < sourceData.length; i++){
+		    var opt = document.createElement('option');
+		    opt.value = sourceData[i];
+		    opt.innerHTML = sourceData[i];
+
+		    if (sourceData[i] != "No Suspect" && sourceData[i] != "No Crime"){
+		    	select.appendChild(opt);
+		    }
+		}
+	},
+	promptFact:function(callback){
+		if (!callback){
+
+			XM2.confirm({
+				title: "New Fact",
+				body: '<table><tr><td>Player:</td><td><select id="selectPlayer"></select></td></tr><tr><td>Evidence:</td><td><select id="selectEvidence"></select></td></tr></table>',
+				callback: function(result){
+					if (result){
+						Logic.promptFact(true);
+					}
+				}
+			});
+
+			Logic.buildSelect('selectPlayer', Logic.players);
+			Logic.buildSelect('selectEvidence', Logic.evidenceList);
+		} else {
+			Logic.facts.push(new Logic.fact(selectPlayer.value, selectEvidence.value));
+			Logic.analyze();
+			Logic.addItem("entries", Logic.toString(Logic.facts[Logic.facts.length-1]));
+		}
+	},
+	promptInvestigation:function(callback){
+		if (!callback){
+
+			XM2.confirm({
+				title: "New Investigation",
+				body: '<table><tr><td>Player:</td><td><select id="selectPlayer"></select></td></tr><tr><td>Place:</td><td><select id="selectPlace"></select></td></tr><tr><td>Circles:</td><td><select id="selectCircles"></select></td></tr><tr><td>Squares:</td><td><select id="selectSquares"></select></td></tr></table>',
+				callback: function(result){
+					if (result){
+						Logic.promptInvestigation(true);
+					}
+				}
+			});
+
+			Logic.buildSelect('selectPlayer', Logic.players);
+			Logic.buildSelect('selectPlace', Logic.places);
+			Logic.buildSelect('selectCircles', Logic.squareCircle);
+			Logic.buildSelect('selectSquares', Logic.squareCircle);
+		} else {
+			Logic.investigations.push(new Logic.investigation(selectPlayer.value, selectPlace.value, selectCircles.value, selectSquares.value));
+			//alert(Logic.toString(Logic.investigations[0]))
+			Logic.analyze();
+			Logic.addItem("entries", Logic.toString(Logic.investigations[Logic.investigations.length-1]));
+		}
+	},
+	promptEvidence:function(callback){
+		if (!callback){
+
+			XM2.confirm({
+				title: "New Evidence",
+				body: '<table><tr><td>Player:</td><td><select id="selectPlayer"></select></td></tr><tr><td>Evidence:</td><td><select id="selectEvidence"></select></td></tr><tr><td>Circles:</td><td><select id="selectCircles"></select></td></tr><tr><td>Squares:</td><td><select id="selectSquares"></select></td></tr></table>',
+				callback: function(result){
+					if (result){
+						Logic.promptEvidence(true);
+					}
+				}
+			});
+
+			Logic.buildSelect('selectPlayer', Logic.players);
+			Logic.buildSelect('selectEvidence', Logic.evidenceList);
+			Logic.buildSelect('selectCircles', Logic.ev);
+			Logic.buildSelect('selectSquares', Logic.ev);
+		} else {
+			Logic.evidences.push(new Logic.evidence(selectPlayer.value, selectEvidence.value, selectCircles.value, selectSquares.value));
+			Logic.analyze();
+			Logic.addItem("entries", Logic.toString(Logic.evidences[Logic.evidences.length-1]));
+		}
+	},
+
+	findNodeWith:function(item){
+		for (var i = 0; i < Logic.nodes.length; i++){
+			if (Logic.nodes[i].suspect == item || Logic.nodes[i].place == item || Logic.nodes[i].crime == item){
+				return i;
+			}
+		}
+	},
+	findType:function(item){
+		for (var i = 0; i < Logic.nodes.length; i++){
+			if (Logic.nodes[i].suspect == item){
+				return 'suspect';
+			}
+			if (Logic.nodes[i].place == item){
+				return 'place';
+			}
+			if (Logic.nodes[i].crime == item){
+				return 'crime';
+			}		
+		}
+	},
+	disableNode:function(node, mode){
+		if (mode == 'suspect' || mode == 'all'){
+			Logic.nodes[node].suspectStatus = 5;
+		} 
+		if (mode == 'place' || mode == 'all'){
+			Logic.nodes[node].placeStatus = 5;
+		}
+		if (mode == 'crime' || mode == 'all'){
+			Logic.nodes[node].crimeStatus = 5;
+		}
+	},
+	setNodeStatus:function(node, type, status){
+		Logic.nodes[node][type + 'Status'] = status;
+	},
+	enableNode:function(node, mode){
+		if (mode == 'suspect' || mode == 'all'){
+			Logic.nodes[node].suspectStatus = 6;
+		}
+		if (mode == 'place' || mode == 'all'){
+			Logic.nodes[node].placeStatus = 6;
+		}
+		if (mode == 'crime' || mode == 'all'){
+			Logic.nodes[node].crimeStatus = 6;
+		}
+	},
+	analyze:function(){
+		var eliminated = 5;
+		var open = 6;
+
+		//Marks Facts
+		var viewPoint = playerView.value;
+		for (var j = 0; j < Logic.facts.length; j++){
+			var c = Logic.facts[j];
+			Logic.setNodeStatus(c.node, Logic.findType(c.item), c.player);
+		}
+
+		//Eliminates choices that surround an investigation with zero squares
+		for (var j = 0; j < Logic.investigations.length; j++){
+			var c = Logic.investigations[j];
+			if (c.squares == 0){
+				var connections = Logic.nodeConnections[c.node].connections;
+				for (var i = 0; i < connections.length; i++){
+					if (viewPoint == c.player){
+						Logic.disableNode(connections[i], 'all');
+					}else{
+						Logic.enableNode(connections[i], 'all');
+					}
+				}
+			}
+		}
+
+		//Marks evidence cards that are determined yes
+		for (var j = 0; j < Logic.evidences.length; j++){
+			var c = Logic.evidences[j];
+			if (c.circles == 1){
+				Logic.setNodeStatus(c.node, Logic.findType(c.item), c.player);
+			}
+		}
+
+		//Marks evidence cards that are determined to be square but only have one opening of that type available
+		for (var j = 0; j < Logic.evidences.length; j++){
+			var c = Logic.evidences[j];
+			if (c.squares == 1){
+				var openings = Logic.countOpenings(c.node);
+				var otype = Logic.findType(c.item);
+				var open = Logic.findOpenings(c.node);
+				if (openings[0] == 1 && otype == 'suspect'){
+					Logic.setNodeStatus(open[0], otype, c.player);
+				} else if (openings[1] == 1 && otype == 'place'){
+					Logic.setNodeStatus(open[1], otype, c.player);
+				} else if (openings[2] == 1 && otype == 'crime'){					
+					Logic.setNodeStatus(open[2], otype, c.player);
+				}
+			}
+		}
+
+		Logic.paintNodes();
+	},
+	paintNodes:function(){
+		var eliminated = 5;
+		var open = 6;
+		var viewPoint = playerView.value;
+		for (var i = 0; i < Logic.nodes.length; i++){
+			var node = Logic.nodes[i];
+			window['node' + i + '_suspect'].style.color = Logic.colors[node.suspectStatus == viewPoint || node.suspectStatus==open ? node.suspectStatus : eliminated];
+			window['node' + i + '_place'].style.color = Logic.colors[node.placeStatus == viewPoint || node.placeStatus==open ? node.placeStatus : eliminated];
+			window['node' + i + '_crime'].style.color = Logic.colors[node.crimeStatus == viewPoint || node.crimeStatus==open ? node.crimeStatus : eliminated];
+		}
+	},
+	addItem:function(selectID, data){
+	    var select = document.getElementById(selectID);
+		var opt = document.createElement('option');
+		opt.value = data;
+		opt.innerHTML = data;
+		select.appendChild(opt);
+	},
+	countOpenings:function(node){
+		var data = [0, 0, 0]; //suspect, place, crime
+		var c = Logic.nodeConnections[node].connections;
+		for (var i = 0; i < c.length; i++){
+			data[0] += (Logic.nodes[c[i]].suspectStatus == 6) ? 1 : 0;
+			data[1] += (Logic.nodes[c[i]].placeStatus == 6) ? 1 : 0;
+			data[2] += (Logic.nodes[c[i]].crimeStatus == 6) ? 1 : 0;
+		}
+		return data;
+	},
+	findOpenings:function(node){
+		var data = [-1, -1, -1]; //suspect, place, crime
+		var c = Logic.nodeConnections[node].connections;
+		for (var i = 0; i < c.length; i++){
+			data[0] = (Logic.nodes[c[i]].suspectStatus == 6) ? c[i] : data[0];
+			data[1] = (Logic.nodes[c[i]].placeStatus == 6) ? c[i] : data[1];
+			data[2] = (Logic.nodes[c[i]].crimeStatus == 6) ? c[i] : data[2];
+		}
+		return data;
+	},
+	setup:function(){
+		Logic.buildEvidence();
+		Logic.suspects.push("No Suspect");
+		Logic.suspects.push("No Suspect");
+		//Logic.suspects.shuffle();
+		Logic.crimes.push("No Crime");
+		Logic.crimes.push("No Crime");
+		Logic.crimes.push("No Crime");
+		Logic.crimes.push("No Crime");
+		//Logic.crimes.shuffle();
+		Logic.buildSelect("playerView", Logic.players);
+		Logic.generateNodes();
+		Logic.drawBoard(10, 10);
+		Logic.paintNodes();
+	}
+};
+
+var App = {
+	main:function(){
+		alert('Generate doesntOwn FACTS but need to check to make sure duplicates are not being generated')
+		Logic.setup();
+	},
+	draw:{
+		ini:function(){
+            
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.main();" text = "white" onresize="">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no" />
+
+<div id="gameNodes"></div>
+
+<div id="dataEntry" style="position:absolute;top:550;left:10;">
+	<input type="button" value="Add Fact" onclick="Logic.promptFact()" style="border:1 solid black;">
+	<input type="button" value="Add Investigation" onclick="Logic.promptInvestigation()" style="border:1 solid black;">
+	<input type="button" value="Add Evidence" onclick="Logic.promptEvidence()" style="border:1 solid black;">
+	Player View: <select id="playerView" onchange="Logic.analyze()" style="width:40;"></select>
+</div>
+
+<select id="entries" style="position:absolute;top:0;left:830;height:100%;width:600;" size=40></select>
+
+</body>
+</html>

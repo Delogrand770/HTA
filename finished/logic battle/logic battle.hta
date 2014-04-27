@@ -1,0 +1,515 @@
+<html>
+<head><title>Logic Battle</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.xbtn{
+  cursor:arrow;
+  border:solid 0px #ccc;
+  background:transparent;
+  font-size:.9em;color:#666;
+  fontweight:bold;
+  padding:0px;
+  width:25;height:15;
+  font-family:Marlett;
+  z-index:100;
+  position:absolute;top:8;
+}
+.menuitem{
+  background-image:url('res/block2.png');
+  height:76;
+  width:283;
+  color:black;
+  text-align:center;
+  font-size:25;
+  cursor:hand;
+}
+.btn{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+  width:100;
+}
+.btn2{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+  width:20;
+}
+.txt{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+}
+.select{
+  color:#0099ff;
+  background-Color:black;
+  border:1 solid white;
+}
+.binner{
+  height:48;
+  width:48;
+  border:1 solid white;
+  cursor:hand;
+  color:black;
+}
+.bouter{
+  height:48;
+  width:48;
+  border:1 solid blue;
+  cursor:hand;
+  background-Color:#0099ff;
+  color:black;
+  text-align:center;
+}
+</style>
+
+<script>
+XUtil.ErrorHandler(0);
+var blocksize = 48;
+var gridsize  = 10;
+var temp_add  = new Array();
+var mygrid    = new Array();
+var oppgrid   = new Array();
+var xall_vars = new Array('mygrid');
+var traps     = new Array('inner.png','reflector.png','box.png','bomb.png','right.png','left.png','star.png','nullstar.png','guessed.png');
+var stoptraps = new Array(0,0,1,0,0,0,0,1,1);
+var trapinfo  = new Array('Use this to erase a item','Bounces the ball back the way it came','Stops the ball','Stops the ball the 1st time then dissapears','Directs the ball with the angle','Directs the ball with the angle','These are the stars you and your opponent need to find<br>These will stop the ball');
+var brush     = 6;
+var gamestate = 'place';
+var ballpos   = new Array(0,0);
+var balltime  = 0;
+var ballmvx   = 0;
+var ballmvy   = 0;
+var balllock  = 0;
+var whosgrid  = 'oppgrid';
+var mymoves   = new Array();
+var oppmoves  = new Array();
+var alltraps  = 0;
+var allstars  = 0;
+var turnnum   = 0;
+var myguesses = new Array();
+var maxtraps  = 0;
+var maxstars  = 6;
+var clicklock = 0;
+var Game = {
+	Ini:function(){
+		XMessage.Ini('#0099ff','white','white');
+		XGUI.Ini('star.png','Logic Battle',670,540,0,0,1,0,1,1);
+		XGUI.Update('enable','close');
+		XConnect.Ini("K:\\PL\\PL\\PLA\\IT Fix\\Can't verify creditials\\",'Game.ReceiveData','Game.SendData');
+		Game.Draw();
+		XMessage.Alert(document.title,'Place '+maxtraps+' traps and '+maxstars+' stars<br><br>Right click on a item to learn more about it<br><br>Your goal is to find all of your opponents stars before they find all of yours');
+	},
+	Draw:function(){
+		temp_add[0] = "<table cellpadding=0 cellspacing=0 style='position:absolute;top:50;left:20;'>";
+		for (a=0;a<=gridsize-1;a++){
+			temp_add[0] += "<tr>";
+			mygrid[a]    = new Array();
+			oppgrid[a]   = new Array();
+			myguesses[a] = new Array();
+			for (b=0;b<=gridsize-1;b++){
+				mygrid[a][b]    = 0;
+				oppgrid[a][b]   = 0;
+				myguesses[a][b] = 0;
+				if (b<=gridsize-2 && b!=0 && a!=0 && a<=gridsize-2){
+					temp_add[0] += "<td><img class='binner' src='inner.png' ix="+b+" iy="+a+" onclick='Game.Trap(this.ix,this.iy)' id='mygrid"+a+"x"+b+"'></td>";
+				}else{
+					temp_add[0] += "<td class='bouter' onclick='Game.Shoot(this.ix,this.iy,0)' ix="+b+" iy="+a+" id='mygrid"+a+"x"+b+"'></td>";
+				}
+			}
+			temp_add[0] += "</tr>";
+		}
+		temp_add[0] += "</table><br><span style='position:absolute;top:600;left:20;' id='inispan'>";
+		for (a=0;a<=traps.length-1;a++){
+			if (stoptraps[a]!=1){
+				temp_add[0] += "<img src='"+traps[a]+"' class='bouter' onclick='brush="+a+"' it="+a+" oncontextmenu='XMessage.Alert(document.title,trapinfo[this.it])'>";
+			}
+		}
+		temp_add[0]       += " <input type='button' value='Begin' class='btn' onclick='Game.Begin()'></span><span style='position:absolute;top:570;left:20;'></span>";
+		gamearea.innerHTML = temp_add[0];
+	},
+	Clear:function(){
+		inispan.style.display = 'block';
+		turnnum               = 0;
+		ball.style.display    = 'none';
+		allstars              = 0;
+		alltraps              = 0;
+		for (a=0;a<=gridsize-1;a++){
+			mygrid[a]    = new Array();
+			oppgrid[a]   = new Array();
+			myguesses[a] = new Array();
+			for (b=0;b<=gridsize-1;b++){
+				mygrid[a][b]    = 0;
+				oppgrid[a][b]   = 0;
+				myguesses[a][b] = 0;
+				document.getElementById('mygrid'+a+'x'+b).src                   = traps[0];
+				document.getElementById('mygrid'+a+'x'+b).style.backgroundColor = 'black';
+			}
+		
+		}
+		for (c=0;c<=gridsize-1;c++){
+			document.getElementById('mygrid0x'+c).innerHTML                                      = "";
+			document.getElementById('mygrid'+c+'x0').innerHTML                                   = "";
+			document.getElementById('mygrid'+Math.round(gridsize-1)+'x'+c).innerHTML             = "";
+			document.getElementById('mygrid'+c+'x'+Math.round(gridsize-1)).innerHTML             = "";
+			document.getElementById('mygrid0x'+c).style.backgroundColor                          = '#0099ff';
+			document.getElementById('mygrid'+c+'x0').style.backgroundColor                       = '#0099ff';
+			document.getElementById('mygrid'+Math.round(gridsize-1)+'x'+c).style.backgroundColor = '#0099ff';
+			document.getElementById('mygrid'+c+'x'+Math.round(gridsize-1)).style.backgroundColor = '#0099ff';
+		}
+		setTimeout("XConnect.Disconnect();gamestate = 'place';",3000);
+	},
+	ClearForTurn:function(){
+		for (a=0;a<=gridsize-1;a++){
+			for (b=0;b<=gridsize-1;b++){
+				if (myguesses[a][b]==1){
+					document.getElementById('mygrid'+a+'x'+b).src = 'guessed.png';
+				}
+				else if (myguesses[a][b]==2){
+					document.getElementById('mygrid'+a+'x'+b).src = 'nullstar.png';
+				}
+				else{
+					document.getElementById('mygrid'+a+'x'+b).src = traps[0];
+				}
+			}
+		}
+	},
+	ShowForTurn:function(){
+		for (a=0;a<=gridsize-1;a++){
+			for (b=0;b<=gridsize-1;b++){
+				document.getElementById('mygrid'+a+'x'+b).src = traps[mygrid[a][b]];
+			}
+		}
+	},
+	SendData:function(it){
+		if (it==0){
+			temp_add[3] = 'oppgrid = new Array(';
+			for (a=0;a<=gridsize-1;a++){
+				temp_add[3] += 'new Array(';
+				for (b=0;b<=gridsize-1;b++){
+					if (b<=gridsize-2){
+						temp_add[3] += mygrid[a][b] + ',';
+					}else{
+						temp_add[3] += mygrid[a][b];
+					}
+				}
+				if (a<=gridsize-2){
+					temp_add[3] += '),';
+				}else{
+					temp_add[3] += '));';
+				}
+			}
+		return temp_add[3];
+		}else if (it==1){
+			XConnect.Send(idata);
+		}
+	},
+	ReceiveData:function(it){
+		if (it==0){
+			eval(xreceived);
+			if (XConnect.Role()){
+				ball.style.display = 'none';
+				XMessage.Alert(document.title,'Your Turn');
+				clicklock = 0;
+				Game.ClearForTurn();
+				gamestate = 'myturn';
+			}else{
+				XMessage.Alert(document.title,'Opponents Turn');
+			}
+		}else if (it==1){
+			temp_add[4] = '';
+			xreceived = xreceived.split('#');
+			if (xreceived[0]=='turn' && xreceived[1]==1){
+				ball.style.display = 'none';
+				temp_add[4]       += 'Your turn';
+				clicklock          = 0;
+				Game.ClearForTurn();
+				gamestate = 'myturn';
+			}
+			if (xreceived[0]=='lose' && xreceived[1]==1){
+				temp_add[4] += 'Your Lose!';
+				gamestate    = 'gameover';
+			}
+			if (xreceived[2]=='star' && xreceived[3]==1){
+				temp_add[4] += ' - Opponent found a star';
+				mygrid[xreceived[4]][xreceived[5]] = 7;
+				Game.ClearForTurn();
+			}
+			if (xreceived[0]=='move'){
+				ball.style.display = 'block';
+				Game.Shoot(xreceived[2],xreceived[1],1);
+			}
+			if (xreceived[0]!='move'){
+				XMessage.Alert(document.title,temp_add[4]);
+				if (xreceived[0]=='lose'){
+					Game.Clear();
+				}
+			}
+		}
+	},
+	Begin:function(){
+		if (alltraps!=maxtraps){
+			XMessage.Alert(document.title,'You dont have '+maxtraps+' traps on the board');
+		}
+		else if (allstars!=maxstars){
+			XMessage.Alert(document.title,'You dont have '+maxstars+' stars on the board');
+		}else{
+			inispan.style.display = 'none';
+			gamestate = 'searching';
+			XConnect.Connect();
+		}
+	},
+	Trap:function(x,y){
+		if (gamestate == 'place'){
+			alltraps = 0;
+			allstars  = 0;
+			event.srcElement.src = traps[brush];
+			mygrid[y][x] = brush;
+			for (a=0;a<=gridsize-1;a++){
+				for (b=0;b<=gridsize-1;b++){
+					if (mygrid[a][b]!=0 && mygrid[a][b]!=6){
+						alltraps++;
+					}
+					if (mygrid[a][b]==6){
+						allstars++;
+					}
+				}
+			}
+		}
+		if (gamestate == 'myguess'){
+			myguesses[y][x] = 1;
+			if (oppgrid[y][x] == 6){
+				myguesses[y][x] = 2;
+				allstars--;
+				if (allstars<=0){
+					setTimeout("Game.Clear();",1000);
+					XMessage.Alert(document.title,'You Win!');
+					XConnect.Send('lose#1');
+					
+				}else{
+					XConnect.Send('turn#1#star#1#'+y+'#'+x);
+					XMessage.Alert(document.title,'Opponents Turn, you found a star!');
+					Game.ShowForTurn();
+				}
+			}else if (allstars>=1){
+				XConnect.Send('turn#1');
+				XMessage.Alert(document.title,'Opponents Turn');
+				Game.ShowForTurn();
+			}
+			gamestate = 'oppturn';
+		}
+	},
+	Shoot:function(x,y,z){
+		if ((gamestate == 'myturn' && clicklock==0) || z==1){
+		if (z!=1){
+			clicklock = 1;
+			turnnum++;
+			XConnect.Send('move#'+y+'#'+x);
+			whosgrid = 'oppgrid';
+			document.getElementById('mygrid'+y+'x'+x).style.backgroundColor = 'red';
+			document.getElementById('mygrid'+y+'x'+x).innerHTML             = turnnum;
+		}else{
+			whosgrid = 'mygrid';
+		}
+		balllock = 0;
+		if (y==0 && x!=0 && x!=gridsize-1){
+			ballmvx = 0;
+			ballmvy = 1;
+		}
+		if (y==gridsize-1 && x!=0 && x!=gridsize-1){
+			ballmvx = 0;
+			ballmvy = -1;
+		}
+		if (y==0 && x==0){
+			ballmvx = 1;
+			ballmvy = 1;
+		}
+		if (y==0 && x==gridsize-1){
+			ballmvx = -1;
+			ballmvy = 1;
+		}
+		if (x==0 && y!=0 && y!=gridsize-1){
+			ballmvx = 1;
+			ballmvy = 0;
+		}
+		if (x==gridsize-1 && y!=0 && y!=gridsize-1){
+			ballmvx = -1;
+			ballmvy = 0;
+		}
+		if (x==0 && y==gridsize-1){
+			ballmvx = 1;
+			ballmvy = -1;
+		}
+		if (x==gridsize-1 && y==gridsize-1){
+			ballmvx = -1;
+			ballmvy = -1;
+		}
+		ballpos[0] = parseInt(y);
+		ballpos[1] = parseInt(x);
+		if (z!=1){
+			balltime   = setInterval("Game.Path(0)",100);
+		}else{
+			balltime   = setInterval("Game.Path(1)",100);
+		}
+		Game.BallUpdate();
+		}
+	},
+	BallUpdate:function(){
+		ball.style.top  = Math.round(50+ballpos[0]*blocksize+(2.1*ballpos[0]));
+		ball.style.left = Math.round(19+ballpos[1]*blocksize+(2.1*ballpos[1])+2);
+	},
+	Path:function(z){
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==1){
+			if (ballmvx!=0){
+				ballmvx = Math.round(ballmvx*-1);
+			}
+			if (ballmvy!=0){
+				ballmvy = Math.round(ballmvy*-1);
+			}
+		}
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==2){
+			balllock = 1;
+			clearInterval(balltime);
+			if (z!=1){
+				gamestate = 'myguess';
+			}
+		}
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==3){
+			document.getElementById('mygrid'+ballpos[0]+'x'+ballpos[1]).src = traps[0];
+			balllock = 1;
+			window[whosgrid][ballpos[0]][ballpos[1]] = 0;
+			clearInterval(balltime);
+			if (z!=1){
+				gamestate = 'myguess';
+			}
+		}
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==4){
+			if (ballmvx==1 && ballmvy==-1){
+
+			}
+			else if (ballmvx==-1 && ballmvy==1){
+
+			}
+			else if (ballmvx==-1 && ballmvy==-1){
+				ballmvx = Math.round(ballmvx*-1);
+				ballmvy = Math.round(ballmvy*-1);
+			}
+			else if (ballmvx==1 && ballmvy==1){
+				ballmvx = Math.round(ballmvx*-1);
+				ballmvy = Math.round(ballmvy*-1);
+			}
+			else if (ballmvx==1){
+				ballmvx = 0;
+				ballmvy = -1;
+			}
+			else if (ballmvx==-1){
+				ballmvx = 0;
+				ballmvy = 1;
+			}
+			else if (ballmvy==1){
+				ballmvy = 0;
+				ballmvx = -1;
+			}
+			else if (ballmvy==-1){
+				ballmvy = 0;
+				ballmvx = 1;
+			}
+		}
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==5){
+			if (ballmvx==1 && ballmvy==1){
+
+			}
+			else if (ballmvx==-1 && ballmvy==-1){
+
+			}
+			else if (ballmvx==-1 && ballmvy==1){
+				ballmvx = Math.round(ballmvx*-1);
+				ballmvy = Math.round(ballmvy*-1);
+			}
+			else if (ballmvx==1 && ballmvy==-1){
+				ballmvx = Math.round(ballmvx*-1);
+				ballmvy = Math.round(ballmvy*-1);
+			}
+			else if (ballmvx==1){
+				ballmvx = 0;
+				ballmvy = 1;
+			}
+			else if (ballmvx==-1){
+				ballmvx = 0;
+				ballmvy = -1;
+			}
+			else if (ballmvy==1){
+				ballmvy = 0;
+				ballmvx = 1;
+			}
+			else if (ballmvy==-1){
+				ballmvy = 0;
+				ballmvx = -1;
+			}
+		}
+		if (window[whosgrid][ballpos[0]][ballpos[1]]==6 || window[whosgrid][ballpos[0]][ballpos[1]]==7){
+			balllock = 1;
+			clearInterval(balltime);
+			if (z!=1){
+				gamestate = 'myguess';
+			}
+		}
+		if (balllock==0){
+			ballpos[0] -=- ballmvy;
+			ballpos[1] -=- ballmvx;
+			Game.BallUpdate();
+			if (ballpos[0]>=gridsize-1 || ballpos[1]>=gridsize-1 || ballpos[0]<=0 || ballpos[1]<=0){
+				if (z!=1){
+					if (document.getElementById('mygrid'+ballpos[0]+'x'+ballpos[1]).style.backgroundColor == '#0099ff'){
+						document.getElementById('mygrid'+ballpos[0]+'x'+ballpos[1]).style.backgroundColor = 'amber';
+					}else{
+						document.getElementById('mygrid'+ballpos[0]+'x'+ballpos[1]).style.backgroundColor = 'navajowhite';
+					}
+					document.getElementById('mygrid'+ballpos[0]+'x'+ballpos[1]).innerHTML = turnnum;
+				}
+				clearInterval(balltime);
+				if (z!=1){
+					gamestate = 'myguess';
+				}
+			}
+		}
+	}
+};
+</script>
+</head>
+
+<body bgcolor="black" onload="Game.Ini();" text="white" scroll="no" onbeforeunload="XConnect.Disconnect()">
+<HTA:APPLICATION ID="logic.battle2"
+    APPLICATIONNAME="logic.battle2"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<img src="ball.png" style="position:absolute;top:0;left:0;height:48;width:48;z-index:100;display:none;" id="ball">
+<span id="gamearea"></span>
+
+</body>
+</html>

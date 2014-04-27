@@ -1,0 +1,4 @@
+<center>
+<input type="button" value="Buy" class="chand blk" onclick="Store.Buy()" id="storebtnbuy"> 
+<input type="button" value="Sell" class="chand blk" onclick="Store.Sell()">
+</center>

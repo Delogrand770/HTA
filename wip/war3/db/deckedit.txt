@@ -1,0 +1,2 @@
+<img src="cardpics/next.png" style="position:absolute;top:0;left:0;cursor:hand;" id="btn_next" title="Next" onclick="DeckEdit.ShowCards()">
+<img src="cardpics/back.png" style="position:absolute;top:0;left:10;cursor:hand;" id="btn_prev" title="Previous" onclick="DeckEdit.index -= 20;DeckEdit.ShowCards()">

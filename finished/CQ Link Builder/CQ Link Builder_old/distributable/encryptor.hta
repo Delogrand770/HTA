@@ -1,0 +1,47 @@
+<html><head><title>CAPICOM Encryptor</title>
+<script src="gaia.js"></script>
+<style>
+.box{
+  border:1 solid black;
+}
+</style>
+<script>
+var App={
+	Example1:function(){
+		var q1       = '2014';
+		var temp     = XCap.Encrypt(msgin.value,XCap.UseCard(q1),4);
+		msgout.value = temp;
+		var temp2    = XS.File('addon.txt','open') + '\r\n<textarea id="xdocon" style="display:none;">';
+		temp2       += "\r\n"+temp+'<'+'/'+'textarea><script>';
+		temp2       += 'document.title="'+mytitle.value+'";document.write(XCap.Decrypt(xdocon.value,XCap.UseCard("'+q1+'"),4));xdocon.value="";<'+'/'+'script>';
+		XS.File('package/cq link builder.hta','create',temp2);
+	}
+};
+</script>
+</head>
+<body onload="XL.Ini();msgin.value = XS.File('do not give.hta','open');">
+<HTA:APPLICATION ID="app.encryptor"
+    APPLICATIONNAME="app.encryptor"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+To Encrypt:
+<textarea id='msgin' style="width:99%;height:40%;" class="box"></textarea>
+To Decrypt:
+<textarea id='msgout' style="width:99%;height:40%;" class="box"></textarea>
+<input type="button" value="CAC Encrypt" onclick="App.Example1()" class="box">
+Title: <input type="textarea" id="mytitle" value="CQ Link Builder" class="box">
+</body></html>

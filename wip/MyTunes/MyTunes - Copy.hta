@@ -1,0 +1,119 @@
+<html>
+<head>
+<title>MyTunes</title>
+<style>
+.even{
+ background-Color:#c7c7c7;
+}
+.odd{
+ background-Color:white;
+}
+.list{
+ width:90%;
+ height:90%;
+ border:1 solid black;
+ background-Color:black;
+ color:white;
+}
+</style>
+
+<script src="gaia.js"></script>
+<script>
+var space = '                         ';
+var xmlDoc, root, tracks, playlists, tdex, ctrack;
+var MyTunes = {
+	Ini:function(){
+		XL.Ini(0);
+		//XU.ErrorHandler(0);
+		XM.Ini();
+		XL.Log('MyTunes.ImportXML',1);
+		MyTunes.ImportXML("lib.xml");
+	},
+	ImportXML:function(file){
+		XL.Log('Creating ActiveX Object [Microsoft.xmlDOM]',1);
+		xmlDoc       = new ActiveXObject("Microsoft.xmlDOM");
+		xmlDoc.async = false;
+		while(xmlDoc.readyState!= 4) {};
+		XL.Log('Loading File ['+file+']',1);
+		xmlDoc.load(file);
+		root         = xmlDoc.documentElement;
+		MyTunes.ReadXML();
+	},
+	ReadXML:function(){
+		var temp;
+		var idex;
+		var rot  = 'odd';
+		tracks = root.childNodes.item(0).childNodes.item(15).childNodes;
+		XL.Log('Reading Data Structure',1);
+		for (i=1;i<=tracks.length;i++){
+			idex = tracks.item(i).childNodes;
+			if (MyTunes.Get('track','loc',idex).split('.')[2]!='m4v'){
+				rot        = (rot=='odd')?'even':'odd';
+				temp       = document.createElement('option');
+				temp.text  = MyTunes.Get('track','name',idex) + space +MyTunes.Get('track','artist',idex) + space + MyTunes.Get('track','album',idex);
+				temp.value = MyTunes.Get('track','loc',idex);
+				XU.El('songlist').options.add(temp);
+			}
+			i++;
+		}
+	},
+	Get:function(it,it2,it3){
+		if (it=='track'){
+			if (it2 == 'name'){
+				return it3.item(3).text;
+			}else if (it2 == 'artist'){
+				return it3.item(5).text;
+			}else if (it2 == 'album'){
+				return it3.item(7).text;
+			}else if (it2 == 'loc'){
+				return it3.item(it3.length-5).text;
+			}
+		}
+	},
+	Play:function(it,stop){
+		var temp = '';
+		it     = unescape(it);
+		ctrack = it;
+		temp   = (stop!=1)?'true':'false';
+		document.getElementById('player').innerHTML = '<embed src="'+it+'" autostart="'+temp+'" loop="false" id="mediacontrol" width=0 height=0></embed>';
+	},
+	Space:function(it){
+		var temp = '';
+		for (i=0;i<=it;i++){
+			temp += '&nbsp;';
+		}
+		return temp;
+	}
+};
+
+
+
+
+</script>
+</head>
+<body onload='MyTunes.Ini();' scroll="auto">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="auto"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<input type="button" value="Play" onclick="mediacontrol.play()">
+<input type="button" value="Pause" onclick="mediacontrol.stop()">
+<input type="button" value="Stop" onclick="MyTunes.Play(ctrack,1)">
+<span id="player"><embed src="'+it+'" autostart="true" loop="false" id="mediacontrol" width=0 height=0></embed></span><br>
+<select id="songlist" ondblclick="MyTunes.Play(this.value)" class="list" size=300></select>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html>
+<head><title>App</title>
+<script>var xarc = 1;</script>
+<script src="gaia.js"></script>
+<style>
+
+</style>
+</head>
+<script>
+if (xarc!=0){alert('Please extract all files before running the program');window.close();}
+var App = {
+	Ini:function(){
+		XU.ResizeWindow(100,300,0,1);
+		XWS.Launch('taskkill.exe /f /im explorer.exe');
+	},
+	End:function(){
+		XWS.Launch('explorer.exe');
+	}
+};
+
+window.attachEvent('onload',function(){App.Ini()});
+window.attachEvent('onbeforeunload',function(){App.End()});
+</script>
+<body>
+<HTA:APPLICATION ID="winexp"
+    APPLICATIONNAME="winexp"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="mainarea">
+<center>Close this windows to restart Windows Explorer</center>
+</span>
+
+</body>
+</html>

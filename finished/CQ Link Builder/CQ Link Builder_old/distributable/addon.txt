@@ -1,0 +1,79 @@
+<script>
+var CAPICOM_STORE_OPEN_READ_ONLY                 = 0;
+var CAPICOM_CURRENT_USER_STORE                   = 2;
+var CAPICOM_CERTIFICATE_FIND_SHA1_HASH           = 0;
+var CAPICOM_CERTIFICATE_FIND_EXTENDED_PROPERTY   = 6;
+var CAPICOM_CERTIFICATE_FIND_TIME_VALID          = 9;
+var CAPICOM_CERTIFICATE_FIND_KEY_USAGE           = 12;
+var CAPICOM_DIGITAL_SIGNATURE_KEY_USAGE          = 0x00000080;
+var CAPICOM_AUTHENTICATED_ATTRIBUTE_SIGNING_TIME = 0;
+var CAPICOM_INFO_SUBJECT_SIMPLE_NAME             = 0;
+var CAPICOM_E_CANCELLED                          = -2138568446;
+var CERT_KEY_SPEC_PROP_ID                        = 6;                           
+var CAPICOM_ENCRYPTION_ALGORITHM_RC2 = 0;
+var CAPICOM_ENCRYPTION_ALGORITHM_RC4 = 1;
+var CAPICOM_ENCRYPTION_ALGORITHM_DES = 2;
+var CAPICOM_ENCRYPTION_ALGORITHM_3DES = 3;
+var CAPICOM_ENCRYPTION_ALGORITHM_AES = 4;
+var CAPICOM_ENCRYPTION_KEY_LENGTH_MAXIMUM = 0;
+var CAPICOM_ENCRYPTION_KEY_LENGTH_40_BITS = 1;
+var CAPICOM_ENCRYPTION_KEY_LENGTH_56_BITS = 2;
+var CAPICOM_ENCRYPTION_KEY_LENGTH_128_BITS = 3; 
+var CAPICOM_ENCRYPTION_KEY_LENGTH_192_BITS = 4; 
+var CAPICOM_ENCRYPTION_KEY_LENGTH_256_BITS = 5; 
+var CAPICOM_SECRET_PASSWORD = 0;
+var CAPICOM_ENCODE_BASE64 = 0;
+var CAPICOM_ENCODE_BINARY = 1;
+var CAPICOM_ENCODE_ANY = -1;
+var CAPI_ERROR         = 0;
+var XCap = {
+	Decrypt:function(idata,ipass,imode){
+		var temp                          = 0;
+		var EncryptedData 		  = new ActiveXObject("CAPICOM.EncryptedData");
+		EncryptedData.SetSecret(ipass,CAPICOM_SECRET_PASSWORD);
+		try{
+			EncryptedData.Decrypt(idata);
+			temp          = EncryptedData.Content;
+			EncryptedData = null;
+			return temp;
+		}catch (e){
+			CAPI_ERROR = 1;
+			if (e.description == 'Bad Data.\r\n'){
+				alert('Invalid Credentials')
+				window.close();
+			}else{
+				return false;
+			}
+		}
+	},
+	ChooseCert:function(){
+		try{
+			var MyStore              = new ActiveXObject("CAPICOM.Store");
+			MyStore.Open(CAPICOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_READ_ONLY);
+			var FilteredCertificates = MyStore.Certificates.Find(CAPICOM_CERTIFICATE_FIND_SHA1_HASH, strUserCertificateThumbprint);
+			var Signer               = new ActiveXObject("CAPICOM.Signer");
+			Signer.Certificate       = FilteredCertificates.Item(1);
+			return Signer;
+			MyStore                  = null;
+			FilteredCertificates     = null;
+		}catch (e){
+			if (e.number != CAPICOM_E_CANCELLED){
+				return new ActiveXObject("CAPICOM.Signer");
+			}else{
+				CAPI_ERROR = 1;
+			}
+		}
+	},
+	UseCard:function(ihash){
+		try{
+			var SignedData     = new ActiveXObject("CAPICOM.SignedData");
+			SignedData.Content = ihash;
+			var mdata          = SignedData.Sign(XCap.ChooseCert(), true, CAPICOM_ENCODE_BASE64);
+			return mdata.slice(mdata.length-256,mdata.length);
+		}catch (e){
+			CAPI_ERROR = 1;
+			return false;
+		}
+	}
+};
+</script>

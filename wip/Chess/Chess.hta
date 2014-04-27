@@ -1,0 +1,527 @@
+<html>
+<head><title>Chess</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<script src="fnCheck.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.box1{
+ border:0 solid black;
+ height:60;
+ width:60;
+ text-align:left;
+}
+.box2{
+ border:0 solid black;
+ height:45;
+ width:45;
+ text-align:left;
+}
+.btn{
+ border:1 solid white;
+ background-Color:black;
+ color:white;
+ height:21;
+}
+</style>
+
+<script>
+var themelist = new Array('club','classic','vintage','cases','maya','lines','alpha','book','modern');
+var xall_vars = new Array('boardlay');
+var tempdata  = new Array();
+var appstate  = 0;
+var noman     = new Array('a','b','c','d','e','f','g','h');
+var pieces    = new Array('','pawn','castle','horse','bishop','queen','king');
+var owner     = new Array('','white-club','black-club');
+var boardlay  = new Array();
+var t1,t2     = 0;
+var colorlist = new Array('white','black','navajowhite','green','blue','purple','cyan','red','brown','pink','orange','yellow','#0099ff');
+
+var movelock  = 0;
+var mycolor   = 1;
+var oppocolor = 2;
+var mypiece   = 0;
+var movestate = 0;
+var movei     = 0;
+var movef     = 0;
+var colori    = 0;
+var boardthei = 0;
+var boardcolw = 'white';
+var boardcolb = '#0099ff';
+var boardcolh = 'pink';
+var boardcolo = 'red';
+var kings     = new Array();
+var oppolast  = 0;
+var oppoclast = 0;
+var turnnum   = 0;
+var App = {
+	Ini:function(){
+		XMessage.Ini('#0099ff','white','black');
+		XConnect.Ini("K:\\Cadet_Wing\\Group 2\\CS20\\Troll Pictures\\",'App.ReceiveData','App.SendData','Chess',2,2,'App.UpdateUsers','App.GameReady');
+		document.title += ' ['+xusername+']';
+		XUtil.ResizeWindow(570,940);
+		XConnect.Connect();t2 = setInterval("txtout.value = XConnect.ChatRead();txtout.scrollTop = txtout.scrollHeight;",3000);
+		Draw.Board();
+		App.Position();
+		//Draw.DefaultPieces(1);
+		turnnum = 0;
+	},
+	SendData:function(){
+		
+	},
+	Position:function(){
+		XUtil.CenterElement('board','h');
+		XUtil.DFR('movelist',10);
+		XUtil.DFB('themes',15);
+		XUtil.DFB('userlist',55);
+		XUtil.DFR('userlist',20);
+		XUtil.DFB('lastpiece',10);
+		XUtil.DFR('lastpiece',150);
+	},
+	ReceiveData:function(){
+		eval(xreceived);
+		XConnect.Wait(0);
+		if (appstate == "setup"){
+			if (mycolor==2){
+				XConnect.FakeReceipt();
+			}
+			Draw.DefaultPieces(mycolor);
+			App.TurnUpdate();
+		}
+		if (appstate == "oppmove"){
+			turnnum++;
+			txt_movelist.value += turnnum + '. ' + tempdata[7] + '-' + tempdata[8] + '\n';
+			txt_movelist.scrollTop = txt_movelist.scrollHeight;
+			if (oppolast!=0){
+				document.getElementById(oppolast).style.backgroundColor = oppoclast;
+			}
+			if (App.SpotInfo(tempdata[8],'owner')==mycolor){
+				plost.src = 'img/'+owner[mycolor]+'/'+pieces[App.SpotInfo(tempdata[8],'piece')]+'.png';
+			}else{
+				plost.src = 'img/empty.png';
+			}
+			oppolast  = tempdata[8];
+			oppoclast = document.getElementById(oppolast).style.backgroundColor;
+			document.getElementById(oppolast).style.backgroundColor = boardcolo;
+			if (tempdata[8].split('')[1]==1 && App.SpotInfo(tempdata[7],'piece')==1){
+				App.AssignPiece(tempdata[8],oppocolor,5);
+			}else{
+				App.AssignPiece(tempdata[8],oppocolor,App.SpotInfo(tempdata[7],'piece'));
+			}
+			App.AssignPiece(tempdata[7],0,0);
+			movelock  = 0;
+			movestate = 0;
+			App.TurnUpdate();
+		}
+	},
+	GameReady:function(){	
+		XConnect.TwoPlayerName();
+		App.UpdateUsers();
+		if (XConnect.Role()){
+			mycolor = Math.round(1*Math.random())+1;
+			if (mycolor == 1){
+				movelock  = 1;
+				oppocolor = 2;
+				XConnect.FakeReceipt();
+				XConnect.Send('mycolor = '+oppocolor+';oppocolor = '+mycolor+';appstate="setup";movelock=1;',0,oppo);
+				t1 = setInterval("App.SetupWait(0)",2000);
+			}else{
+				movelock  = 1;
+				oppocolor = 1;
+				XConnect.Send('mycolor = '+oppocolor+';oppocolor = '+mycolor+';appstate="setup";movelock=0;',0,oppo);
+				App.TurnUpdate();
+			}
+			Draw.DefaultPieces(mycolor);
+		}else{
+			XConnect.Wait(3000);
+		}
+	},
+	SetupWait:function(it){
+		if (XConnect.ReadReceipt()){
+			clearInterval(t1);
+			movelock = it;
+			App.TurnUpdate();
+		}
+	},
+	TurnUpdate:function(){
+		if (movelock == 0){
+			whoturn.innerHTML = "Your Turn";
+			if (tempdata[9] == 1){
+				whoturn.innerHTML = "You are in check";
+				//if (App.CheckMate()){
+				//	movelock = 1;
+				//	whoturn.innerHTML = "Check Mate?";
+				//}
+			}
+		}else{
+			whoturn.innerHTML = "Opponents Turn";
+			if (tempdata[9] == 1){
+				whoturn.innerHTML = "Opponent is in check";
+			}
+			XConnect.Wait(3000);
+		}
+	},
+	CheckMate:function(){
+		for (a=0;a<=7;a++){
+			for (b=0;b<=7;b++){
+				tempdata[5] = noman[b]+Math.round(a+1);
+				if (App.SpotInfo(tempdata[5],'piece')==6 && App.SpotInfo(tempdata[5],'owner')==mycolor){
+					kings[mycolor] = tempdata[5];
+					b = a = 9;
+				}
+			}
+		}
+		tempdata[11] = kings[mycolor].split('');
+		if (!Check.IllegalMove(kings[mycolor],tempdata[11][0]+Math.round(parseInt(tempdata[11][1])+1))){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],tempdata[11][0]+Math.round(parseInt(tempdata[11][1])-1))){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])+1)]+tempdata[11][1])){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])-1)]+tempdata[11][1])){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])+1)]+Math.round(parseInt(tempdata[11][1])+1))){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])+1)]+Math.round(parseInt(tempdata[11][1])-1))){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])-1)]+Math.round(parseInt(tempdata[11][1])-1))){
+			return false;
+		}
+		else if (!Check.IllegalMove(kings[mycolor],noman[Math.round(noman.indexOf(tempdata[11][0])-1)]+Math.round(parseInt(tempdata[11][1])+1))){
+			return false;
+		}else{
+			return true;
+		}
+	},
+	UpdateUsers:function(){
+		userlist.innerHTML = '<center><u>Opponent</u></center>' + oppo;
+		App.Position();	
+	},
+	AssignPiece:function(it,iowner,ipiece){
+		it = it.split('');
+		boardlay[noman.indexOf(it[0])][Math.round(it[1]-1)] = new Array(iowner,ipiece);
+		document.getElementById(it[0]+it[1]).style.backgroundImage = 'url("img/'+owner[iowner]+'/'+pieces[ipiece]+'.png")';
+	},
+	Move:function(it){
+		if (movelock!=1){
+			if (movestate == 0){
+				if (App.SpotInfo(it,'owner') == mycolor){
+					movei = it;
+					colori = document.getElementById(it).style.backgroundColor;
+					document.getElementById(it).style.backgroundColor = boardcolh;
+					movestate = 1;
+				}
+			}else{
+				if (App.SpotInfo(it,'owner') == mycolor){
+					App.CancelMove();
+				}else if (Check.IllegalMove(movei,it)){
+					tempdata[6] = boardlay.copy();
+					if (it.split('')[1]==8 && App.SpotInfo(movei,'piece')==1){
+						App.AssignPiece(it,mycolor,5);
+					}else{
+						App.AssignPiece(it,mycolor,App.SpotInfo(movei,'piece'));
+					}
+					App.AssignPiece(movei,0,0);
+					App.CancelMove();
+					if (App.LookForCheck(oppocolor,mycolor)){
+						boardlay = tempdata[6].copy();
+						App.ChangeTheme(-1);
+					}else{
+						movelock = 1;			
+						turnnum++;
+						txt_movelist.value += turnnum + '. ' +  movei + '-' + it + '\n';
+						txt_movelist.scrollTop = txt_movelist.scrollHeight;
+						document.getElementById(movei).style.backgroundColor = colori;
+						movestate = 0;
+						tempdata[7] = noman[Math.round(7-noman.indexOf(movei.split('')[0]))]+''+Math.round(9-movei.split('')[1]);
+						tempdata[8] = noman[Math.round(7-noman.indexOf(it.split('')[0]))]+''+Math.round(9-it.split('')[1]);
+						tempdata[9] = 0
+						if (App.LookForCheck(mycolor,oppocolor)){
+							tempdata[9] = 1;
+						}
+						XConnect.Send('tempdata[7] = "'+tempdata[7]+'";tempdata[8] = "'+tempdata[8]+'";tempdata[9] = '+tempdata[9]+';appstate="oppmove";',0,oppo);
+						App.TurnUpdate();
+						XConnect.Wait(3000);
+					}
+				}else{
+					App.CancelMove();
+				}
+			}
+		}
+	},
+	TempTurn:function(){
+		if (mycolor == 1){
+			oppocolor = 1;
+			mycolor   = 2;
+		}else{
+			oppocolor = 2;
+			mycolor   = 1;
+		}
+	},
+	LookForCheck:function(it,it2){ //attacker,attacked
+		for (a=0;a<=7;a++){
+			for (b=0;b<=7;b++){
+				tempdata[5] = noman[b]+Math.round(a+1);
+				if (App.SpotInfo(tempdata[5],'piece')==6 && App.SpotInfo(tempdata[5],'owner')==it2){
+					kings[it2] = tempdata[5];
+					b = a = 9;
+				}
+			}
+		}
+		//XScripting.CreateFile('temp.txt','atk piece,owner,piece,check\n\t');
+		for (c=0;c<=7;c++){
+			for (d=0;d<=7;d++){
+				tempdata[5] = noman[d]+Math.round(c+1);
+				//if (App.SpotInfo(tempdata[5],'owner')==it){XScripting.WriteLineInFile('temp.txt',tempdata[5]+':'+kings[it2]+':'+App.SpotInfo(tempdata[5],'owner')+':'+App.SpotInfo(tempdata[5],'piece')+':'+Check.IllegalMove(tempdata[5],kings[it2]));}
+				if (App.SpotInfo(tempdata[5],'owner')==it && Check.IllegalMove(tempdata[5],kings[it2])){
+					return true;
+				}
+			}
+		}
+		return false;
+	},
+	CancelMove:function(){
+		movestate = 0;
+		document.getElementById(movei).style.backgroundColor = colori;
+	},
+	SpotInfo:function(it,it2){
+		it = it.split('');
+		if (it2 == 'owner'){
+			return boardlay[noman.indexOf(it[0])][Math.round(it[1]-1)][0];
+		}else if (it2 == 'piece'){
+			return boardlay[noman.indexOf(it[0])][Math.round(it[1]-1)][1];
+		}
+	},
+	ChangeTheme:function(it){
+		if (it!=-1){
+			boardthei = it;
+			boardcolh = sel_lwhite.value;
+			boardcolo = sel_lblack.value;
+			boardcolb = sel_black.value;
+			boardcolw = sel_white.value;
+			owner[1]  = "white-"+themelist[it];
+			owner[2]  = "black-"+themelist[it];
+		}
+		tempdata[1] = 0;
+		for (a=0;a<=7;a++){
+			for (b=0;b<=7;b++){
+				if (tempdata[1] == 1){
+					tempdata[1] = 0;
+					document.getElementById(noman[b]+(a+1)).style.backgroundColor = boardcolw;
+				}else{
+					tempdata[1] = 1;
+					document.getElementById(noman[b]+(a+1)).style.backgroundColor = boardcolb;
+				}
+				document.getElementById(noman[b]+(a+1)).style.backgroundImage = 'url("img/'+owner[boardlay[b][a][0]]+'/'+pieces[boardlay[b][a][1]]+'.png")';
+			}
+			if (tempdata[1] == 0){
+				tempdata[1] = 1;
+			}else{
+				tempdata[1] = 0;
+			}
+		}
+	},
+	Chat:function(){
+		XConnect.ChatSend(txtin.value);
+		if (txtin.value){
+			if (txtout.value=='No Messages'){
+				txtout.value = '';
+			}
+			txtout.value += myself.split('.')[1] + ': '+txtin.value+'\n'
+		}
+		txtin.value='';
+	}
+};
+
+var Draw = {
+	Board:function(){
+		tempdata[0] = '<center><font size=3em><b><span id="whoturn">Starting Game...</span></center></b></font><br><table cellpadding=0 cellspacing=0 style="border:1 solid black;">';
+		tempdata[1] = 0;
+		tempdata[2] = '';
+		for (a=0;a<=7;a++){
+			boardlay[a] = new Array();
+			tempdata[0] += '<tr>';
+			for (b=0;b<=7;b++){
+				boardlay[a][b] = new Array(0,0);
+				tempdata[2] = '';
+				if (b==0){
+					tempdata[2] = Math.round(8-a);
+				}
+				else if (a==7){
+					tempdata[2] = noman[b];
+				}
+				if (a==7 && b==0){
+					tempdata[2] = Math.round(8-a)+noman[b];
+				}
+				if (tempdata[1] == 0){
+					tempdata[1] = 1;
+					tempdata[0] += '<td class="box1" style="background-Color:'+boardcolw+';" id="'+noman[b]+Math.round(8-a)+'" onclick="App.Move(this.id)">'+tempdata[2]+'</td>';
+				}else{
+					tempdata[1] = 0;
+					tempdata[0] += '<td class="box1" style="background-Color:'+boardcolb+';" id="'+noman[b]+Math.round(8-a)+'" onclick="App.Move(this.id)">'+tempdata[2]+'</td>';
+				}
+			}
+			if (tempdata[1] == 0){
+				tempdata[1] = 1;
+			}else{
+				tempdata[1] = 0;
+			}
+			tempdata[0] += '</tr>';
+		}
+		tempdata[0] += '</table>';
+		board.innerHTML = tempdata[0];
+	},
+	DefaultPieces:function(it){
+		if (it==1){
+			App.AssignPiece('a8',2,2);App.AssignPiece('a7',2,1);
+			App.AssignPiece('b8',2,3);App.AssignPiece('b7',2,1);
+			App.AssignPiece('c8',2,4);App.AssignPiece('c7',2,1);
+			App.AssignPiece('d8',2,5);App.AssignPiece('d7',2,1);
+			App.AssignPiece('e8',2,6);App.AssignPiece('e7',2,1);
+			App.AssignPiece('f8',2,4);App.AssignPiece('f7',2,1);
+			App.AssignPiece('g8',2,3);App.AssignPiece('g7',2,1);
+			App.AssignPiece('h8',2,2);App.AssignPiece('h7',2,1);
+
+			App.AssignPiece('a1',1,2);App.AssignPiece('a2',1,1);
+			App.AssignPiece('b1',1,3);App.AssignPiece('b2',1,1);
+			App.AssignPiece('c1',1,4);App.AssignPiece('c2',1,1);
+			App.AssignPiece('d1',1,5);App.AssignPiece('d2',1,1);
+			App.AssignPiece('e1',1,6);App.AssignPiece('e2',1,1);
+			App.AssignPiece('f1',1,4);App.AssignPiece('f2',1,1);
+			App.AssignPiece('g1',1,3);App.AssignPiece('g2',1,1);
+			App.AssignPiece('h1',1,2);App.AssignPiece('h2',1,1);
+
+			/*
+			App.AssignPiece('h1',1,2);App.AssignPiece('h2',1,1);
+			
+			App.AssignPiece('g4',1,4);
+			App.AssignPiece('e2',1,6);App.AssignPiece('d3',1,1);
+			App.AssignPiece('c2',1,1);
+			App.AssignPiece('a5',1,3);App.AssignPiece('b2',1,1);
+			App.AssignPiece('a1',1,2);App.AssignPiece('a2',1,1);
+
+			
+			App.AssignPiece('e7',2,3);App.AssignPiece('g5',2,1);
+						App.AssignPiece('f6',2,1);
+			App.AssignPiece('d8',2,5);App.AssignPiece('e5',2,1);
+			App.AssignPiece('c7',2,6);App.AssignPiece('c6',2,1);
+			App.AssignPiece('e3',2,4);App.AssignPiece('f2',2,1);
+			App.AssignPiece('b8',2,3);App.AssignPiece('b5',2,1);
+			App.AssignPiece('a8',2,2);App.AssignPiece('a7',2,1);
+			*/
+		}else{
+			App.AssignPiece('a8',1,2);App.AssignPiece('a7',1,1);
+			App.AssignPiece('b8',1,3);App.AssignPiece('b7',1,1);
+			App.AssignPiece('c8',1,4);App.AssignPiece('c7',1,1);
+			App.AssignPiece('d8',1,6);App.AssignPiece('d7',1,1);
+			App.AssignPiece('e8',1,5);App.AssignPiece('e7',1,1);
+			App.AssignPiece('f8',1,4);App.AssignPiece('f7',1,1);
+			App.AssignPiece('g8',1,3);App.AssignPiece('g7',1,1);
+			App.AssignPiece('h8',1,2);App.AssignPiece('h7',1,1);
+
+			App.AssignPiece('a1',2,2);App.AssignPiece('a2',2,1);
+			App.AssignPiece('b1',2,3);App.AssignPiece('b2',2,1);
+			App.AssignPiece('c1',2,4);App.AssignPiece('c2',2,1);
+			App.AssignPiece('d1',2,6);App.AssignPiece('d2',2,1);
+			App.AssignPiece('e1',2,5);App.AssignPiece('e2',2,1);
+			App.AssignPiece('f1',2,4);App.AssignPiece('f2',2,1);
+			App.AssignPiece('g1',2,3);App.AssignPiece('g2',2,1);
+			App.AssignPiece('h1',2,2);App.AssignPiece('h2',2,1);
+		}
+	},
+	ThemeList:function(){
+		XMessage.Alert(xappid + ' Settings','<table style="color:white;"><tr><td style="text-align:right;">Pieces: </td><td><select id="sel_theme" onchange="App.ChangeTheme(this.value)" style="background-Color:black;color:white;"></select></td><tr><td style="text-align:right;">White: </td><td><select id="sel_white" onchange="App.ChangeTheme(sel_theme.value)" style="background-Color:black;color:white;"></select></td></tr><tr><td style="text-align:right;">Black: </td><td><select id="sel_black" onchange="App.ChangeTheme(sel_theme.value)" style="background-Color:black;color:white;"></select></td></tr></tr><tr><td style="text-align:right;">Mark You: </td><td><select id="sel_lwhite" onchange="App.ChangeTheme(sel_theme.value)" style="background-Color:black;color:white;"></select></td></tr></tr><tr><td style="text-align:right;">Mark Oppo: </td><td><select id="sel_lblack" onchange="App.ChangeTheme(sel_theme.value)" style="background-Color:black;color:white;"></select></td></tr></table>',0,0,0,0);
+		for (c=0;c<=themelist.length-1;c++){
+			tempdata[3]       = document.createElement("option");
+			tempdata[3].text  = themelist[c];
+			tempdata[3].value = c;
+			sel_theme.options.add(tempdata[3]);
+			if (sel_theme.options[c].value == boardthei){
+				sel_theme.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=colorlist.length-1;c++){
+			tempdata[3]       = document.createElement("option");
+			tempdata[3].text  = colorlist[c];
+			tempdata[3].value = colorlist[c];
+			sel_white.options.add(tempdata[3]);
+			if (sel_white.options[c].value == boardcolw){
+				sel_white.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=colorlist.length-1;c++){
+			tempdata[3]       = document.createElement("option");
+			tempdata[3].text  = colorlist[c];
+			tempdata[3].value = colorlist[c];
+			sel_black.options.add(tempdata[3]);
+			if (sel_black.options[c].value == boardcolb){
+				sel_black.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=colorlist.length-1;c++){
+			tempdata[3]       = document.createElement("option");
+			tempdata[3].text  = colorlist[c];
+			tempdata[3].value = colorlist[c];
+			sel_lwhite.options.add(tempdata[3]);
+			if (sel_lwhite.options[c].value == boardcolh){
+				sel_lwhite.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=colorlist.length-1;c++){
+			tempdata[3]       = document.createElement("option");
+			tempdata[3].text  = colorlist[c];
+			tempdata[3].value = colorlist[c];
+			sel_lblack.options.add(tempdata[3]);
+			if (sel_lblack.options[c].value == boardcolo){
+				sel_lblack.selectedIndex = c;
+			}
+		}
+
+	}
+};
+</script>
+</head>
+
+<body bgcolor="white" onload="App.Ini()" text="black" scroll="no" onbeforeunload="XConnect.Disconnect()" onresize="App.Position()" oncontextmenu="App.CheckMate()">
+<HTA:APPLICATION ID=""
+    APPLICATIONNAME=""
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="userlist" style="position:absolute;"></span>
+<span id="board" style="position:absolute;top:10;"></span>
+<span id="msgbox" style="position:absolute;left:10;top:10;"><center><b>Message Center</b></center><textarea style="width:200;height:420;border:1 solid black;" readonly id="txtout"></textarea><br><input type="textarea" style="width:200;border:1 solid black;" onkeypress="if (event.keyCode==13){App.Chat();}" id="txtin"></span>
+
+<span id="movelist" style="position:absolute;top:10;"><center><b>Move List</b></center><textarea style="width:200;height:420;border:1 solid black;" readonly id="txt_movelist"></textarea></span>
+<span id="themes" style="position:absolute;left:10;"><input type="button" value="Settings" onclick="Draw.ThemeList()" class="btn"></span>
+<span id="lastpiece" style="position:absolute;"><center><u>Piece Lost</u><br><img src="img/empty.png" class="box1" id="plost"></center></span>
+
+</span>
+</body>
+</html>

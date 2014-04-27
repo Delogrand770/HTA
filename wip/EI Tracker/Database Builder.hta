@@ -1,0 +1,224 @@
+<html>
+<head><title>Database Builder</title>
+<script>var xdev = 0;</script>
+<script src="gaia.js"></script>
+<script src="accessdb.js"></script>
+<script>if (xdev == 0){alert('Please extract all files before running the program');window.close();}</script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.list{
+ width:260;
+ height:330;
+ border:1 solid black;
+ background-Color:black;
+ color:white;
+}
+#creds{
+ position:absolute;
+ top:0;
+ left:0;
+}
+#cdostatus{
+ position:absolute;
+ top:0;
+ left:0;
+ height:30;
+ width:30;
+}
+.txt{
+ background-Color:transparent;
+ color:white;
+ border:1 solid white;
+ width:200;
+}
+.btn{
+ border:1 solid white;
+ background-Color:black;
+ color:white;
+ height:20;
+}
+</style>
+<script>
+XU.ErrorHandler(0);
+XU.ResizeWindow(300,600,0,1);
+var prep       = 0;
+var plt1       = new Array();
+var plt2       = new Array();
+var plt3       = new Array();
+var myDB       = 0;
+var server     = "EILOG.mdb";
+var SQL        = "SELECT * FROM AEI";
+var resultset  = "";
+var cdo        = new Array('ol','ses','al','ae','temp2','temp','status');
+var temp = new Array();
+var t1   = 0;
+var Access = {
+	Do:function(it){
+		myDB = new ACCESSdb(server);
+		if (it){
+			resultset = myDB.query(SQL,{json:true});
+		}else{
+			myDB.query(SQL);
+		}
+		myDB.kill();
+	}
+};
+var CDO = {
+	Ini:function(){
+		if (new Date().getMonth()>=6){
+			prep  = new Date().getFullYear()+'';
+			prep  = parseInt(prep.split('20')[1]);
+			prep -=-1;
+		}else{
+			prep = new Date().getFullYear()+'';
+			prep = parseInt(prep.split('20')[1]);
+		}
+		document.title = 'Database Builder - Prep class of 20'+prep;
+		try{
+			cdo[0]          = new ActiveXObject("Outlook.Application");
+			cdo[1]          = cdo[0].session;
+			cdo[2]          = cdo[0].session.addresslists("US Air Force Academy");
+			cdo[3]          = cdo[2].addressEntries();
+			cdo[6]          = 1;
+			CDO.GetList();
+		}catch(e){
+			cdo[6]          = 0;
+		}
+	},
+	GetList:function(){
+		temp[0] = cdo[3].Count;
+		temp[1] = 1;
+		temp[2] = 0;
+		temp[3] = new Array();
+		t1 = setInterval("CDO.IterateA()",1);
+		cdo[0].quit();
+	},
+	IterateA:function(){
+		if (temp[1]<=temp[0]){
+			temp[2] = cdo[3].Item(temp[1])+'';
+			if (temp[2].search('P'+prep)!=-1){
+				temp[3][temp[3].length] = temp[2];
+			}
+			pgress.style.width = Math.round((temp[1]/temp[0])*100)+'%';
+			pgress.innerHTML   = pgress.style.width;
+			temp[1]++;
+		}else{
+			clearInterval(t1);
+			XM.Alert('Database Builder','Sorting<br><div style="width:400;height:15;border:1 solid white;"><div style="background-Color:#0099FF;height:14;width:1%;text-align:center;" id="pgress"></div></div>',1);
+			temp[0] = temp[3].length;
+			temp[1] = 0;
+			temp[2] = 0;
+			t1 = setInterval("CDO.IterateB()",1);
+		}
+	},
+	IterateB:function(){
+		if (temp[1]<=temp[0]-1){
+			temp[2] = temp[3][temp[1]];
+			if (temp[2].search('PLT1')!=-1){
+				plt1[plt1.length] = temp[2];
+			}else if (temp[2].search('PLT2')!=-1){
+				plt2[plt2.length] = temp[2];
+			}else if (temp[2].search('PLT3')!=-1){
+				plt3[plt3.length] = temp[2];
+			}
+			pgress.style.width = Math.round((temp[1]/temp[0])*100)+'%';
+			pgress.innerHTML   = pgress.style.width;
+			temp[1]++;
+		}else{
+			clearInterval(t1);
+			XM.Alert('Database Builder','Writting PLT1 to Database<br><div style="width:400;height:15;border:1 solid white;"><div style="background-Color:#0099FF;height:14;width:1%;text-align:center;" id="pgress"></div></div>',1);
+			temp[0] = plt1.length;
+			temp[1] = 0;
+			t1 = setInterval("CDO.IterateC()",1);
+		}
+	},
+	IterateC:function(){
+		if (temp[1]<=temp[0]-1){
+			SQL = 'INSERT INTO PLT1 VALUES("'+plt1[temp[1]].split('P'+prep)[0]+'")';
+			Access.Do();
+			pgress.style.width = Math.round((temp[1]/temp[0])*100)+'%';
+			pgress.innerHTML   = pgress.style.width;
+			temp[1]++;
+		}else{
+			clearInterval(t1);
+			XM.Alert('Database Builder','Writting PLT2 to Database<br><div style="width:400;height:15;border:1 solid white;"><div style="background-Color:#0099FF;height:14;width:1%;text-align:center;" id="pgress"></div></div>',1);
+			temp[0] = plt2.length;
+			temp[1] = 0;
+			t1 = setInterval("CDO.IterateD()",1);
+		}
+	},
+	IterateD:function(){
+		if (temp[1]<=temp[0]-1){
+			SQL = 'INSERT INTO PLT2 VALUES("'+plt2[temp[1]].split('P'+prep)[0]+'")';
+			Access.Do();
+			pgress.style.width = Math.round((temp[1]/temp[0])*100)+'%';
+			pgress.innerHTML   = pgress.style.width;
+			temp[1]++;
+		}else{
+			clearInterval(t1);
+			XM.Alert('Database Builder','Writting PLT3 to Database<br><div style="width:400;height:15;border:1 solid white;"><div style="background-Color:#0099FF;height:14;width:1%;text-align:center;" id="pgress"></div></div>',1);
+			temp[0] = plt3.length;
+			temp[1] = 0;
+			t1 = setInterval("CDO.IterateE()",1);
+		}
+	},
+	IterateE:function(){
+		if (temp[1]<=temp[0]-1){
+			SQL = 'INSERT INTO PLT3 VALUES("'+plt3[temp[1]].split('P'+prep)[0]+'")';
+			Access.Do();
+			pgress.style.width = Math.round((temp[1]/temp[0])*100)+'%';
+			pgress.innerHTML   = pgress.style.width;
+			temp[1]++;
+		}else{
+			clearInterval(t1);
+			XM.Alert('Database Builder','Complete!<br><br>Please close this window',1);
+		}
+	}
+};
+var Tracker={
+	Ini:function(){
+		XU.DFB('creds',10);
+		XU.DFR('creds',60);
+		XU.DFB('cdostatus',10);
+		XU.DFR('cdostatus',10);
+		if (XS.File('server.ini','exist')){
+			server = XS.File('server.ini','open');
+		}
+		XM.Ini();
+		XM.Alert('Database Builder','Searching Outlook for Prep Students<br><div style="width:400;height:15;border:1 solid white;"><div style="background-Color:#0099FF;height:14;width:1%;text-align:center;" id="pgress"></div></div>',1);
+		CDO.Ini();
+	}
+};
+</script>
+</head>
+<body onload="Tracker.Ini();" onbeforeunload="cdo[0].quit();">
+<HTA:APPLICATION ID="eitrackerutil"
+    APPLICATIONNAME="eitrackerutil"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="creds">Created by Gavin Delphia<br>Prep 2010 / USAFA 2014<br></span>
+<img src="xres/ico.png" id="cdostatus">
+<span id="mainmenu" style="display:block;">
+</span>
+</body>
+</html>

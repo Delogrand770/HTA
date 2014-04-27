@@ -1,0 +1,217 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+
+<head><title>App</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+v\:* {behavior:url(#default#VML);}
+</style>
+
+<script>
+var player = 0;
+var blocks = new Array(new Array(400,100,20,40),new Array(450,200,20,40),new Array(450,350,40,40),new Array(340,340,40,100),new Array(300,380,20,30));
+var App={
+	Ini:function(){
+		XI.New('board','inf','1:1','100:500');
+		XS.File('data.txt','create','a');
+		player = new App.Unit('test','player');
+		player.y = 250;
+		player.x = 400;
+	},
+	Unit:function(it,it2){
+		this.dev    = '';
+		this.dvy    = 1; //default y velocity
+		this.mvy    = 5; //max y velocity
+		this.mvx    = 7; //max x velocity
+		this.jax    = 1;  //Jumping acceleration
+		this.dax    = .6; //walking acceleration
+		this.day    = .2; //gravity acceleration
+		this.sax    = .7; //surface deceleration
+		this.vname  = it2;
+		this.name   = it;
+		this.h      = 20;
+		this.w      = 20;
+		this.x      = 0;
+		this.y      = 0;
+		this.vy     = 1;
+		this.ay     = .2;
+		this.vx     = 1;
+		this.ax     = 0;
+		this.jmp    = 0;
+		this.roof   = 0;
+		this.ground = 480;
+		this.lwall  = 4;
+		this.rwall  = 884;
+		this.xhita  = 0;
+		this.xhitb  = 0;
+		this.yinva  = new Array();
+		this.ydexa  = 0;
+		this.yinvb  = new Array();
+		this.ydexb  = 0;
+		this.Reset  = function(){
+			this.yinva = [];
+			this.yinvb = [];		
+		}
+		this.Update = function(){
+			if (this.y<=this.ground){
+				this.vy   -=- this.ay;
+				this.y    -=- this.vy;
+				this.xhita = 0;
+				this.xhitb = 0;
+				this.ydexa = 0;
+				this.ydexb = 0;
+
+				for (i=0;i<=blocks.length-1;i++){
+					if (this.x+this.w>blocks[i][1] && this.x<blocks[i][1]+blocks[i][3]){
+						this.yinva[this.yinva.length] = blocks[i][1]-this.h;
+					}else{
+						document.title = 0;
+					}
+					
+					
+					if (this.y+this.h>=blocks[i][0] && this.y<=blocks[i][0]+blocks[i][2]){
+						if (this.x+this.w<=blocks[i][1] && Math.abs(blocks[i][1]-(this.x+this.w))<=10){
+							this.xhita = 1;
+							this.rwall = blocks[i][1]-this.w;
+						}
+						if (this.x>=blocks[i][1]+blocks[i][3] && Math.abs(this.x-(blocks[i][1]+blocks[i][3]))<=10){
+							this.xhitb = 1;
+							this.lwall = blocks[i][1]+blocks[i][3];
+						}
+					}
+					if (this.xhita == 0 && i == blocks.length-1){
+						this.rwall = 884;	
+					}
+					if (this.xhitb == 0 && i == blocks.length-1){
+						this.lwall = 4;	
+					}
+				}
+				this.ground = this.yinva.sort(function(a,b){return a-b})[0];
+				this.roof   = this.yinvb.sort(function(a,b){return a-b})[0];
+				if (this.yinva.length == 0){
+					this.ground = 480;
+				}
+				if (this.yinvb.length == 0){
+					this.roof = 0;
+				}
+				if (this.y>=this.ground){
+					this.jmp = 0;
+					this.y   = this.ground;
+					this.vy  = 0;
+				}
+				if (this.y<=this.roof){
+					this.ay = this.day;
+					this.vy = 0;
+					this.y  = this.roof;
+				}
+				if (this.vy<=-this.mvy){
+					this.ay = this.day;
+				}
+			}else{
+				this.vy = this.dvy;
+			}
+			if (this.ax!=0){
+				this.vx -=- this.ax;
+				if (this.vx >= this.mvx){
+					this.vx = this.mvx;
+				}else if (this.vx <= -this.mvx){
+					this.vx = -this.mvx;
+				}
+				this.x  -=- this.vx;
+			}else if (this.ax == 0 && this.vx>0){
+				this.vx -= this.sax;
+				if (this.vx<0){
+					this.vx = 0;
+				}
+				this.x -=- this.vx;
+			}else if (this.ax == 0 && this.vx<0){
+				this.vx -=- this.sax;
+				if (this.vx>0){
+					this.vx = 0;
+				}
+				this.x -=- this.vx;
+			}
+			if (this.x<=this.lwall){
+				this.vx = 0;
+				this.x  = this.lwall;
+			}else if (this.x>=this.rwall){
+				this.x  = this.rwall;
+				this.vx = 0;
+			}
+			this.hand.style.top  = this.y;
+			this.hand.style.left = this.x;
+			this.Reset();
+			this.Stats();
+		}
+		this.Morph = function(){
+			this.hand.style.height = this.h;
+			this.hand.style.width  = this.w;
+		}
+		this.Stats = function(){
+			this.dev = 'x:'+Math.round(this.x)+';y:'+Math.round(this.y)+';vx:'+Math.round(this.vx)+';vy:'+Math.round(this.vy)+';ax:'+Math.round(this.ax)+';ay:'+this.ay;
+			this.dev += '<br>Ground:'+this.ground+';Roof:'+this.roof+';Yinva:'+this.yinva+';Yinvb:'+this.yinvb+';';
+			XI.Fill('inf','Dev',this.dev);
+		}
+
+		document.getElementById('board').innerHTML += '<v:roundrect id="'+this.name+'" fillcolor="red" strokecolor="black" style="position:absolute;height:0;width:0;"></v:roundrect>';
+
+		this.hand   = document.getElementById(this.name);
+		this.Morph();
+		this.timer  = setInterval(this.vname+".Update()",1);
+	},
+	HandleKeys:function(){
+		if (event.keyCode == 37){ //left
+			player.ax = -player.dax;
+		}
+		else if (event.keyCode == 39){ //right
+			player.ax = player.dax;
+		}
+		else if (event.keyCode == 38){ //up
+			if (player.jmp == 0){
+				player.jmp = 1;
+				player.vy  = -1;
+				player.ay -= player.jax;
+			}
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onkeydown="App.HandleKeys()" onkeyup="if (event.keyCode!=38){player.ax = 0;}" oncontextmenu="alert(player.yinva)">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id='board'>
+<v:roundrect id="rect1" fillcolor="#0099ff" strokecolor="black" style="position:absolute;top:500;left:4;height:20;width:900;"></v:roundrect>
+<v:roundrect id="rect2" fillcolor="green" strokecolor="black" style="position:absolute;top:400;left:100;height:20;width:40;"></v:roundrect>
+<v:roundrect id="rect3" fillcolor="black" strokecolor="black" style="position:absolute;top:450;left:200;height:20;width:40;"></v:roundrect>
+<v:roundrect id="rect4" fillcolor="#CCCCCC" strokecolor="black" style="position:absolute;top:450;left:350;height:40;width:40;"></v:roundrect>
+<v:roundrect id="rect5" fillcolor="red" strokecolor="black" style="position:absolute;top:340;left:340;height:40;width:100;"></v:roundrect>
+<v:roundrect id="rect6" fillcolor="blue" strokecolor="black" style="position:absolute;top:300;left:380;height:20;width:30;"></v:roundrect>
+</span>
+
+</body>
+</html>

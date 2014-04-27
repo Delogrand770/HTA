@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IE CAPICOM - Base64 Javascript</title>
+</head>
+<body>
+
+<h1>IE CAPICOM</h1>
+<em>Super fast base64 javascript</em>
+<br />
+<textarea cols="40" rows="10" id="t_input">
+
+sdfd
+</textarea>
+<br />
+<button onclick="to_base64()">encode</button>
+<button onclick="from_base64()">decode</button>
+<br />
+<textarea cols="40" rows="10" id="t_output">
+ss
+</textarea>
+<script language="javascript" type="text/javascript">
+<!--
+var t_input = document.getElementById('t_input');
+var t_output = document.getElementById('t_output');
+var oUtils = new ActiveXObject('CAPICOM.Utilities');
+function to_base64()
+{
+    var t_content = t_input.value;
+    //b_str = oUtils.ByteArrayToBinaryString(t_content);
+    t_output.value = oUtils.Base64Encode(t_content);
+}
+function from_base64()
+{
+    var t_content = t_output.value;
+    t_input.value = oUtils.Base64Decode(t_content);
+}
+-->
+</script>
+</body>
+</html>
+

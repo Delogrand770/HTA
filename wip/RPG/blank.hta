@@ -1,0 +1,203 @@
+<html>
+<head><title>RPG</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<script src=""></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.block{
+  height:32;
+  width:32;
+  background-Image:url('tiles/g.png');
+}
+.block2{
+  height:32;
+  width:32;
+  background-Image:url('tiles/t.png');
+}
+.map{
+  position:absolute;
+  top:0;
+  left:0;
+  border:1 solid black;
+}
+#player{
+  position:absolute;
+  height:32;
+  width:32;
+  z-index:50;
+}
+#maparea{
+  position:absolute;
+  background-Color:white;
+  z-index:1;
+  width:99%;
+  height:100%;
+}
+.btn{
+  border:1 solid white;
+  background-Color:black;
+  color:white;
+  height:20;
+  width:100;
+}
+</style>
+
+<script>
+var strings = new Array(XS.File('strings/settings.txt','open'));
+var winy = 615;
+var winx = 785;
+XU.ResizeWindow(winy,winx,0,1);
+var reslock = 0;	
+var keymap = new Array(37,39,38,40,73,83);
+var nopass = /[t]/;
+var Events = {
+	Ini:function(){
+		XM.Ini();
+		Map.Ini();
+		Player.Ini();
+	},
+	Keys:function(){
+		var e = event.keyCode;
+		if (e == keymap[0]){
+			ip.Left()
+		}
+		if (e == keymap[1]){
+			ip.Right()
+		}
+		if (e == keymap[2]){
+			ip.Up()
+		}
+		if (e == keymap[3]){
+			ip.Down()
+		}
+		if (e == keymap[4]){
+			alert('inventory');
+		}
+		if (e == keymap[5]){
+			XM.Alert('Settings',strings[0]);
+		}
+		ip.Update();
+	}
+};
+var ip     = 0;
+var Player = {
+	Ini:function(){
+		ip = new Player.Instance('tiles/player.png',12,12);
+		ip.pUpdate(Math.round(winy/32/2),Math.round(winx/32/2));
+		ip.Update();
+	},
+	Instance:function(iimage,iy,ix){
+		player.style.background = 'url("'+iimage+'")';
+		this.x     = ix;
+		this.y     = iy;
+		this.Right = function(){
+			this.x -=- 1;
+			if (this.x>=imap.width || nopass.test(this.TempPos())){
+				this.x -= 1;
+			}
+		}
+		this.Left = function(){
+			this.x -= 1;
+			if (this.x<=-1 || nopass.test(this.TempPos())){
+				this.x++;
+			}
+		}
+		this.Up = function(){
+			this.y -= 1;
+			if (this.y<=-1 || nopass.test(this.TempPos())){
+				this.y++;
+			}
+		}
+		this.Down = function(){
+			this.y -=- 1;
+			if (this.y>=imap.height || nopass.test(this.TempPos())){
+				this.y -= 1;
+			}
+		}
+		this.Update = function(){
+			maparea.style.top  = (this.cy-this.y)*32;
+			maparea.style.left = (this.cx-this.x)*32;
+			document.title = this.y+','+this.x+','+event.keyCode;
+		}
+		this.TempPos = function(){
+			return document.getElementById('x'+this.y+'x'+this.x+'x').it;
+		}
+		this.pUpdate = function(iy,ix){
+			this.cx = ix;
+			this.cy = iy;
+			player.style.top  = iy*32;
+			player.style.left = ix*32;
+		}
+	}
+};
+
+var imap = 0;
+var Map  = {
+	Ini:function(){
+		imap = new Map.Instance(24,24);
+		imap.Generate();				
+	},
+	Instance:function(ih,iw){
+		this.rh     = 0;
+		this.rw     = 0;
+		this.insert = "";
+		this.height = ih;
+		this.width  = iw;
+		this.data   = new Array();
+		for (i=0;i<=this.height-1;i++){
+			this.data[i] = new Array(this.width);
+		}
+		this.Generate = function(){
+			this.Draw();
+		}
+		this.Draw = function(){
+			this.insert = '<table class="map" cellpadding=0 cellspacing=0>';
+			for (i=0;i<=this.height-1;i++){
+				this.insert += '<tr>';
+				for (a=0;a<=this.width-1;a++){
+					if (i==5 && a==5){
+						this.insert += '<td class="block2" id="x'+i+'x'+a+'x" it="t"></td>';
+					}else{
+						this.insert += '<td class="block" id="x'+i+'x'+a+'x" it="g"></td>';
+					}
+				}
+				this.insert += '</tr>';
+			}
+			this.insert      += '</table>';
+			maparea.innerHTML = this.insert;
+		}	
+	}
+};
+</script>
+</head>
+<body onload="Events.Ini()" onkeydown="Events.Keys()" bgcolor="white" background="tiles/g.png"">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id='player'></span>
+<span id='maparea'></span>
+
+</body>
+</html>

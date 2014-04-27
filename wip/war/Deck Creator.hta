@@ -1,0 +1,84 @@
+<html>
+<head><title>Deck Creator</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<style>
+.btn{
+ border: 1 solid white;
+ background-Color:black;
+ color:white;
+}
+</style>
+<script src="gaia.js"></script>
+<script src="db/cards.js"></script>
+<script>
+XU.ResizeWindow(640,600,0,1);
+var temp_var = 0;
+var Deck = {
+	Ini:function(){
+		XM.Ini();
+		Deck.Draw();
+	},
+	Draw:function(){
+		temp_var = "<table>";
+		for (i=1;i<=card_list.length-1;i++){
+			temp_var +="<tr><td style='text-align:right;'>"+card_list[i][0]+"</td><td><input type='textarea' id='c"+i+"c' size=3 maxlength=1 style='text-align:center;border:1 solid white;'></td>";
+			temp_var +="<td style='text-align:right;'>"+card_list[i+1][0]+"</td><td><input type='textarea' id='c"+Math.round(i+1)+"c' size=3 maxlength=1 style='text-align:center;border:1 solid white;'></td>";
+			temp_var +="<td style='text-align:right;'>"+card_list[i+2][0]+"</td><td><input type='textarea' id='c"+Math.round(i+2)+"c' size=3 maxlength=1 style='text-align:center;border:1 solid white;'></td></tr>";
+			i+=2;
+		}
+		temp_var += "</table><br>Deck Name <input type='textarea' id='deckname' style='border:1 solid white;'> <input type='button' value='Create' style='height:20;border:1 solid white;' onclick='Deck.Create();'> <input type='button' value='Zero Empty' style='height:20;border:1 solid white;' onclick='Deck.ZeroEmpty();'> <input type='button' value='Clear' style='height:20;border:1 solid white;' onclick='Deck.Clear();'>";
+		output.innerHTML = temp_var;
+	},
+	Create:function(){
+		temp_var = "deck_" + deckname.value.toLowerCase() + " = new Array(";
+		for (i=1;i<=card_list.length-3;i++){
+			temp_var += document.getElementById('c'+i+'c').value + ",";
+		}
+		temp_var += document.getElementById('c'+i+'c').value + ",";
+		i++;
+		temp_var += document.getElementById('c'+i+'c').value + ");";
+		XS.File('deck_'+deckname.value.toLowerCase()+'.txt','create',temp_var);
+		XM.Alert('Deck Data',temp_var);
+	},
+	Clear:function(){
+		if (confirm('This will clear all cells!')){
+			for (i=1;i<=card_list.length-1;i++){
+				document.getElementById('c'+i+'c').value = "";
+			}
+		}
+	},
+	ZeroEmpty:function(){
+		for (i=1;i<=card_list.length-1;i++){
+			if (!document.getElementById('c'+i+'c').value){
+				document.getElementById('c'+i+'c').value = 0;
+			}
+		}
+	}
+
+};
+</script>
+
+</head>
+
+<body bgcolor="black" onload="Deck.Ini();" text="white">
+<HTA:APPLICATION ID="deckcreator"
+    APPLICATIONNAME="deckcreator"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="output" style="position:absolute;top:40;left:40;"></span>
+</body>
+</html>

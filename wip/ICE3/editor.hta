@@ -1,0 +1,492 @@
+<html>
+<head><title>Iceslide Editor</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<script id="lvl"></script>
+<style>
+body{
+  font-size:11;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  font-family:arial,sans-serif;
+}
+.player{
+ position:absolute;
+ top:0;
+ left:0;
+ z-index:105;
+ height:48;
+ width:48;
+}
+.dlayer{
+ position:absolute;
+ top:50;
+ left:50;
+}
+.layer_0{
+ z-index:80;
+}
+.layer_1{
+ z-index:90;
+}
+.block{
+ border:1 solid white;
+ height:48;
+ width:48;
+ cursor:hand;
+ text-align:center;
+}
+.block2{
+ border:1 solid white;
+ height:48;
+ width:48;
+ text-align:center;
+ color:white;
+}
+.txt{
+ border:1 solid white;
+ background-Color:transparent;
+ color:white;
+ text-align:center;
+}
+.brushlayer{
+ position:absolute;
+ top:50;
+ left:0;
+}
+.btn{
+ height:21;
+ width:100;
+}
+.menuitem{
+ cursor:hand;
+ background-Color:buttonface;
+ color:black;
+ font-size:11;
+ padding:0;
+ margin:0;
+ width:75;
+ height:20;
+ font-family:arial,sans-serif;
+ text-align:center;
+}
+.menuspace{
+ background-Color:buttonface;
+ color:black;
+ font-size:11;
+ padding:0;
+ margin:0;
+ width:20;
+ overflow:hidden;
+ font-family:arial,sans-serif;
+}
+.txal{
+ text-align:right;
+}
+.edit{
+ color:pink;
+ cursor:hand;
+ text-decoration:underline;
+}
+.txt2{
+ cursor:hand;
+}
+.closebtn{
+ cursor:hand;
+ color:pink;
+ font-family:Marlett;
+}
+</style>
+<script>
+var icons           = 14;
+
+var al              = new Array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+var collect_list    = new Array();
+var param_title     = '';
+var playerx         = 0;
+var playery         = 0;
+var param_gemtotal  = 0;
+var param_gemreq    = 0;
+var param_gridtop   = 50;
+var param_gridleft  = 50;
+var param_gridsize  = 0;
+var param_blocksize = 48;
+var tempdata        = new Array();
+var param_verified  = 0;
+var param_signed    = 0;
+var param_author    = 'Unknown';
+
+var cond_gem        = /[efghi!]/;
+var cond_block      = /[klmno!]/;
+
+var anstype         = 0;
+var brushrows       = 3;
+var brush1          = 'url("imgs/0.png")';
+var brush1info      = 0;
+var brush2          = 'url("imgs/0.png")';
+var brush2info      = 0;
+var estate          = 0; //1
+var game_mode       = 0;
+var App={
+	Ini:function(){
+		XUtil.ResizeWindow(700,1000);
+		XMessage.Ini();
+		//Draw.Board(12);
+		Draw.Brushes();
+	},
+	Inputs:function(){
+		if (event.keyCode==13 && estate==0){
+			XMessage.Close();
+		}
+		if (event.keyCode==13 && estate==1){
+			Editor.Grid(1);
+		}
+		if (event.keyCode==13 && estate==2){
+			Editor.Modify(anstype,1);
+		}
+		if (event.keyCode==13 && estate==3){
+			Editor.Sign(1);
+		}
+	}
+};
+
+var Draw = {
+	Board:function(it){
+		collect_list   = new Array();
+		param_gridsize = it;
+		tempdata[0]    = '';
+		for (a=0;a<=1;a++){
+			tempdata[0] += '<table cellpadding=0 cellspacing=0 class="dlayer layer_'+a+'" id="layer'+a+'x">';
+			for (b=0;b<=it-1;b++){
+				tempdata[0] += '<tr>';
+				for (c=0;c<=it-1;c++){
+						//tempdata[0] += '<td class="block" id="lay'+a+'x'+b+'x'+c+'">b'+b+',c'+c+'</td>';
+						collect_list[collect_list.length] = 'lay'+a+'x'+b+'x'+c;
+						if (a==0){
+							tempdata[0] += '<td class="block" id="lay'+a+'x'+b+'x'+c+'" background="imgs/b.png" onclick="this.style.background=brush1;this.it=brush1info;" oncontextmenu="this.style.background=brush2;this.it=brush2info;" it="b">&nbsp;</td>';
+						}else{
+							tempdata[0] += '<td class="block" id="lay'+a+'x'+b+'x'+c+'" background="imgs/a.png" onclick="this.style.background=brush1;this.it=brush1info;" oncontextmenu="this.style.background=brush2;this.it=brush2info;" it="a">&nbsp;</td>';
+						}
+				}
+				tempdata[0] += '</tr>';
+			}
+			tempdata[0] += '</table>';
+		}
+		boardlayers.innerHTML = tempdata[0];
+	},
+	Player:function(){
+		tempdata[0]           = '<img src="imgs/circle-grey.png" class="block player" id="player">';
+		playerlayer.innerHTML = tempdata[0];
+		App.UpdatePlayer();
+	},
+	Brushes:function(){
+		tempdata[0] = '<center><table cellpadding=0 cellspacing=0><tr>';
+		tempdata[1] = 0;
+		for (z=0;z<=Math.round(icons/brushrows)-2;z++){
+			tempdata[0] += '<tr>';
+			for (i=tempdata[1];i<=tempdata[1]+brushrows;i++){
+				if (i<=icons){
+					tempdata[0] += '<td class="block" background="imgs/'+al[i]+'.png" onclick="Editor.Brush(1,'+i+')" oncontextmenu="Editor.Brush(2,'+i+')">&nbsp;</td>';
+				}else{
+					tempdata[0] += '<td class="block2">x</td>';
+				}
+					
+			}
+			tempdata[0] += '</tr>';
+			tempdata[1] -=- Math.round(brushrows+1);
+		}
+		tempdata[0] += '</table><br><br><table><tr><td><font color="white">Brush1</font></td><td><font color="white">Brush2</font></td></tr><tr><td class="block2" id="brsh1">&nbsp;</td><td class="block2" id="brsh2">&nbsp;</td></tr></table></center>';
+		tools_body.innerHTML = tempdata[0];
+	}
+};
+
+var Editor = {
+	Btns:function(){
+		btnsav.disabled = false;
+		btntop.disabled = false;
+		btnbot.disabled = false;
+		btnlay.disabled = false;
+		btnmap.disabled = false;
+		btntoo.disabled = false;
+		btnsig.disabled = false;
+		btnver.disabled = false;
+		if (param_signed == 0){
+			btnsig.innerHTML = 'Sign';
+			btnsig.disabled  = false;
+		}else{
+			btnsig.innerHTML = 'Signed';
+			btnsig.disabled  = true;
+		}
+		btnsig.style.backgroundColor = 'buttonface';
+	},
+	Grid:function(it){
+		if (it==0){
+			XMessage.Alert('param_gridsize','<center><input type="textarea" id="xmsgans" class="txt" maxlength=2 size=5><br>A number between 5 and 12<br>(Press Enter)',0,0,1,1);
+			setTimeout("xmsgans.focus();estate=1;",100);
+		}else{
+			estate = 0;
+			xmsgans.value = Math.round(xmsgans.value);
+			if (xmsgans.value>=13 || xmsgans.value<=4 || Math.round(xmsgans.value*1)!=xmsgans.value){
+				XMessage.Close();
+			}else{
+				if (param_title){
+					if (confirm('All unsaved data will be lost!')){
+						Editor.Grid_Sub();
+					}
+				}else{
+					Editor.Grid_Sub();
+				}
+			}
+		}
+	},
+	Grid_Sub:function(){
+		param_title    = 'cust'+Math.round(999*Math.random());
+		playerx        = 0;
+		playery        = 0;
+		param_gemtotal = 0;
+		param_gemreq   = 0;
+		param_signed   = 0;
+		param_verified = 0;
+		param_author   = 'Unknown';
+		Draw.Board(parseInt(xmsgans.value));
+		Editor.StartPos();
+		Editor.MapInfo();
+		Editor.Tools();
+		Editor.Btns();
+		XMessage.Close();
+	},
+	View:function(it){
+		if (param_gridsize!=0){
+			layer1x.style.display = 'block';
+			layer0x.style.display = 'block';
+			if (it!=2){
+				document.getElementById('layer'+it+'x').style.display = 'none';
+			}
+		}
+	},
+	Bottom:function(){
+		layer1x.style.display = 'block';
+		layer0x.style.display = 'none';
+	},
+	Brush:function(it,bid){
+		window['brush'+it+'info']                           = al[bid];
+		window['brush'+it]                                  = 'url("imgs/'+al[bid]+'.png")';
+		document.getElementById('brsh'+it).style.background = 'url("imgs/'+al[bid]+'.png")';
+	},
+	Output:function(){
+		tempdata[2] = 'var Map={Data:function(){';
+		for (i=0;i<=collect_list.length-1;i++){
+			tempdata[2] += collect_list[i] + '.style.background="url(\'imgs/'+document.getElementById(collect_list[i]).it+'.png\')";';
+			tempdata[2] += collect_list[i] + '.it="' + document.getElementById(collect_list[i]).it + '";';
+		}
+		tempdata[2] += '},Settings:function(){';
+		tempdata[2] += 'param_gridsize='+param_gridsize+';param_title="'+param_title+'";param_gemreq='+param_gemreq+';param_gemtotal='+param_gemtotal+';playerx='+playerx+';playery='+playery+';param_verified='+param_verified+';param_signed='+param_signed+';param_author="'+param_author+'";';
+		tempdata[2] += '}};';
+		if (param_title){
+			if (XScripting.FileExist('levels/'+param_title+'.js')){
+				if (confirm('You are about to save over the level '+param_title)){
+					XScripting.CreateFile('levels/'+param_title+'.js',tempdata[2]);
+					XScripting.CreateFile('devload.txt',param_title+'.js');
+					XMessage.Alert('IceSlide Editor','Level Saved!');
+				}
+			}else{
+				XScripting.CreateFile('levels/'+param_title+'.js',tempdata[2]);
+				XScripting.CreateFile('devload.txt',param_title+'.js');
+				XMessage.Alert('IceSlide Editor','Level Saved!');
+			}
+		}
+	},
+	Input:function(){
+		playerx        = 0;
+		playery        = 0;
+		param_gemtotal = 0;
+		param_gemreq   = 0;
+		param_signed   = 0;
+		param_verified = 0;
+		param_author   = 'Unknown';
+		tempdata[3] = '<table style="color:white;">';
+		XScripting.SearchDirectory('levels/','*.js');
+		for (r=0;r<=scanned_files.length-1;r++){
+			tempdata[3] += '<tr><td><a onclick="Editor.DoInput(\''+scanned_files[r]+'\')" class="txt2">'+scanned_files[r].split('.js')[0]+'</a></td><td></td></tr>';
+		}
+		tempdata[3] += '</table>';
+		XMessage.Alert('Select Level',tempdata[3]);
+	},
+	DoInput:function(it){
+		if (param_title){
+			if (confirm('All unsaved data will be lost')){
+				Editor.DoInput_Sub(it);
+			}
+		}else{
+			Editor.DoInput_Sub(it);
+		}
+	},
+	DoInput_Sub:function(it){
+		XMessage.Close();
+		lvl.src = 'levels/'+it;
+		Map.Settings();
+		Draw.Board(param_gridsize);
+		Map.Data();
+		Editor.StartPos();
+		Editor.MapInfo();
+		Editor.Tools();
+		Editor.Btns();
+	},
+	GemCount:function(){
+		param_gemtotal = 0;
+		for (i=0;i<=collect_list.length-1;i++){
+			tempdata[3] = document.getElementById(collect_list[i]).it;
+			if (cond_gem.test(tempdata[3])){
+				param_gemtotal++;
+			}
+		}
+		if (param_gemreq>=param_gemtotal){
+			param_gemreq = param_gemtotal;
+		}
+		mgr.innerHTML = param_gemtotal;
+	},
+	MapInfo:function(){
+		mymapinfo.style.display = 'block';
+		mapinfo_body.innerHTML = '<center><table style="color:white;"><tr><td class="txal">Title:</td><td>'+param_title+'</td><td class="edit" onclick="Editor.Modify(0);">edit</td></tr><tr><td class="txal">Gem Total:</td><td id="mgr">'+param_gemtotal+'</td><td class="edit" onclick="Editor.GemCount();">update</td></tr><tr><td class="txal">Gems Req:</td><td>'+param_gemreq+'</td><td class="edit" onclick="Editor.Modify(1);">edit</td></tr><tr><td class="txal">Start-x:</td><td>'+playerx+'</td><td class="edit" onclick="Editor.Modify(2);">edit</td></tr><tr><td class="txal">Start-y:</td><td>'+playery+'</td><td class="edit" onclick="Editor.Modify(3);">edit</td></tr></table></center>';
+		Editor.GemCount();
+		XUtil.DFB('mymapinfo',10);
+		XUtil.DFR('mymapinfo',10);
+	},
+	Modify:function(it,it2){
+		if (it2!=1){
+			anstype = it;
+			if (it==0){
+				XMessage.Alert('param_title','<center><input type="textarea" id="xmsgans" class="txt" value="'+param_title+'" maxlength=12><br><br>Enter a new title (Press Enter)',0,0,1,1);
+				setTimeout("xmsgans.focus();estate=2;",100);
+			}
+			if (it==1){
+				Editor.GemCount();
+				XMessage.Alert('param_gemreq','<center><input type="textarea" id="xmsgans" class="txt"><br><br>Enter a number between 0 and '+param_gemtotal+' (Press Enter)',0,0,1,1);
+				setTimeout("xmsgans.focus();estate=2;",100);
+			}
+			if (it==2){
+				XMessage.Alert('playerx','<center><input type="textarea" id="xmsgans" class="txt"><br><br>Enter a number between 0 and '+(param_gridsize-1)+' (Press Enter)',0,0,1,1);
+				setTimeout("xmsgans.focus();estate=2;",100);
+			}
+			if (it==3){
+				XMessage.Alert('playery','<center><input type="textarea" id="xmsgans" class="txt"><br><br>Enter a number between 0 and '+(param_gridsize-1)+' (Press Enter)',0,0,1,1);
+				setTimeout("xmsgans.focus();estate=2;",100);
+			}
+		}else{
+			if (it==0){
+				if (xmsgans.value){
+					param_title = xmsgans.value;
+				}
+			}
+			if (it==1){
+				if (xmsgans.value && Math.round(xmsgans.value*1)==xmsgans.value && xmsgans.value>=0 && xmsgans.value<=param_gemtotal){
+					param_gemreq = Math.round(xmsgans.value);
+				}
+			}
+			if (it==2){
+				if (xmsgans.value && Math.round(xmsgans.value*1)==xmsgans.value && xmsgans.value>=0 && xmsgans.value<=param_gridsize-1){
+					playerx = xmsgans.value;
+					Editor.StartPos();
+				}			
+			}
+			if (it==3){
+				if (xmsgans.value && Math.round(xmsgans.value*1)==xmsgans.value && xmsgans.value>=0 && xmsgans.value<=param_gridsize-1){
+					playery = xmsgans.value;
+					Editor.StartPos();
+				}		
+			}
+			Editor.MapInfo();
+			XMessage.Close();
+		}
+	},
+	StartPos:function(){
+		itmstart.style.display = "block";
+		itmstart.style.top     = Math.round(50+param_blocksize*playery+(-.2*playery));
+		itmstart.style.left    = Math.round(50+param_blocksize*playerx+(2*playerx));
+	},
+	Tools:function(){
+		tools.style.display = 'block';
+		XUtil.DFR('tools',10);
+	},
+	Sign:function(it){
+		if (it==0){
+			XMessage.Alert('Enter Password','<center><input type="password" id="xmsgans" class="txt"><br><br>Enter a password (Press Enter)',0,0,1,1);
+			setTimeout("xmsgans.focus();estate=3;",100);
+		}else{
+			estate = 0;
+			if (xmsgans.value == 'mark941'){
+				param_signed = 1;
+				XMessage.Alert('Success','<center>Your level has been signed and can now affect game statistics and rewards.</center>');
+			}else{
+				param_signed = 0;
+				XMessage.Alert('Error','<center>Your credentials cannot be verified. Dont worry your level is still playable it just will not be able to affect game statistics and rewards.</center>');
+			}
+			Editor.Btns();
+		}
+	},
+	Verify:function(){
+		XMessage.Alert('DEV','Not implemented yet');
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" background="white" onkeydown="App.Inputs()">
+<HTA:APPLICATION ID="ice3editor"
+    APPLICATIONNAME="ice3editor"
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainmenu">
+<table cellpadding=0 cellspacing=0>
+<tr>
+<td class="menuspace">&nbsp;</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Grid(0)">New Grid</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Input()">Load</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Output()" disabled id="btnsav">Save</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.View(0)" disabled id="btntop">Top Layer</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.View(1)" disabled id="btnbot">Bottom Layer</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.View(2)" disabled id="btnlay">Both Layers</td>
+
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.MapInfo();" disabled id="btnmap">Map Info</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Tools();" disabled id="btntoo">Tools</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Sign(0);" disabled id="btnsig">Sign</td>
+<td class="menuitem" onmouseover="XUtil.RollBgColor('silver')" onmouseout="XUtil.RollBgColor('buttonface')" onclick="Editor.Verify();" disabled id="btnver">Verify</td>
+<td class="menuspace">&nbsp;</td>
+</tr>
+</table>
+<!--
+<input type="button" value="Grid Size" class="btn lblue">
+<input type="button" value="Top Layer"  class="btn nwhite">
+<input type="button" value="Bottom Layer" onclick="Editor.View(1)" class="btn nwhite">
+<input type="button" value="Both Layers" onclick="Editor.View(2)" class="btn nwhite">
+<input type="button" value="Save" onclick="Editor.Output();" class="btn lblue">
+<input type="button" value="Load" onclick="Editor.Input();" class="btn lblue">
+<input type="button" value="Info" onclick="Editor.MapInfo();" class="btn nwhite">
+-->
+</span>
+<img src="imgs/startpos.png" class="player" id="itmstart" style="display:none;">
+<span id="playerlayer"></span>
+<span id="boardlayers"></span>
+<span id="brushes" class="brushlayer"></span>
+
+<table style="position:absolute;top:20;left:100;z-index:111;display:none;" cellpadding=0 cellspacing=0 id="tools"><tr><td class="xmsg_t_l"></td><td class="xmsg_t_c"></td><td class="xmsg_t_r"></td></tr><tr><td class="xmsg_bg_l"></td><td class="xmsg_bg_c_t" style="color:#0099ff;">Tools<script>XUtil.Space(30)</script><a onclick="tools.style.display = 'none';" class="closebtn">r</a></td><td class="xmsg_bg_r"></tr><tr><td class="xmsg_bg_l"></td><td class="xmsg_bg_c_b" style="color:white;overflow-x:auto;" id="tools_body"></td><td class="xmsg_bg_r"></td></tr><tr><td class="xmsg_b_l"></td><td class="xmsg_b_c"></td><td class="xmsg_b_r"></td></tr></table>
+
+<table style="position:absolute;top:100;left:100;z-index:111;display:none;" cellpadding=0 cellspacing=0 id="mymapinfo"><tr><td class="xmsg_t_l"></td><td class="xmsg_t_c"></td><td class="xmsg_t_r"></td></tr><tr><td class="xmsg_bg_l"></td><td class="xmsg_bg_c_t" style="color:#0099ff;">Map Information<script>XUtil.Space(10)</script><a onclick="mymapinfo.style.display = 'none';" class="closebtn">r</a></td><td class="xmsg_bg_r"></tr><tr><td class="xmsg_bg_l"></td><td class="xmsg_bg_c_b" style="color:white;overflow-x:auto;" id="mapinfo_body"></td><td class="xmsg_bg_r"></td></tr><tr><td class="xmsg_b_l"></td><td class="xmsg_b_c"></td><td class="xmsg_b_r"></td></tr></table>
+
+
+</body>
+</html>

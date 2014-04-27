@@ -1,0 +1,55 @@
+<html>
+<head><title>Message</title>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 13;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+
+<script>
+XU.ResizeWindow(600,800,0,1);
+//XU.ErrorHandler(0);
+var idata = 0;
+var App={
+	Ini:function(){
+		if (XS.File('msg','exist')){
+			idata = XS.File('msg','open');
+			XS.File('msg','delete');
+			mainspan.innerHTML = idata;
+			XU.CenterElement('mainspan','b');
+		}else{
+			window.close();
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" scroll="auto">
+<HTA:APPLICATION ID="msg"
+    APPLICATIONNAME="msg"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="mainspan" style="position:absolute;top:0;left:0;"></span>
+
+</body>
+</html>

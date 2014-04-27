@@ -1,0 +1,68 @@
+<html>
+<head><title>XCollide</title>
+<script src="fsol3.js"></script>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+
+<style>
+.block{
+ height:30;
+ width:30;
+ border:1 solid white;
+}
+</style>
+
+<script>
+var xall_vars = new Array('sysinfo','xcolt');
+
+var b=0;
+var a=0;
+var Game = {
+	Ini:function(){
+		XCollide.Ini(2000,'Game.Collide');
+		XCollide.Check('i1','i2',xcolt.length,1);
+		setInterval("i1.style.top=b;b-=-1;",100);
+	},
+	Collide:function(iden,it1,it2){
+		alert(iden+','+it1+','+it2);
+	},
+	uToggle:function(){
+		document.getElementById('i'+a).style.top  = b = event.y;
+		document.getElementById('i'+a).style.left = event.x;
+	}
+};
+
+
+
+
+
+</script>
+
+</head>
+
+<body bgcolor="black" onload="XGUI.Ini('icopic.png','XCollide',700,900,0,0,1,0,1,1);XGUI.Update('enable','close');Game.Ini();a=1;" text="white" onkeypress="if (event.keyCode==96){XDataSystem.VarState()}" oncontextmenu="XCollide.Clear()" onclick='Game.uToggle()'>
+<HTA:APPLICATION ID="wartactics"
+    APPLICATIONNAME="wartactics"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<input type='button' onclick='a=1' value='1' style='position:absolute;top:100;left:500;width:100;'>
+<input type='button' onclick='a=2' value='2' style='position:absolute;top:130;left:500;width:100;'>
+<img style="position:absolute;top:100;left:100;height:30;width:30;" id="i1" r=15>
+<img style="position:absolute;top:319;left:80;height:30;width:20;" id="i2" r=12>
+
+
+</body>
+</html>

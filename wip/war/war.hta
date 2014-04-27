@@ -1,0 +1,127 @@
+
+<!-- ----- ExeScript Options Begin -----
+ ScriptType: window,invoker
+ DestDirectory: temp
+ Icon: C:\Users\C14Gavin.Delphia\Documents\HTA\war\ico.ico
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\cardpics
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\cretpics
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\db
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\status
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\xres
+ Folder: C:\Users\C14Gavin.Delphia\Documents\HTA\war\war.saves
+ File: C:\Users\C14Gavin.Delphia\Documents\HTA\war\gaia.js
+ File: C:\Users\C14Gavin.Delphia\Documents\HTA\war\ico.ico
+ File: C:\Users\C14Gavin.Delphia\Documents\HTA\war\icopic.png
+ File: C:\Users\C14Gavin.Delphia\Documents\HTA\war\xcss.css
+ OutputFile: C:\Users\C14Gavin.Delphia\Documents\HTA\war\war_.exe
+ CompanyName: Gavin Delphia
+ FileVersion: 1.0.0.1
+ LegalCopyright: Gavin Delphia
+ ProductName: War
+ ProductVersion: 1.0.0.1
+ ----- ExeScript Options End ----- -->
+
+<head><title>War</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<script src="db/cards.js"></script>
+<script src="db/crets.js"></script>
+<script src="db/missions.js"></script>
+<script src="db/challenges.js"></script>
+<script src="db/awards.js"></script>
+<script src="db/decks.js"></script>
+<script src="db/MainWindow.js"></script>
+<script src="db/Dashboard.js"></script>
+<script src="db/Store.js"></script>
+<script src="db/GameGlobal.js"></script>
+<script src="db/Deck.js"></script>
+<script src="db/Arena.js"></script>
+<style>
+.abs{
+ position:absolute;
+ top:0;
+ left:0;
+}
+.blk{
+ border:1 solid white;
+ color:white;
+ background-Color:black;
+ height:20;
+}
+.blk2{
+ border:1 solid white;
+ color:white;
+ background-Color:black;
+ height:20;
+ width: 80;
+}
+.none{
+ display:none;
+}
+.chand{
+ cursor:hand;
+}
+.btnhw{
+ height:30;
+ width:30;
+}
+</style>
+
+<script>
+XU.ResizeWindow(720,1190,0,1);
+var gamever       = "1.0.0.1";
+var current_data  = new Array('0name','1startdecktype','2money','3cardtotal','4crettotal','5wins','6losses','7lastmission','8cretinuse');
+var card_library  = new Array();
+var cret_library  = new Array();
+var current_deck  = new Array();
+var incardstore   = new Array();
+var incretstore   = new Array();
+var xsave_vars    = new Array('current_data','card_library','current_deck','incardstore','incretstore','cret_library');
+var xall_vars     = 0;
+var draw_index    = new Array(-1,-1);
+var winlocation   = 0;
+var deck_index    = -4;
+var page_num      = 1;
+
+var Arena = {
+	Ini:function(){
+		XI.Title('multiuse','Arena');
+		Deck.Cleanup();
+		winlocation = 'arena';
+		XI.Hide('stats');
+		XI.Hide('lastmission');
+		XI.Hide('utility');
+		XI.Hide('actions');
+		XI.Hide('pagecount');
+		XI.Hide('c1');
+		if (Deck.CardSize()!=50){
+			Deck.Ini();
+			XM.Alert('Your not ready','Your deck must contain exactly 50 cards.');
+		}
+	}
+};
+
+</script>
+</head>
+
+<body onload="MainWindow.Ini();" scroll="no" onresize="GameGlobal.Resize()" text="white" onkeypress="GameGlobal.Keys()">
+<HTA:APPLICATION ID="war"
+    APPLICATIONNAME="war"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+</body>
+</html>

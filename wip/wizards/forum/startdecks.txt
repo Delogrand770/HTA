@@ -1,0 +1,63 @@
+    \ Deck          Violence    Healing     Poison     Counter 
+Card \ 
+
+Aether Burst        2           2           2          3 
+Aether Explosion    3                                  3 
+Aether Fusion                   3                      3 
+Aether Storm 
+Amulet of Quoz      1           1           1          1 
+Antidote            2           3           2          2 
+Bash 
+Big Bang                        2 
+Black Death  
+Blessing 
+Blood Lust                                  2 
+Concentration       1           1           1          2 
+Confusion                       2                      3 
+Cripple 
+Critical Hit        3                       2 
+Deadly Claws                                3 
+Deadly Poison 
+Demonic Strike 
+Dragon Fire 
+Drain Life          3           3           2          2 
+Draw Cards 
+Endure 
+Extra Attack        4 
+Fireball            2 
+Harvest             1           1           1          1 
+Healing Wind                    3                      3 
+Holy Light                      3 
+Holy Strength       4                                  3 
+Karma                           2                      2 
+Kindle              2 
+Last Wish  
+Lightning           3           3           3          3 
+Meditation                      2 
+Mind Excursion      2           2           2          2 
+Miracle Potion 
+Moment of Peace                             3          2 
+Morph               1           1           1          1 
+Poison Affinity 
+Poison Cloud                                3 
+Poisoning Plant                             4 
+Potion              4           4           4          4 
+Power Burst 
+Prayer 
+Pulse of Life                   2 
+Purify                          2 
+Pyromania 
+Rage                4 
+Renew                           2           2 
+Returning Fear      3                       3          3 
+Revenge 
+Sadness 
+Shield of Gaia  
+Silence                                     2          4 
+Soul Strike 
+Sudden Inspiration 
+Thunder Bolt        2 
+Toxic Dagger                                4 
+Vitality Formula                3 
+Weakness            3           3           3          3 
+Wrath

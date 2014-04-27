@@ -1,0 +1,217 @@
+<html>
+<head><title>Ice Slide 3</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<script id="lvl"></script>
+<style>
+body{
+  font-size:11;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  font-family:arial,sans-serif;
+}
+.player{
+ position:absolute;
+ top:0;
+ left:0;
+ z-index:105;
+ height:48;
+ width:48;
+}
+.dlayer{
+ position:absolute;
+ top:50;
+ left:50;
+}
+.layer_0{
+ z-index:80;
+}
+.layer_1{
+ z-index:90;
+}
+.block{
+ height:48;
+ width:48;
+}
+</style>
+<script>
+var lvl_list        = new Array('Tutorial1','Tutorial2');
+//                  = new Array(aU,aD,aL,aR,spa,ent,esc,km,kp,kh);
+var keymap          = new Array(38,40,37,39,32, 13, 27, 77,80,72);
+var al              = new Array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
+var param_lvltitle  = '';
+var param_gridtop   = 50;
+var param_gridleft  = 50;
+var param_gridsize  = 12;
+var param_blocksize = 48;
+var param_verified  = 0;
+var param_signed    = 0;
+var param_author    = 'Unknown';
+var tempdata        = new Array();
+//nopass.test(condt)
+var cond_gem        = /[efghi!]/;
+var cond_block      = /[klmno!]/;
+
+var curr_color      = 0;
+var gems_collected  = 0; //level count
+var game_mode       = 0;
+var timer_move      = 0;
+var stopinputs      = 0;
+var playerx         = 0;
+var playery         = 0;
+var App={
+	Ini:function(){
+		XMessage.Ini();
+		App.Load(XScripting.OpenFile('devload.txt'));
+		Draw.Player();
+	},
+	Inputs:function(){
+		if (stopinputs!=1){
+			tempdata[1] = event.keyCode;
+			if (tempdata[1] == keymap[0]){ //up
+				if (game_mode==0){
+					stopinputs = 1;
+					timer_move = setInterval("App.MoveV(-1);",10);
+				}else{
+					App.MoveV(-1);
+				}
+			}else if (tempdata[1] == keymap[1]){ //down
+				if (game_mode==0){
+					stopinputs = 1;
+					timer_move = setInterval("App.MoveV(1);",10);
+				}else{
+					App.MoveV(1);
+				}
+			}else if (tempdata[1] == keymap[2]){ //left
+				if (game_mode==0){
+					stopinputs = 1;
+					timer_move = setInterval("App.MoveH(-1);",10);
+				}else{
+					App.MoveH(-1);
+				}
+			}else if (tempdata[1] == keymap[3]){ //right
+				if (game_mode==0){
+					stopinputs = 1;
+					timer_move = setInterval("App.MoveH(1);",10);
+				}else{
+					App.MoveH(1);
+				}
+			}else if (tempdata[1] == keymap[4]){ //space
+		
+			}else if (tempdata[1] == keymap[5]){ //enter
+		
+			}else if (tempdata[1] == keymap[6]){ //escape
+		
+			}else if (tempdata[1] == keymap[7]){ //m
+		
+			}else if (tempdata[1] == keymap[8]){ //p
+		
+			}else if (tempdata[1] == keymap[9]){ //h
+		
+			}
+		}
+	},
+	UpdatePlayer:function(){
+		player.style.top  = Math.round(param_blocksize*playery+param_gridtop);
+		player.style.left = Math.round(param_blocksize*playerx+param_gridleft);
+		tempdata[5]       = document.getElementById('lay1x'+playery+'x'+playerx);
+		if (cond_gem.test(tempdata[5].it)){
+			gems_collected++;
+			curr_color                   = al[al.indexOf(tempdata[5].it)+6];
+			player.src       		     = 'imgs/pl_' + tempdata[5].it + '.png';
+			tempdata[5].it               = 'a';
+			document.title               = 'Level: ' + param_title + ' | Gems: ' + param_gemtotal + ' | Status: '+ gems_collected + '/' + param_gemreq;
+			tempdata[5].style.background = 'url("imgs/a.png")';
+		}else if (tempdata[5].it=='j' && gems_collected>=param_gemreq){
+			clearInterval(timer_move);
+			setTimeout("stopinputs = 1;",100);
+			XMessage.Alert(param_title+' Complete','Completion: ' + Math.round(gems_collected/param_gemtotal*100) + '%<br><br>Gems: ' + gems_collected + '/' + param_gemtotal + '<br>Required: '+ param_gemreq,0,0,0,1);
+		}
+	},
+	MoveV:function(it){
+		playery -=- it;
+		if (playery<=-1 || playery>=param_gridsize || App.BlockInWay()){
+			playery -= it;
+			clearInterval(timer_move);
+			stopinputs = 0;
+		}else{
+			App.UpdatePlayer();
+		}
+	},
+	MoveH:function(it){
+		playerx -=- it;
+		if (playerx<=-1 || playerx>=param_gridsize || App.BlockInWay()){
+			playerx -= it;
+			clearInterval(timer_move);
+			stopinputs = 0;
+		}else{
+			App.UpdatePlayer();
+		}
+	},
+	Load:function(it){
+		gems_collected = 0;
+		lvl.src        = 'levels/'+it;
+		Map.Settings();
+		Draw.Board(param_gridsize);
+		Map.Data();
+	},
+	BlockInWay:function(){
+		tempdata[5] = document.getElementById('lay1x'+playery+'x'+playerx);
+		if (cond_block.test(tempdata[5].it) && tempdata[5].it!=curr_color){
+			return true;
+		}
+		return false;
+	}
+};
+
+var Draw = {
+	Board:function(it){
+		param_gridsize = it;
+		tempdata[0] = '';
+		for (a=0;a<=1;a++){
+			tempdata[0] += '<table cellpadding=0 cellspacing=0 class="dlayer layer_'+a+'" id="layer'+a+'x">';
+			for (b=0;b<=it-1;b++){
+				tempdata[0] += '<tr>';
+				for (c=0;c<=it-1;c++){
+						//tempdata[0] += '<td class="block" id="lay'+a+'x'+b+'x'+c+'">b'+b+',c'+c+'</td>';
+						tempdata[0] += '<td class="block" id="lay'+a+'x'+b+'x'+c+'" background="imgs/a.png"></td>';
+				}
+				tempdata[0] += '</tr>';
+			}
+			tempdata[0] += '</table>';
+		}
+		boardlayers.innerHTML = tempdata[0];
+	},
+	Player:function(){
+		tempdata[0] = '<img src="imgs/pl_h.png" class="block player" id="player">';
+		playerlayer.innerHTML = tempdata[0];
+		App.UpdatePlayer();
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onkeydown="App.Inputs()" background="imgs/bg-ice.png">
+<HTA:APPLICATION ID="ice3game"
+    APPLICATIONNAME="ice3game"
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="playerlayer"></span>
+<span id="boardlayers"></span>
+
+</body>
+</html>

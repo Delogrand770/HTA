@@ -1,0 +1,7 @@
+<center>
+<input type="button" class="blk2" value="Deck" onclick="Deck.Ini();"> 
+<input type="button" class="blk2" value="Store" onclick="Store.Ini();"> 
+<input type="button" class="blk2" value="Arena" onclick="Arena.Ini();"> 
+<!--<input type="button" class="blk2" value="Awards" onclick="Awards.Ini();"> -->
+<input type="button" class="blk2" value="Dashboard" onclick="Dashboard.Ini();">
+</center>

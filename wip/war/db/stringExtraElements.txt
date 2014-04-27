@@ -1,0 +1,3 @@
+<span class="abs none" id="pagecount"></span>
+<img src="cardpics/next.png" class="abs none chand" id="arrnext" onclick="Deck.ScrollRight()"><img src="cardpics/back.png" class="abs none chand" id="arrback" onclick="Deck.ScrollLeft()">
+<span id="mainwindow" class="abs"></span>

@@ -1,0 +1,203 @@
+<head><title>War 3</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<script src="db/cards.js"></script>
+<script src="db/crets.js"></script>
+<script src="db/missions.js"></script>
+<script src="db/challenges.js"></script>
+<script src="db/awards.js"></script>
+<script src="db/decks.js"></script>
+<style>
+.tog{
+ height:24;
+ width:24;
+ cursor:hand;
+}
+
+</style>
+
+<script>
+XU.ResizeWindow(800,1190,0,1);
+
+//SAVE DATA//
+var xsave_vars = new Array('card_store','cret_store','in_deck','in_library','misc_data');
+
+var misc_data  = new Array('USER','MONEY');
+var in_deck    = deck_counter.copy();
+var in_library = new Array();
+var card_store = new Array();
+var cret_store = new Array();
+
+var itemp = 0;
+var App = {
+	Ini:function(){
+		//XL.Ini();
+		XM.Ini();
+		XDS.Ini();
+		Store.Ini();
+		DeckEdit.Ini(); //testing
+		menus.innerHTML = XS.File('db/menus.txt','open');
+	}
+};
+
+var Card = {
+	Vars:new Array('name','pic','aether','buy','sell','pack','type','cmd','text'),
+	Data:function(icard,idata){
+		return card_list[icard][Card.Vars.indexOf(idata)];
+	},
+	Draw:function(ilocation,iid){
+		XI.New(ilocation,iid,'1:1','255:200',0);
+		XU.El(iid+'_title').style.textAlign = 'left';
+	},
+	Fill:function(icard,iid){
+		if (in_deck[icard]==0 && in_library[icard]==0){
+			icard = 0;
+		}
+		var itype  = Card.Data(icard,'type');
+		var icolor = (itype == 'C')?'white':(itype == 'U')?'#B5E61D':'yellow';
+		var ititle = '<img src="cardpics/aether_' + itype + '.png"><font color="' + icolor + '">' + Card.Data(icard,'aether') + XU.DrawSpace(5) + '</font><font color="#0099ff">' + Card.Data(icard,'name') + '</font>';
+		var ibody  = '<center><img src="cardpics/' + Card.Data(icard,'pic') + '"><br><font size=2>' + Card.Data(icard,'text') + '</font></center>';
+		XI.Fill(iid,ititle,ibody,1);
+	}
+};
+
+var Cret = {
+	Vars:new Array('name','pic','atk','def','buy','sell','type','cmd','text'),
+	Data:function(icret,idata){
+		return cret_list[icret][Cret.Vars.indexOf(idata)];
+	}
+};
+
+var Store = {
+	Ini:function(){ //This is only for db updates. Only call from in App.Ini()
+		card_store.length = card_list.length;
+		cret_store.length = cret_list.length;
+		in_library.length = card_list.length;
+		in_deck.length    = card_list.length;
+		for (var i=0;i<=card_store.length-1;i++){
+			card_store[i] = (!card_store[i])?0:card_store[i];
+		}
+		for (var i=0;i<=cret_store.length-1;i++){
+			cret_store[i] = (!cret_store[i])?0:cret_store[i];
+		}
+		for (var i=0;i<=in_library.length-1;i++){
+			in_library[i] = (!in_library[i])?0:in_library[i];
+		}
+		for (var i=0;i<=in_deck.length-1;i++){
+			in_deck[i] = (!in_deck[i])?0:in_deck[i];
+		}
+	},
+	Draw:function(){
+
+	},
+	Buy:function(it){
+		
+	},
+	Sell:function(it){
+		
+	},
+	StockCard:function(icard,iact){
+		card_store[icard] = (iact == 'rem')?0:1;
+	},	
+	StockCret:function(icret,iact){
+		cret_store[icret] = (iact == 'rem')?0:1;
+	}
+};
+
+var DeckEdit = {
+	index:0,
+	Ini:function(){
+		DeckEdit.index = 0;
+		DeckEdit.Draw();
+		DeckEdit.ShowCards();
+	},
+	Draw:function(){
+		var inject = '';
+		mainarea.innerHTML = XS.File('db/deckedit.txt','open');
+		XU.DFB('btn_prev',10);
+		XU.DFB('btn_next',10);
+		XU.DFR('btn_next',10);
+		XI.Hide('btn_prev');
+		for (var i=0;i<=9;i++){
+			var postop = (i<=4)?80:450;
+			var poslft = (i<=4)?Math.round((i+.45)*200):Math.round((Math.abs(5-i)+.45)*200);
+			Card.Draw('mainarea','slot'+i);
+			XI.Position('slot'+i,poslft,postop);
+			inject += '<span id="tog'+i+'" style="position:absolute;top:'+Math.round(postop+250)+';left:'+poslft+';width:200;text-align:center;display:block;"></span>';
+			mainarea.innerHTML += inject;
+		}
+	},
+	Stats:function(icard,itog){
+		XU.El('tog'+itog).innerHTML = '<img src="cardpics/less.png" class="tog" onclick="DeckEdit.Change('+icard+',-1,'+itog+')"> <img src="cardpics/more.png" class="tog" onclick="DeckEdit.Change('+icard+',1,'+itog+')"><br>'+in_deck[icard]+'/'+Math.round(in_deck[icard]+in_library[icard]);
+	},
+	ShowCards:function(){
+		if (DeckEdit.index<0){DeckEdit.index = 0;}
+		for (var i=0;i<=9;i++){
+			if (DeckEdit.index<=card_list.length-2 && DeckEdit.index>=0){
+				DeckEdit.index++;
+				var temp = DeckEdit.index;
+				if (in_deck[DeckEdit.index]==0 && in_library[DeckEdit.index]==0){
+					XI.Hide('tog'+i);
+					DeckEdit.index = 0;
+				}else{
+					DeckEdit.Stats(DeckEdit.index,i);
+					XI.Show('tog'+i);
+					
+				}
+				Card.Fill(DeckEdit.index,'slot'+i);
+				DeckEdit.index = temp;
+			}
+		}
+		(DeckEdit.index>=card_list.length-1)?XI.Hide('btn_next'):XI.Show('btn_next');
+		(DeckEdit.index == 10)?XI.Hide('btn_prev'):XI.Show('btn_prev');
+	},
+	Change:function(icard,imode,itog){
+		if (imode == 1){
+			var itype  = Card.Data(icard,'type');
+			var icolor = (itype == 'C')?'white':(itype == 'U')?'#B5E61D':'yellow';
+			var imax   = (itype == 'C')?4:(itype == 'U')?2:1;
+			if (in_library[icard] == 0){return false;}
+			if (in_deck[icard]<imax){
+				in_deck[icard]++;
+				in_library[icard]--;
+				DeckEdit.Stats(icard,itog);
+			}else{
+				XM.Alert('Error','This is a type <font color="'+icolor+'">' + itype + '</font> card.<br>Max allowed is ' + imax);
+			}
+		}else if (imode == -1){
+			if (in_deck[icard]>0){
+				in_deck[icard]--;
+				in_library[icard]++;
+				DeckEdit.Stats(icard,itog);
+			}
+		}
+	}
+};
+
+</script>
+</head>
+
+<body onload="App.Ini()" scroll="no" onresize="" text="white" onkeypress="" background="bg.png">
+<HTA:APPLICATION ID="war3"
+    APPLICATIONNAME="war3"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="menus"></span>
+<span id="mainarea"></span>
+
+</body>
+</html>

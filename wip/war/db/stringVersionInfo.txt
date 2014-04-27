@@ -1,0 +1,11 @@
+<table>
+<tr>
+<td style="text-align:right;">Game Version:</td><td id="utility_a"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Cards:</td><td id="utility_b"></td>
+</tr>
+<tr>
+<td style="text-align:right;">Creatures:</td><td id="utility_c"></td>
+</tr>
+</table>

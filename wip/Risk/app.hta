@@ -1,0 +1,142 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>Risk 2010 A.D.</title>
+<script src="gaia.js"></script>
+<style>
+v\:* {behavior:url(#default#VML);}
+
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family:arial,sans-serif;
+ background-Color:#1a1d1f;
+ background-Image:url('bg.png');
+}
+</style>
+<script src="ZoomClass.js"></script>
+<script src="MapClass_WorldMap.js"></script>
+<script>
+XU.ResizeWindow(930,1000);
+
+var Data = {
+		terrs:[Map.terrs.length],
+		ini:function(){
+			Game.state = "Data.terrs.ini";
+			Data.terrs[0] = new Array('owner', 'units', 'diplomat', 'land', 'nuclear', 'sea', 'space');
+			for (var i = 1; i < Map.terrs.length; i++) {
+				Data.terrs[i] = new Array(0, 0, 0, 0, 0, 0);
+			}
+			Game.out(Data.terrs.toString());
+		}
+};
+
+var Game = {
+	debug:true,
+	state:"",
+	main:function(){
+			Game.state = "Game.main";
+			XL.Ini();
+			XS.File('errorlog.txt','create','RISK 2010 Error Report\r\n');
+			XS.File('systemout.txt','create','RISK 2010 System Out\r\n');
+			Game.gui.ini();
+			Game.map.ini();
+			Data.ini();
+	},
+	debug:function(){
+			Game.state = "Game.debug";
+			Game.map.expandData();
+	},
+	out:function(it){
+		if (Game.debug){
+			XS.File('systemout.txt', 'writeline', it);
+		}
+	},
+	gui:{
+		ini:function(){
+			Game.state = "Game.gui.ini";
+			XI.New('mainarea','terrinfo','1:1','400:200',0);
+			XI.Fill('terrinfo','&nbsp;','&nbsp;');
+			XI.Show('terrinfo');
+			Game.gui.resize();	
+		},
+		resize:function(){
+			Game.state = "Game.gui.repos";
+			XU.El('terrinfo').style.top = 10;
+			XU.DFR('terrinfo',10);
+		}
+	},
+	map:{
+		ini:function(){
+			Game.state = "Game.map.ini";
+			Game.map.draw();
+			Zoom.factor(.6,'gameMap','WorldMap');
+		},
+		expandData:function(){
+			Game.state = "Game.map.expandData";
+			var inject = "";
+			for (i = 1; i <= Map.terrs.length - 1; i++){
+				inject += "Name: " + Map.terrs[i][1] + "\r\n";
+				inject += "Type: " + Map.terrs[i][0] + "\r\n";
+				inject += "ID#: " + Map.terrs[i][2] + "\r\n";
+				inject += "Bonus: " + Map.bonuses[Map.terrs[i][3]][1] + "(" + 
+				Map.bonuses[Map.terrs[i][3]][2] + "/" + Map.bonuses[Map.terrs[i][3]][3] + ")\r\n";
+				inject += "Connects to:\r\n";
+				for (z = 4; z <= Map.terrs[i].length - 1; z++){
+					inject += "\t" + Map.terrs[Map.terrs[i][z]][1] + "\r\n";
+				}
+				inject += "\r\n";
+			}
+			XS.File('debug.txt', 'create', inject);
+		},
+		draw:function(){
+			Game.state = "Game.map.draw";
+			var inject = '<map id="WorldMap" name="WorldMap">';
+			for (var i = 1; i < Map.coords.length; i++) {
+				var coords = Map.coords[i].copy();
+				coords = coords.remove(0).join(",");
+				inject += '<area shape="' + Map.coords[i][0] + '" alt="' + Map.terrs[i][1] + '" coords="' + coords + '" onclick="Game.map.details('+i+')">';
+			}
+			inject += '</map><img src="WorldMap.jpg" id="gameMap" usemap="#WorldMap" style="border-style:none">';
+			mainarea.innerHTML += inject;
+		},
+		details:function(terrId){
+			Game.state = "Game.map.details";
+			try{
+				if (terrId == -1){
+					XI.Fill('terrinfo','&nbsp;','&nbsp;',1);
+				}else{
+					var curr = Map.terrs[terrId];
+					XI.Fill('terrinfo',curr[1],curr[2],1);
+				}
+			}catch(e){}
+		}
+	}
+};
+window.onerror = function(e){document.title = "*ERROR";XS.File('errorlog.txt', 'writeline', Game.state + ': ' + e);return false;};
+</script>
+</head>
+<body onload="Game.main();" onresize="Game.gui.resize()">
+<HTA:APPLICATION ID="risk2010"
+    APPLICATIONNAME="risk2010"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="mainarea"></span>
+
+</body>
+</html>

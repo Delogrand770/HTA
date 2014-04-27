@@ -1,0 +1,347 @@
+<html>
+<head><title>CQ Link Builder</title>
+<script>
+// File System //
+var XS = {
+	name:'C14Gavin.Delphia',
+	fso:new ActiveXObject("Scripting.FileSystemObject"),
+	net:new ActiveXObject("WScript.Network")
+};
+
+// Network Functions //
+var XN = {
+	Name:function(it){
+		if (it == 'computer'){
+			return XS.net.ComputerName;
+		}
+		else if (it == 'user'){
+			return XS.net.UserName;
+		}
+	}
+};
+
+// Utility Functions //
+var XU = {
+	CenterElement:function(el,m,xoff,yoff){
+		xoff = xoff || 0;
+		yoff = yoff || 0;
+		if (m == 'v' || m == 'b'){
+			XU.El(el).style.top = Math.round(yoff+(parseInt(document.body.offsetHeight)/2) - (XU.El(el).offsetHeight/2))+yoff;
+		}
+		if (m == 'h' || m == 'b'){
+			XU.El(el).style.left = Math.round(xoff+(parseInt(document.body.offsetWidth)/2) - (XU.El(el).offsetWidth/2));
+		}
+	},
+	DFR:function(el,d){
+		XU.El(el).style.left = Math.round(parseInt(document.body.offsetWidth) - (XU.El(el).offsetWidth+d));
+	},
+	DFB:function(el,d){
+		XU.El(el).style.top = Math.round(parseInt(document.body.offsetHeight) - (XU.El(el).offsetHeight+d));
+	},
+	ResizeWindow:function(h,w,f,c){
+		if (f == 1){
+			h = parseInt(screen.height);
+			w = parseInt(screen.width);
+		}
+		if (c == 1){
+			self.moveTo(parseInt(screen.width)/2-(w/2),parseInt(screen.height)/2-(h/2));
+		}
+		try{
+			window.resizeTo(w,h);
+		}catch(e){
+			XU.ResizeWindow(h,w,f,c);
+		}
+	},
+	MoveWindow:function(x,y){
+		if (x == "c"){
+			x = parseInt(screen.width)/2-(document.body.offsetWidth/2);
+		}
+		if (y == "c"){
+			y = parseInt(screen.height)/2-(document.body.offsetHeight/2);
+		}
+		self.moveTo(x,y);
+	},
+	El:function(it){
+		return document.getElementById(it);
+	}
+};
+
+var XM = {
+	settings:new Array('silver','#0099ff',0),
+	Ini:function(){
+		document.body.innerHTML+='<div id="nxms" style="height:105%;width:105%;position:absolute;top:-2;left:-2;display:none;filter:alpha(opacity=50);background-Color:white;z-index:110;"></div>';
+		document.body.innerHTML+='<table style="position:absolute;top:10;left:10;width:500;display:none;z-index:150;" cellpadding=0 cellspacing=0 id="nxmcont"><tr><td style="overflow:hidden;background:url(\'xres/WindowTopLeft.png\') repeat scroll 0% 0% transparent;width:15px;height:32px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowTopCenter.png\') repeat scroll 0% 0% transparent;text-align:center;color:silver;" id="nxmtitle">Welcome</td><td style="overflow:hidden;background:url(\'xres/WindowTopRight.png\') repeat scroll 0% 0% transparent;width:15px;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowCenterLeft.png\') repeat scroll 0% 0% transparent;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowCenter.png\') repeat scroll 0% 0% transparent;text-align:center;color:silver;overflow-x:auto;word-wrap:break-word;" id="nxmbody">&nbsp;<br>This is where all the content goes</td><td style="overflow:hidden;background:url(\'xres/WindowCenterRight.png\') repeat scroll 0% 0% transparent;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowBottomLeft.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomCenter.png\') repeat scroll 0% 0% transparent;height:39px;text-align:center;color:silver;" id="nxmtype">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomRight.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td></tr></table>';
+		XM.settings[2] = 1;
+	},
+	Alert:function(ititle,ibody,itype,ilay){
+		if (XM.settings[2]!=1){
+			XM.Ini();
+		}
+		if (ilay != 0){
+			nxms.style.display = "block";
+		}
+		itype                 = itype || 'accept';
+		nxmtitle.innerHTML    = ititle;
+		nxmbody.innerHTML     = '<br>'+ibody;
+		nxmcont.style.display = "block";
+		XU.CenterElement('nxmcont','b');
+		if (itype == 'accept'){
+			nxmtype.innerHTML   = '<span id="nxmbtn">Accept</span>';
+			nxmbtn.style.cursor = 'hand';
+			nxmbtn.onclick      = XM.Close;
+			nxmbtn.style.color  = XM.settings[0];
+			nxmbtn.onmouseover  = function(){
+				nxmbtn.style.color = XM.settings[1];
+				nxmbtn.onmouseout  = function(){
+					nxmbtn.style.color = XM.settings[0];
+				}
+			}
+		}
+		else if (itype == 'inform'){
+			nxmtype.innerHTML   = '';
+		}
+		else if (itype == 'confirm'){
+			nxmtype.innerHTML    = '<span id="nxmbtna">Okay</span>'+XU.DrawSpace(15)+'<span id="nxmbtnb">Cancel</span>';
+			nxmbtna.style.cursor = 'hand';
+			nxmbtnb.style.cursor = 'hand';
+			nxmbtna.style.color  = XM.settings[0];
+			nxmbtna.onmouseover  = function(){
+				nxmbtna.style.color = XM.settings[1];
+				nxmbtna.onmouseout  = function(){
+					nxmbtna.style.color = XM.settings[0];
+				}
+			}	
+			nxmbtnb.style.color  = XM.settings[0];
+			nxmbtnb.onmouseover  = function(){
+				nxmbtnb.style.color = XM.settings[1];
+				nxmbtnb.onmouseout  = function(){
+					nxmbtnb.style.color = XM.settings[0];
+				}
+			}			
+		}
+	},
+	Center:function(){
+		XU.CenterElement('nxmcont','b');
+	},
+	Close:function(){
+		nxms.style.display = "none";
+		nxmcont.style.display   = "none";
+	},
+	Actions:function(ita,itb){
+		nxmbtna.onclick = function(){eval(ita)};
+		nxmbtnb.onclick = function(){eval(itb)};
+	},
+	Texts:function(ita,itb){
+		nxmbtna.innerHTML = ita;
+		nxmbtnb.innerHTML = itb;
+	},
+	LayC:function(it){
+		nxms.style.backgroundColor = it;
+	},
+	BodyC:function(it){
+		nxmbody.style.color = it;
+	},
+	TitleC:function(it){
+		nxmtitle.style.color = it;
+	},
+	BtnC:function(it){
+		XM.settings[0] = it;
+	},
+	HoverC:function(it){
+		XM.settings[1] = it;
+	},
+	Dim:function(iw,ih){
+		if (iw){
+			nxmcont.style.width  = iw;
+		}
+		if (ih){
+			nxmcont.style.height = ih;
+		}
+	}
+};
+
+// Info Boxes //
+var XI = {
+	error:0,
+	New:function(iwhere,iid,ipos,isize,idisplay,izindex,itcolor,ibcolor){ //new style
+		XI.error = 0;
+		ix 	 = parseInt(ipos.split(':')[0]);
+		iy 	 = parseInt(ipos.split(':')[1]);
+		ih 	 = parseInt(isize.split(':')[0]);
+		iw 	 = parseInt(isize.split(':')[1]);
+		idisplay = (idisplay==0)?'none':'block';
+		izindex  = izindex || 100;
+		itcolor  = itcolor || 'silver';
+		ibcolor  = ibcolor || 'white';
+		if (!iy || !ix){
+			XI.error = 1;
+			XM.Alert('XInfo - '+iid,'You didnt specify <i>x:y [2]</i>');
+		}
+		if (!ih || !iw){
+			XI.error = 1;
+			XM.Alert('XInfo - '+iid,'You didnt specify <i>h:w [3]</i>');
+		}
+		if (!iwhere){
+			XI.error = 1;
+			XM.Alert('XInfo - '+iid,'You didnt specify <i>iwhere [0]</i>');
+		}
+		if (!iid){
+			XI.error = 1;
+			XM.Alert('XInfo - '+iid,'You didnt specify <i>iid [1]</i>');
+		}
+		if (XI.error == 0){
+			XU.El(iwhere).innerHTML += '<table style="position:absolute;top:'+iy+';left:'+ix+';z-index:'+izindex+';display:'+idisplay+';height:'+ih+';width:'+iw+';" cellpadding=0 cellspacing=0 id="'+iid+'"><tr><td style="overflow:hidden;background:url(\'xres/WindowTopLeft.png\') repeat scroll 0% 0% transparent;width:15px;height:32px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowTopCenter.png\') repeat scroll 0% 0% transparent;text-align:center;color:'+itcolor+';" id="'+iid+'_title">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowTopRight.png\') repeat scroll 0% 0% transparent;width:15px;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowCenterLeft.png\') repeat scroll 0% 0% transparent;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowCenter.png\') repeat scroll 0% 0% transparent;color:'+ibcolor+';overflow-x:auto;word-wrap:break-word;"  id="'+iid+'_body">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowCenterRight.png\') repeat scroll 0% 0% transparent;">&nbsp;</td></tr><tr><td style="overflow:hidden;background:url(\'xres/WindowBottomLeft.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomCenter.png\') repeat scroll 0% 0% transparent;height:39px;text-align:center;color:silver;" id="'+iid+'_nxmbtn">&nbsp;</td><td style="overflow:hidden;background:url(\'xres/WindowBottomRight.png\') repeat scroll 0% 0% transparent;height:39px;">&nbsp;</td></tr></table>';
+		}
+	},
+	Fill:function(iid,it,it2,ishow){
+		if (XI.error == 0){
+			XU.El(iid+'_title').innerHTML = it;
+			XU.El(iid+'_body').innerHTML  = '<br>' + it2;
+			(ishow == 1)?XI.Show(iid):XI.Hide(iid);
+		}
+	},
+	Hide:function(iid){
+		XU.El(iid).style.display = 'none';
+	},
+	Show:function(iid){
+		XU.El(iid).style.display = 'block';
+	},
+	ZIndex:function(iid,it){
+		XU.El(iid).style.zIndex = it;
+	},
+	Position:function(iid,itx,ity){
+		XU.El(iid).style.top  = ity;
+		XU.El(iid).style.left = itx;
+	},
+	TColor:function(iid,icolor){
+		XU.El(iid+'_title').style.color = icolor;
+	},
+	BColor:function(iid,icolor){
+		XU.El(iid+'_body').style.color = icolor;
+	},
+	Title:function(iid,it){
+		XU.El(iid+'_title').innerHTML = it;
+	}
+};
+</script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.spectd{
+border:1 solid black;
+width:100;
+height:40;
+text-align:center;
+color:white;
+}
+.btn{
+border:1 solid black;
+color:black;
+}
+.txt{
+border:1 solid white;
+color:black;
+background-Color:transparent;
+color:white;
+}
+</style>
+
+<script>
+XU.ResizeWindow(800,1017);
+XU.MoveWindow(0,0);
+var App = {
+	total:0,
+	strings:new Array('Reveille','1st','2nd','3rd','4th','Lunch','5th','6th','7th','','','','Weekday Taps','','Weekend Taps'),
+	hrs:new Array(1,1,1,1,1,1.5,1,1,1,2,2,1.5,1,1,1.5),
+	time:new Array('0645-0745','0745-0845','0845-0945','0945-1045','1045-1145','1145-1320','1320-1425','1425-1525','1525-1625','1625-1830','1830-2030','2030-2200','2200-2300','2300-0000','0000-0130'),
+	Ini:function(){
+		XM.Ini();
+		XI.New('screen','stable','1:1','100:1000',1);
+		var inject = '<table cellpadding=0 cellspacing=0>';
+		inject    += '<tr style="background-Color:blue;"><td class="spectd">Period</td><td class="spectd">Value</td><td class="spectd">Time</td><td class="spectd">Monday</td><td class="spectd">Tuesday</td><td class="spectd">Wednseday</td><td class="spectd">Thursday</td><td class="spectd">Friday</td><td class="spectd">Saturday</td><td class="spectd">Sunday</td></tr>';
+		for (i=0;i<App.time.length;i++){
+			inject += '<tr>';
+			inject += '<td class="spectd" style="background-Color:#0066ff;">'+App.strings[i]+'</td><td class="spectd" style="background-Color:#0066ff;">'+App.hrs[i]+'</td><td class="spectd" style="background-Color:#0066ff;">'+App.time[i]+'</td>';
+			for (j=1;j<=7;j++){
+				inject += '<td day='+j+' period='+(i+1)+' active=0 onclick="App.Sit()" id="x'+j+'x'+(i+1)+'x" style="cursor:hand;" class="spectd">Sit</td>';
+			}
+			inject += '</tr>';
+		}
+		inject += '</table><br>&nbsp;<input type="button" value="Create Link" onclick="App.CreateLink()" class="btn">';
+		inject += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hours: <span id="hours">0</span>';
+		XI.Fill('stable','CQ Shifts',inject,1);
+	},
+	Sit:function(){
+		App.total                             += App.hrs[event.srcElement.period-1];
+		event.srcElement.innerHTML             = "Don't Sit";
+		event.srcElement.onclick               = App.UnSit;
+		event.srcElement.active                = 1;
+		event.srcElement.style.backgroundColor = 'red';
+		hours.innerHTML                        = App.total;
+	},
+	UnSit:function(){
+		App.total                             -= App.hrs[event.srcElement.period-1];
+		event.srcElement.innerHTML             = 'Sit';
+		event.srcElement.onclick               = App.Sit;
+		event.srcElement.active                = 0;	
+		event.srcElement.style.backgroundColor = 'transparent';
+		hours.innerHTML                        = App.total;	
+	},
+	CreateLink:function(){
+		XM.Alert('CQ Link','&nbsp;<textarea id="linkout" style="width:98%;height:100;" readonly class="txt"></textarea>');
+		var cur    = 0;
+		var inject = "javascript:q1=window.location.href.split('=')[2];q2=insertsitlink.toString().split(\"','\")[4];";
+		
+		for (i=0;i<14;i++){
+			for (j=1;j<=7;j++){
+				cur = XU.El('x'+j+'x'+(i+1)+'x');
+				if (cur.active == 1){
+					inject += "getCustomer('submitsit',q1,"+cur.day+","+cur.period+",q2,'#d"+cur.day+"p"+cur.period+"');";
+				}
+			}
+		}
+		inject 	     += 'void(0);';
+		linkout.value = inject;
+		linkout.select();
+		document.execCommand("Copy");
+	}
+};
+var Secure = {
+	name:XN.Name('user'),
+	Validate:function(){
+		if (Secure.name!=XS.name){
+			window.close();
+		}else{
+			App.Ini();
+		}	
+	}
+};
+</script>
+</head>
+<body onload="Secure.Validate();">
+<HTA:APPLICATION ID="cqlinkbuilder"
+    APPLICATIONNAME="cqlinkbuilder"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id='screen'></span>
+</body>
+</html>

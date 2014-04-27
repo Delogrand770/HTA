@@ -1,0 +1,1433 @@
+<html>
+<head><title>War</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<script src="cards.js"></script>
+<script src="crets.js"></script>
+<script src="missions.js"></script>
+<script src="challenges.js"></script>
+<script src="awards.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.xbtn{
+  cursor:arrow;
+  border:solid 0px #ccc;
+  background:transparent;
+  font-size:.9em;color:#666;
+  fontweight:bold;
+  padding:0px;
+  width:25;height:15;
+  font-family:Marlett;
+  z-index:100;
+  position:absolute;top:8;
+}
+.menuitem{
+  background-image:url('res/block2.png');
+  height:76;
+  width:283;
+  color:black;
+  text-align:center;
+  font-size:25;
+  cursor:hand;
+}
+.btn{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+  width:100;
+}
+.btn2{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+  width:20;
+}
+.txt{
+  color:#0099ff;
+  background-Color:transparent;
+  border:1 solid white;
+  height:20;
+}
+.select{
+  color:#0099ff;
+  background-Color:black;
+  border:1 solid white;
+}
+</style>
+
+<script>
+var deck_counter  = new Array(3,3,3,0,1,2,0,0,0,0,0,2,3,0,0,0,0,0,0,2,0,0,0,0,1,3,0,3,2,0,0,3,0,2,0,2,1,0,0,0,4,0,0,0,0,0,0,0,3,0,0,0,4,0,0,0,0,0,3,0);
+var deck_poison   = new Array(2,0,0,0,1,2,0,0,0,0,2,1,0,0,2,3,0,0,0,2,0,0,0,0,1,0,0,0,0,0,0,3,0,2,0,3,1,0,3,4,4,0,0,0,0,0,0,2,3,0,0,0,2,0,0,0,4,0,3,0);
+var deck_healing  = new Array(2,0,3,0,1,3,0,2,0,0,0,1,2,0,0,0,0,0,0,3,0,0,0,0,1,3,3,0,2,0,0,3,2,2,0,0,1,0,0,0,4,0,0,2,2,0,0,2,0,0,0,0,0,0,0,0,0,3,3,0);
+var deck_violence = new Array(2,3,0,0,1,2,0,0,0,0,0,1,0,0,3,0,0,0,0,3,0,0,4,2,1,0,0,4,0,2,0,3,0,2,0,0,1,0,0,0,4,0,0,0,0,0,4,0,3,0,0,0,0,0,0,2,0,0,3,0);
+var mymissions    = new Array();
+var mychallenges  = new Array();
+var sysinfo     = new Array('Save id0','creature in use1','Money2','atk bonus3','def bonus4','wins5','losses6');
+var awards      = new Array();
+var temp_add    = 0; //Container for drawing deck slots, reusable
+var temp_var    = new Array(3); //Container for assigning valuse in complex situations, reusable
+var deck_start  = 0; //Deck menu start index
+var cret_start  = 0; //Creature menu start index
+var insideboard = new Array(); //Cards in my sideboard
+var indeck      = new Array(); //Cards in my deck
+var incardshop  = new Array(); //Cards available for purchase
+var incretshop  = new Array(); //Creatures available for purchase
+var incretpen   = new Array(); //Creatures that I own to use
+var xsave_vars  = new Array('insideboard','indeck','incardshop','incretshop','incretpen','sysinfo','awards','mymissions','mychallenges');
+var xall_vars   = new Array('insideboard','indeck','incardshop','incretshop','incretpen','deck_start','xencrypt','sysinfo','awards','cret_start','cretinum','cardinum','mymissions','mychallenges','battledata','statuslist','selfstatus','oppostatus','battlestats');
+var cretinum    = 0; //keeps track of the last container number drawn
+var cardinum    = 0; //keeps track of the last container number drawn
+var Game = {
+	Ini:function(){
+		cretinum = 0;
+		cardinum = 0;
+		XMessage.Ini('#0099ff','white','white');
+		XDataSystem.Ini(0);
+		XGUI.Ini('icopic.png','War',720,1152,0,0,1,0,1,1);
+		XGUI.Update('enable','close');
+		menuselect.style.top = 60;
+		XUtil.CenterElement('menuselect','h');
+		menuselect.style.visibility = 'hidden';
+		sysinfo[2] = 0;
+		Deck.DrawContainers(5,'card_container');
+		Deck.DrawContainers(1,'shopcard_container');
+		Deck.DrawContainers(6,'battlecret_container');
+		CretPen.DrawContainers(5,'cretcard_container');
+		CretPen.DrawContainers(1,'shopcret_container');
+		CretPen.DrawContainers(2,'battlecard_container');
+		deck_start = 1;
+		cret_start = 1;
+		Deck.ZeroSideboard();
+		Shop.Zero();
+		CretPen.ZeroPen();
+		sysinfo = new Array('',1,1,0,0,0,0);
+		XUtil.MoveWindow('c',2);
+		XUtil.PreloadImages('cardpics/','*.png');
+		XUtil.PreloadImages('cretpics/','*.png');
+		XUtil.PreloadImages('xres/','*.png');
+		Arena.ZeroArena();
+		Game.DataMenu();
+	},
+	Splash:function(){
+
+	},
+	DataMenu:function(){
+		temp_add = "<table><tr style='text-align:center;color:#0099ff;border:1 solid blue;'><td colspan=3></td></tr>";
+		XScripting.SearchDirectory('saves/','*.txt');
+		for (b=0;b<=scanned_files.length-1;b++){
+			temp_var[0] = "\"saves/"+scanned_files[b].split('.txt')[0]+".txt\"";
+			temp_var[1] = '"'+scanned_files[b].split('.txt')[0]+'"';
+			temp_add   += "<tr style='cursor:hand;' onclick='XDataSystem.Load("+temp_var[0]+");sysinfo[0] = "+temp_var[1]+";Game.Continue();'><td style='align:left;color:white;'>"+scanned_files[b].split('.txt')[0]+"</td>";
+			temp_add   += "<td style='align:left;color:blue;'> - 0% - </td><td style='align:right;color:blue;'>Chapter 1</td></tr>";
+		}
+		temp_add += "<tr style='color:white;text-align:right;cursor:hand;' onclick='Game.New(1)'><td colspan=3>+ New Game</td></tr></table>";
+		area_cont.innerHTML = temp_add;
+		XUtil.CenterElement('area_cont','b');
+	},
+	Continue:function(){
+		XMessage.Close();
+		area_cont.innerHTML         = "";
+		menuselect.style.visibility = "visible";
+		XGUI.Update('title','War - ['+sysinfo[0]+']');
+	},
+	New:function(it,idata,it2){
+		if (it == 1){
+			XMessage.Alert('Deck Starting Type','<font size="3em"><span style="cursor:hand;color:red;" onclick="Game.New(2,\'violence\',1);">Violence</span>&nbsp;&nbsp;&nbsp;<span style="cursor:hand;color:blue;" onclick="Game.New(2,\'counter\',4);">Counter</span>&nbsp;&nbsp;&nbsp;<span style="cursor:hand;color:green;" onclick="Game.New(2,\'poison\',3);">Poison</span>&nbsp;&nbsp;&nbsp;<span style="cursor:hand;color:orange;" onclick="Game.New(2,\'healing\',2);">Healing</span><br><br><span style="cursor:hand;color:white;" onclick="XMessage.Close()">Main Menu</span></font>',1);
+		}else if (it == 2){
+			if (idata){
+				sysinfo[1] = it2;
+				incretpen[it2-1] = 1;
+				indeck = window['deck_'+idata];
+			}
+			XMessage.Alert('What is your name?','<input type="textarea" id="temp_name" maxlength=15 class="txt" onkeypress="if (event.keyCode==13){Game.New(3,temp_name.value)}"> <input type="button" value="Submit" onclick="Game.New(3,temp_name.value)" class="btn"><br><br><span style="cursor:hand;color:white;" onclick="XMessage.Close()"><font size="sem">Main Menu</font></span></font>',1);
+			temp_name.focus();
+		}else if (it == 3){
+			if (XScripting.FileExist('saves/'+temp_name.value+'.txt') || /\W/.test(temp_name.value) || !temp_name.value){
+				XMessage.Alert('Error','<font size="3em">Name already exists or is invalid!</font><br><br><input type="button" value="Ok" onclick="Game.New(2)" class="btn">',1)
+			}else{
+				sysinfo[0] = temp_name.value;
+				Game.Continue();
+			}
+		}
+	}
+};
+
+var Card = {
+	Lookup:function(it,it2){
+		if (it<=card_list.length-1 && it>=1 && it && Math.round(it*1)==it){
+			if (it2=='name'){
+				return card_list[it][0];
+			}else if (it2=='image'){
+				return card_list[it][1];
+			}else if (it2=='aether'){
+				return card_list[it][2];
+			}else if (it2=='buy'){
+				return card_list[it][3];
+			}else if (it2=='sell'){
+				return card_list[it][4];
+			}else if (it2=='pack'){
+				return card_list[it][5];
+			}else if (it2=='type'){
+				return card_list[it][6];
+			}else if (it2=='command'){
+				return card_list[it][7];
+			}else if (it2=='description'){
+				return card_list[it][8];
+			}
+		}else{
+			if (it2!='image'){
+				return "";
+			}else{
+				return "!Dev.png";
+			}
+		}
+	},
+	Display:function(it,cardnum){
+		if (Card.TotalOwn(it)>=1){
+			shopcardprice.innerHTML = "Cost: $" + Card.Lookup(it,'buy')+"<br><input type='button' value='Buy' onclick='Shop.BuyCard("+it+")' class='btn'>";
+			if (Card.TotalInSideboard(it)>=1){
+				shopcardprice.innerHTML += " <input type='button' value='Sell' onclick='Shop.SellCard("+it+")' class='btn'>";
+			}
+			document.getElementById(cardnum).it                   = it;
+			document.getElementById(cardnum+'image').src          = "cardpics/"+Card.Lookup(it,'image');
+			document.getElementById(cardnum+'descript').innerHTML = Card.Lookup(it,'description');
+			document.getElementById(cardnum+'name').innerHTML     = Card.Lookup(it,'name');
+			document.getElementById(cardnum+'aether').innerHTML   = "Æ "+Card.Lookup(it,'aether');
+			if (Card.Lookup(it,'type')=='C'){
+				document.getElementById(cardnum).style.border = "1 solid white";
+			}else if (Card.Lookup(it,'type')=='R'){
+				document.getElementById(cardnum).style.border = "1 solid gold";
+			}else if (Card.Lookup(it,'type')=='U'){
+				document.getElementById(cardnum).style.border = "1 solid #0099ff";
+			}
+		}else if (it==-1){
+			document.getElementById(cardnum+'image').src          = "cardpics/unknown.png";
+			document.getElementById(cardnum+'descript').innerHTML = "";
+			document.getElementById(cardnum+'name').innerHTML     = "";
+			document.getElementById(cardnum+'aether').innerHTML   = "";
+			document.getElementById(cardnum).style.border = "1 solid white";
+		}else{
+			shopcardprice.innerHTML = "Not for sale";
+			document.getElementById(cardnum).it                   = 0;
+			document.getElementById(cardnum+'image').src          = "cardpics/unknown.png";
+			document.getElementById(cardnum+'descript').innerHTML = "";
+			document.getElementById(cardnum+'name').innerHTML     = Card.Lookup(it,'name');;
+			document.getElementById(cardnum+'aether').innerHTML   = "";
+			document.getElementById(cardnum).style.border         = "1 dashed white";
+
+		}
+	},
+	TotalOwn:function(it){
+		return Math.round(indeck[it-1] + insideboard[it-1]);
+	},
+	TotalInDeck:function(it){
+		return indeck[it-1];
+	},
+	TotalInSideboard:function(it){
+		return insideboard[it-1];
+	}
+};
+
+var Cret = {
+	Lookup:function(it,it2){
+		if (it<=cret_list.length-1 && it>=1 && it && Math.round(it*1)==it){
+			if (it2=='name'){
+				return cret_list[it][0];
+			}else if (it2=='image'){
+				return cret_list[it][1];
+			}else if (it2=='atk'){
+				return cret_list[it][2];
+			}else if (it2=='def'){
+				return cret_list[it][3];
+			}else if (it2=='buy'){
+				return cret_list[it][4];
+			}else if (it2=='sell'){
+				return cret_list[it][5];
+			}else if (it2=='type'){
+				return cret_list[it][6];
+			}else if (it2=='command'){
+				return cret_list[it][7];
+			}else if (it2=='description'){
+				return cret_list[it][8];
+			}
+		}else{
+			if (it2!='image'){
+				return "";
+			}else{
+				return "!Dev.png";
+			}
+		}
+	},
+	Display:function(it,cretcardnum,ioveride){
+		if (Cret.TotalOwn(it)>=1 || ioveride==1){
+			shopcretprice.innerHTML = "Cost: $" + Cret.Lookup(it,'buy')+"<br><input type='button' value='Buy' onclick='Shop.BuyCret("+it+")' class='btn'>";
+			document.getElementById(cretcardnum).it                   = it;
+			document.getElementById(cretcardnum+'image').src          = "cretpics/"+Cret.Lookup(it,'image');
+			document.getElementById(cretcardnum+'descript').innerHTML = Cret.Lookup(it,'description');
+			document.getElementById(cretcardnum+'name').innerHTML     = Cret.Lookup(it,'name');
+			document.getElementById(cretcardnum+'atkdef').innerHTML   = Cret.Lookup(it,'atk') + "/" + Cret.Lookup(it,'def');
+			if (Cret.Lookup(it,'type')=='C'){
+				document.getElementById(cretcardnum).style.border = "1 solid white";
+			}else if (Cret.Lookup(it,'type')=='R'){
+				document.getElementById(cretcardnum).style.border = "1 solid gold";
+			}else if (Cret.Lookup(it,'type')=='U'){
+				document.getElementById(cretcardnum).style.border = "1 solid #0099ff";
+			}
+		}else{
+			document.getElementById(cretcardnum).it                   = 0;
+			document.getElementById(cretcardnum+'image').src          = "cretpics/unknown.png";
+			document.getElementById(cretcardnum+'descript').innerHTML = "";
+			document.getElementById(cretcardnum+'name').innerHTML     = Cret.Lookup(it,'name');;
+			document.getElementById(cretcardnum+'atkdef').innerHTML   = "";
+			document.getElementById(cretcardnum).style.border         = "1 dashed white";
+			if (incretshop[it]==1 && it!=0){
+				shopcretprice.innerHTML = "Cost: $" + Cret.Lookup(it,'buy')+"<br><input type='button' value='Buy' onclick='Shop.BuyCret("+it+")' class='btn'>";
+				document.getElementById('cr5image').src = "cretpics/"+Cret.Lookup(it,'image');
+			}else{
+				shopcretprice.innerHTML = "Not for sale";
+			}
+
+		}
+	},
+	TotalOwn:function(it){
+		if (it == sysinfo[1]){
+			return Math.round(incretpen[it-1]+sysinfo[1]);
+		}else{
+			return Math.round(incretpen[it-1]);
+		}
+	}
+};
+
+
+var CretPen = {
+	DrawContainers:function(it,iele){
+		temp_add = "";
+		for (i=cretinum;i<=Math.round(cretinum+it-1);i++){//alert(cretinum +','+i)
+			temp_add += '<table style="position:absolute;top:240;left:'+Math.round((190*i)+100)+';border:1 solid white;width:170;height:200;cursor:hand;" id="cr'+i+'" onclick="CretPen.ShowInfo(this.it,this.id);">';
+			temp_add += '<tr><td id="cr'+i+'name" style="text-align:left;font-size:11px;"></td>';
+			temp_add += '<td id="cr'+i+'atkdef" style="text-align:right;font-size:11px;"></td></tr>';
+			temp_add += '<tr><td style="height:133:width:168;text-align:center;" colspan=2><img src="cardpics/unknown.png" id="cr'+i+'image"></td></tr>';
+			temp_add += '<tr><td id="cr'+i+'descript" style="text-align:center;font-size:11px;" colspan=2></td></tr><table>';
+		}
+		document.getElementById(iele).innerHTML = temp_add;
+		cretinum += it;
+	},
+	FillFive:function(it,cng){
+		it -=- cng;
+		if ((it<=cret_list.length-5 && cng>=1) || (it>=1 && cng<=-1) || cng==0){
+			cret_start -=- cng;
+			it = cret_start;
+			for (i=0;i<=4;i++){
+				Cret.Display(parseInt(it)+i,'cr'+i);
+			}
+		}
+	},
+	Show:function(){
+		CretPen.ZeroPen();
+		CretPen.FillFive(cret_start,0);
+		cret_inuse.innerHTML  = "<font color='#0099ff'>"+Cret.Lookup(sysinfo[1],'name')+"</font>";
+		cret_atkbns.innerHTML = "<font color='#0099ff'>"+sysinfo[3]+"</font>";
+		cret_defbns.innerHTML = "<font color='#0099ff'>"+sysinfo[4]+"</font>";
+	},
+	ZeroPen:function(){
+		for (c=0;c<=cret_list.length-2;c++){
+			if (Math.round(incretpen[c]*1)!=incretpen[c]){
+				incretpen[c] = 0;
+			}
+		}
+	},
+	ShowInfo:function(it,it2){
+		temp_var[4] = it;
+		if (it2){
+			Deck.ShowInfo(0);
+			deckaddbtn.style.left  = -100;
+			cretaddbtn.style.left = ((parseInt(it2.split('cr')[1])+1)*165+(22*(parseInt(it2.split('cr')[1]))-20));
+		}
+	},
+	Select:function(){
+		if (temp_var[4]){
+			sysinfo[1] = temp_var[4];
+			cret_inuse.innerHTML = "<font color='#0099ff'>"+Cret.Lookup(sysinfo[1],'name')+"</font>";
+		}
+	}
+};
+
+var Deck = {
+	TotalCards:function(){
+		temp_var[2] = 0;
+		for (i=1;i<=card_list.length-2;i++){
+			temp_var[2] += indeck[i-1];
+		}
+		deck_total.innerHTML = "<font color='#0099ff'>" + temp_var[2] + "/50</font>";
+		return temp_var[2];
+	},
+	Add:function(){
+		if (insideboard[temp_var[0]-1]>=1 && indeck[temp_var[0]-1]<=temp_var[1]-1){
+			indeck[temp_var[0]-1]++;
+			insideboard[temp_var[0]-1]--;
+			Deck.ShowInfo(temp_var[0]);
+			Deck.TotalCards();
+		}
+	},
+	Remove:function(){
+		if (indeck[temp_var[0]-1]>=1){
+			indeck[temp_var[0]-1]--;
+			insideboard[temp_var[0]-1]++;
+			Deck.ShowInfo(temp_var[0]);
+			Deck.TotalCards();
+		}
+	},
+	ShowInfo:function(it,it2){
+		temp_var[0] = it;
+		if (it2){
+			cretaddbtn.style.left  = -100;
+			deckaddbtn.style.left = ((parseInt(it2.split('c')[1])+1)*165+(22*(parseInt(it2.split('c')[1]))));
+		}
+		if (it!=0){
+			deck_in.innerHTML = "<font color='#0099ff'>" + Card.TotalInDeck(it) + "</font>";
+			if (Card.Lookup(it,'type') == 'C'){
+				temp_var[1]        = 4;
+				deck_in.innerHTML += "<font color='#0099ff'>/4</font>";
+			}else if (Card.Lookup(it,'type') == 'R'){
+				temp_var[1]        = 3;
+				deck_in.innerHTML += "<font color='#0099ff'>/3</font>";
+			}else if (Card.Lookup(it,'type') == 'U'){
+				temp_var[1]        = 1;
+				deck_in.innerHTML += "<font color='#0099ff'>/2</font>";
+			}
+			deck_out.innerHTML   = "<font color='#0099ff'>"+Card.TotalInSideboard(it)+"</font>";
+			card_total.innerHTML = "<font color='#0099ff'>"+Card.TotalOwn(it)+"</font>";
+		}else{
+			deck_in.innerHTML    = "";
+			deck_out.innerHTML   = "";
+			card_total.innerHTML = "";
+		}
+	},
+	Show:function(){
+		Deck.ShowInfo(0);
+		deckaddbtn.style.left = -140;
+		cretaddbtn.style.left = -140;
+		arena_interface.style.display = 'none';
+		shop_interface.style.display  = 'none';
+		Deck.FillFive(deck_start,0);
+		deck_interface.style.display  = 'block';
+		Deck.ZeroSideboard();
+		Deck.TotalCards();
+		CretPen.Show();
+	},
+	ZeroSideboard:function(){
+		for (c=0;c<=card_list.length-2;c++){
+			if (Math.round(insideboard[c]*1)!=insideboard[c]){
+				insideboard[c] = 0;
+			}
+		}
+	},
+	FillFive:function(it,cng){
+		it -=- cng;
+		if ((it<=card_list.length-5 && cng>=1) || (it>=1 && cng<=-1) || cng==0){
+			deck_start -=- cng;
+			it = deck_start;
+			for (i=0;i<=4;i++){
+				Card.Display(parseInt(it)+i,'c'+i);
+			}
+		}
+	},
+	DrawContainers:function(it,iele){
+		temp_add = "";
+		for (i=cardinum;i<=Math.round(it+cardinum-1);i++){//alert(cardinum +','+i)
+			temp_add += '<table style="position:absolute;top:500;left:'+Math.round((190*i)+100)+';border:1 solid white;width:170;height:200;cursor:hand;" id="c'+i+'" onclick="Deck.ShowInfo(this.it,this.id)">';
+			temp_add += '<tr><td id="c'+i+'name" style="text-align:left;font-size:11px;"></td>';
+			temp_add += '<td id="c'+i+'aether" style="text-align:right;font-size:11px;"></td></tr>';
+			temp_add += '<tr><td style="height:133:width:168;text-align:center;" colspan=2><img src="cardpics/unknown.png" id="c'+i+'image"></td></tr>';
+			temp_add += '<tr><td id="c'+i+'descript" style="text-align:center;font-size:11px;" colspan=2></td></tr><table>';
+		}
+		document.getElementById(iele).innerHTML = temp_add;
+		cardinum += it;
+	}
+};
+
+var Shop = {
+	Show:function(){
+		Card.Display(0,'c5');
+		Cret.Display(0,'cr5');
+		shopcardprice.innerHTML = "";
+		shopcretprice.innerHTML = "";
+		deck_interface.style.display  = 'none';
+		arena_interface.style.display = 'none';
+		Shop.Draw();
+		c5.style.top   = 100;
+		c5.style.left  = 320;
+		cr5.style.top  = 100;
+		cr5.style.left = 650;
+		shopmoney.innerHTML = "$" + sysinfo[2];
+		shopatk.innerHTML = "("+sysinfo[3]+"/5)";
+		shopdef.innerHTML = "("+sysinfo[4]+"/10)";
+		shopextra.style.display      = 'block';
+		shop_interface.style.display = 'block';
+	},
+	Zero:function(){
+		for (c=0;c<=card_list.length-2;c++){
+			if (Math.round(incardshop[c]*1)!=incardshop[c]){
+				incardshop[c] = 0;
+			}
+		}
+		for (c=0;c<=cret_list.length-2;c++){
+			if (Math.round(incretshop[c]*1)!=incretshop[c]){
+				incretshop[c] = 0;
+			}
+		}
+	},
+	Draw:function(){
+		cardshop.options.length = 0;
+		for (a=1;a<=card_list.length-1;a++){
+			if (incardshop[a]>=1 || (Card.TotalOwn(a)>=1 && Card.Lookup(a,'type')=='C')){
+				temp_add             = document.createElement("option");
+				temp_add.text        = Card.Lookup(a,'name');
+				temp_add.value       = a;
+				cardshop.options.add(temp_add);
+			}
+		}
+		cretshop.options.length = 0;
+		for (a=1;a<=cret_list.length-1;a++){
+			if (incretshop[a]>=1 && incretpen[a-1]==0){
+				temp_add             = document.createElement("option");
+				temp_add.text        = Cret.Lookup(a,'name');
+				temp_add.value       = a;
+				cretshop.options.add(temp_add);
+			}
+		}
+	},
+	CardGive:function(it){
+		insideboard[it-1]++;
+	},
+	BuyCard:function(it){
+		if (sysinfo[2]>=Card.Lookup(it,'buy')){
+			if (confirm('Purchase\n\n'+Card.Lookup(it,'name')+'\nCost: $'+Card.Lookup(it,'buy'))){
+				sysinfo[2] -= Card.Lookup(it,'buy');
+				insideboard[it-1]++;
+				Card.Display(it,'c5');
+				shopmoney.innerHTML = "$" + sysinfo[2];
+			}
+		}else{
+			XMessage.Alert('Shop','Insufficient funds');
+		}
+	},
+	CretGive:function(it){
+		incretpen[it-1] = 1;
+	},
+	BuyCret:function(it){
+		if (sysinfo[2]>=Cret.Lookup(it,'buy')){
+			if (confirm('Purchase\n\n'+Cret.Lookup(it,'name')+'\nCost: $'+Cret.Lookup(it,'buy'))){
+				sysinfo[2] -= Cret.Lookup(it,'buy');
+				incretpen[it-1] = 1;
+				Cret.Display(0,'cr5');
+				Shop.Draw();
+				shopmoney.innerHTML = "$" + sysinfo[2];
+			}
+		}else{
+			XMessage.Alert('Shop','Insufficient funds');
+		}
+	},
+	SellCard:function(it){
+		if (Card.TotalInSideboard(it)>=1 && Deck.TotalCards()>=50){
+			if (confirm('Sell\n\n'+Card.Lookup(it,'name')+'\nGain: $'+Card.Lookup(it,'sell'))){
+					sysinfo[2] -=- Card.Lookup(it,'sell');
+					insideboard[it-1] -= 1;
+					Card.Display(it,'c5');
+					Shop.Draw();
+					shopmoney.innerHTML = "$" + sysinfo[2];
+			}
+		}else{
+			XMessage.Alert('Shop','Cards must be in your sideboard to sell and you must always have at least 50 cards.');
+		}
+	},
+	Defense:function(){
+		if (sysinfo[2]>=25000){
+			if (sysinfo[4]<=9){
+				if (confirm('Purchase Defense+ for 25000?')){
+					sysinfo[2] -= 25000;
+					sysinfo[4]++;
+					shopdef.innerHTML = "("+sysinfo[4]+"/10)";
+					shopmoney.innerHTML = "$" + sysinfo[2];
+				}
+			}else{
+				XMessage.Alert('Shop','This item is no longer available for purchase.');
+			}
+		}else{
+			XMessage.Alert('Shop','Insufficient funds');
+		}
+	},
+	Attack:function(){
+		if (sysinfo[2]>=25000){
+			if (sysinfo[3]<=4){
+				if (confirm('Purchase Attack+ for 25000?')){
+					sysinfo[2] -= 25000;
+					sysinfo[3]++;
+					shopatk.innerHTML = "("+sysinfo[3]+"/5)";
+					shopmoney.innerHTML = "$" + sysinfo[2];
+				}
+			}else{
+				XMessage.Alert('Shop','This item is no longer available for purchase.');
+			}
+		}else{
+			XMessage.Alert('Shop','Insufficient funds');
+		}
+	}
+};
+
+var Arena = {
+	Show:function(){
+		if (Deck.TotalCards()==50){
+			shop_interface.style.display   = 'none';
+			deck_interface.style.display   = 'none';
+			battle_interface.style.display = 'none';
+			menuselect.style.display       = 'block';
+			arena_interface.style.display  = 'block';
+			Arena.Stats();
+		}else{
+			XMessage.Alert('Deck Error','You do not have exactly 50 cards in your deck');
+			Deck.Show();
+		}
+	},
+	Network:function(){
+		arenacont2.innerHTML = "Network Play / Trade / Wager";
+		XMessage.Alert('System Info','Network Component missing');
+	},
+	Challenges:function(){
+		temp_var[3] = 0;
+		temp_var[4] = 0;
+		temp_add    = "<table cellpadding=0 cellspacing=0>";
+		for (a=0;a<=challenge_list.length-1;a++){
+			if (a%9==0 && a>=1){
+				temp_var[3] = 0;
+				temp_add += "<tr>";
+			}
+			temp_var[3]++;
+			if (mychallenges[a]==0 && temp_var[4]==0){
+				temp_var[4] = 1;
+				temp_add += "<td><img src='cardpics/mission.png' it="+a+" onclick='Arena.ChallengeInfo(this.it,this.ir)' style='cursor:hand;' title='Next challenge' ir=0></td>";
+			}else if (mychallenges[a]==1){
+				temp_add += "<td><img src='cardpics/complete.png' it="+a+" onclick='Arena.ChallengeInfo(this.it,this.ir)' style='cursor:hand;' title='Challenge complete' ir=1></td>";
+			}else if (mychallenges[a]==2){
+				temp_add += "<td><img src='cardpics/aced.png' it="+a+" onclick='Arena.ChallengeInfo(this.it,this.ir)' style='cursor:hand;' title='Challenge aced' ir=2></td>";
+			}else{
+				temp_add += "<td><img src='cardpics/locked.png' it=-1 onclick='Arena.ChallengeInfo(this.it,this.ir)' style='cursor:hand;' title='Challenge locked' ir=-1></td>";
+			}
+			if (temp_var[3]%9==0 && a>=1){
+				temp_add += "</tr>";
+			}
+		}
+		temp_add += "</table>";
+		arenacont2.innerHTML = temp_add;
+	},
+	Missions:function(){
+		temp_var[3] = 0;
+		temp_var[4] = 0;
+		temp_add    = "<table cellpadding=0 cellspacing=0>";
+		for (a=0;a<=mission_list.length-1;a++){
+			if (a%9==0 && a>=1){
+				temp_var[3] = 0;
+				temp_add += "<tr>";
+			}
+			temp_var[3]++;
+			if (mymissions[a]==0 && temp_var[4]==0){
+				temp_var[4] = 1;
+				temp_add += "<td><img src='cardpics/mission.png' it="+a+" onclick='Arena.MissionInfo(this.it,this.ir)' style='cursor:hand;' title='Next mission' ir=0></td>";
+			}else if (mymissions[a]==1){
+				temp_add += "<td><img src='cardpics/complete.png' it="+a+" onclick='Arena.MissionInfo(this.it,this.ir)' style='cursor:hand;' title='Mission complete' ir=1></td>";
+			}else if (mymissions[a]==2){
+				temp_add += "<td><img src='cardpics/aced.png' it="+a+" onclick='Arena.MissionInfo(this.it,this.ir)' style='cursor:hand;' title='Mission aced' ir=2></td>";
+			}else{
+				temp_add += "<td><img src='cardpics/locked.png' it=-1 onclick='Arena.MissionInfo(this.it,this.ir)' style='cursor:hand;' title='Mission locked' ir=-1></td>";
+			}
+			if (temp_var[3]%9==0 && a>=1){
+				temp_add += "</tr>";
+			}
+		}
+		temp_add += "</table>";
+		arenacont2.innerHTML = temp_add;
+	},
+	Stats:function(){
+		arenacont2.innerHTML = awards + " / Wins: "+sysinfo[5]+" / Loses: "+sysinfo[6];
+	},
+	MissionInfo:function(it,it2){
+		if (it==-1){
+			XMessage.Alert('Mission Locked','????');
+		}else{
+			if (it2==0){
+				Battle.Ini(0,it);
+				XMessage.Alert(mission_list[it][0] + '','<font color="silver">Standard Objective:</font> '+mission_list[it][4]+'<br><font color="gold">Ace Objective:</font> '+mission_list[it][5]);
+			}else if (it2==1){
+				XMessage.Alert(mission_list[it][0] + ' - Complete','<font color="silver">Standard Reward:</font> '+mission_list[it][1]);
+			}else if (it2==2){
+				XMessage.Alert(mission_list[it][0] + ' - Aced','<font color="silver">Standard Reward:</font> '+mission_list[it][1]+'<br><font color="gold">Ace Reward:</font> '+mission_list[it][2]);
+			}
+		}
+	},
+	ChallengeInfo:function(it,it2){
+		if (it==-1){
+			XMessage.Alert('Challenge Locked','????');
+		}else{
+			if (it2==0){
+				XMessage.Alert(challenge_list[it][0] + '','<font color="silver">Standard Objective:</font> '+challenge_list[it][4]+'<br><font color="gold">Ace Objective:</font> '+challenge_list[it][5]);
+			}else if (it2==1){
+				XMessage.Alert(challenge_list[it][0] + ' - Complete','<font color="silver">Standard Reward:</font> '+challenge_list[it][1]);
+			}else if (it2==2){
+				XMessage.Alert(challenge_list[it][0] + ' - Aced','<font color="silver">Standard Reward:</font> '+challenge_list[it][1]+'<br><font color="gold">Ace Reward:</font> '+challenge_list[it][2]);
+			}
+		}
+	},
+	ZeroArena:function(){
+		for (r=0;r<=mission_list.length-1;r++){
+			if (Math.round(mymissions[r]*1)!=mymissions[r]){
+				mymissions[r] = 0;
+			}
+		}
+		for (r=0;r<=challenge_list.length-1;r++){
+			if (Math.round(mychallenges[r]*1)!=mychallenges[r]){
+				mychallenges[r] = 0;
+			}
+		}
+		for (r=0;r<=award_list.length-1;r++){
+			if (Math.round(awards[r]*1)!=awards[r]){
+				awards[r] = 0;
+			}
+		}
+	}
+};
+
+var statelist   = new Array('gaia','peace','poisonx2');
+var statuslist  = new Array('heal','poison','critical','silence','invin','confusion','burn');
+var selfstatus  = new Array();
+var oppostatus  = new Array();
+var battlestats = new Array('turn0','battlenumber1','turn#2','battleover3','lastcardplayed4','healingwindcount5','nextfireballfree6','returningfearcount7','myextraattack8');
+var battledata  = new Array('my deck0','oppo deck1','mycret2','oppocret3','myaether4','oppoaether5','unused6','unused7','enemyindex8','enemylist9','mydeckindex10','mycretbaseatk11','mycretbasedef12','oppocretbaseatk13','oppocretbasedef14','mytempatkplus15','oppotempatkplus16','myspeciallvl17','oppospeciallvl18');
+var Battle={
+	Ini:function(it,bin){
+		for (n=0;n<=statuslist.length-1;n++){
+			selfstatus[n] = new Array(0,0);
+			oppostatus[n] = new Array(0,0);
+		}
+		statelist                      = new Array(0,0,0);
+		battlestats                    = new Array('self',bin,1,0,-1,0,0,0,0);
+		shopextra.style.display        = 'none';
+		arena_interface.style.display  = 'none';
+		menuselect.style.display       = 'none';
+		battle_interface.style.display = 'block';
+		battledata = new Array('mydeck','oppodeck',sysinfo[1],'oppocret',0,0,'Unused','Unused',0,mission_list[bin][3],-1);
+		battledata[15] = battledata[16] = battledata[17] = battledata[18] = 0;
+		Battle.CreatureSetup(battledata[8]);
+		Cret.Display(battledata[2],'cr6');
+		Cret.Display(parseInt(battledata[3]),'cr7',1);
+		Battle.PositionCards();
+		Battle.Shuffle();
+		Battle.Deal(6);
+		//Card.Display(52,'c9');
+		Battle.TurnStart();
+	},
+	PositionCards:function(){
+		for (b=6;b<=11;b++){
+			temp_var[1] 	       = document.getElementById('c'+b);
+			temp_var[1].it         = -1;
+			temp_var[1].style.top  = 500;
+			temp_var[1].style.left = Math.round(40+(b-6)*180);
+			temp_var[1].onclick    = function(){Battle.PlayCard(this.it,this.id)};
+		}
+		cr6.style.top  = 100;
+		cr6.style.left = 100;
+		cr6.onclick = function(){Battle.UseSpecial()};
+		cr7.style.top  = 100;
+		cr7.style.left = 875;
+	},
+	CreatureSetup:function(it){
+		battledata[3]  = battledata[9].split(':')[it];
+		battledata[11] = Math.round(Cret.Lookup(battledata[2],'atk')+sysinfo[3]);
+		battledata[12] = Math.round(Cret.Lookup(battledata[2],'def')+sysinfo[4]);
+		battledata[13] = Math.round(Cret.Lookup(battledata[3],'atk'));
+		battledata[14] = Math.round(Cret.Lookup(battledata[3],'def'));
+	},
+	Shuffle:function(){
+		temp_var[0] = "";
+		for (i=0;i<=indeck.length-1;i++){
+			for (a=0;a<=indeck[i]-1;a++){
+				if (i<indeck.length-1){
+					temp_var[0] += Math.round(i+1)+":";
+				}else{
+					temp_var[0] += Math.round(i+1);
+				}
+			}
+		}
+		battledata[0]        = temp_var[0].split(':');
+		battledata[0].length = battledata[0].length-1;
+		for (i=0;i<=299;i++){
+			temp_var[0] = Math.round(Math.random()*(battledata[0].length-1));
+			temp_var[1] = Math.round(Math.random()*(battledata[0].length-1));
+			temp_var[2] = battledata[0][temp_var[0]];
+			temp_var[3] = battledata[0][temp_var[1]];
+			battledata[0][temp_var[0]] = temp_var[3];
+			battledata[0][temp_var[1]] = temp_var[2];
+		}
+	},
+	Deal:function(it,targ){
+		for (b=0;b<=it-1;b++){
+			for (c=6;c<=11;c++){
+				if (document.getElementById('c'+c).it == -1){
+					battledata[10]++;
+					Card.Display(battledata[0][battledata[10]],'c'+c);
+					document.getElementById('c'+c).style.cursor = 'hand';
+					c = 12;
+				}
+			}
+		}
+	},
+	ApplyStats:function(){
+		for (n=0;n<=statuslist.length-1;n++){
+			if (window[battlestats[0]+'status'][n][1]>=1){
+				if (statuslist[n]=='heal'){
+					Battle.Heal(parseInt(window[battlestats[0]+'status'][n][0]),battlestats[0]);
+				}
+				else if (statuslist[n]=='poison'){
+					Battle.Damage(Math.round(parseInt(window[battlestats[0]+'status'][n][0])*(statelist[2]+1)),battlestats[0]);
+				}
+				else if (statuslist[n]=='burn'){
+					Battle.Damage(parseInt(window[battlestats[0]+'status'][n][0]),battlestats[0]);
+				}
+			}
+		}	
+	},
+	TurnStart:function(){
+		Battle.ApplyStats();
+		Battle.Update(1);
+		Battle.Aether(1,battlestats[0]);
+		Battle.Special(1,battlestats[0]);
+		Battle.Update();
+	},
+	TurnEnd:function(){
+		if (battlestats[0]=='self'){
+			turnendbtn.style.display = 'none';
+			if (Battle.GetStatus('critical','self')){
+				if (Math.round(4*Maht.random())==1){
+					Battle.Damage(5,'oppo');
+				}
+			}
+			if (Battle.GetStatus('confusion','self')){
+				Battle.Damage(Math.round((battledata[11]+battledata[15]-statelist[0])*(1-statelist[1])),'self');
+			}else{
+				Battle.Damage(Math.round((battledata[11]+battledata[15]-statelist[0])*(1-statelist[1])),'oppo');
+			}
+			Battle.Damage(Math.round((battledata[13]+battledata[16]-statelist[0])*(1-statelist[1])),'self');
+			if (battlestats[8]==1){
+				battlestats[8] = 0;
+				Battle.Damage(Math.round((battledata[11]+battledata[15]-statelist[0])*(1-statelist[1])),'oppo');
+			}
+			battlestats[0] = 'oppo';
+			Battle.TurnStart();
+			Battle.AiLogic();
+		}else{
+			turnendbtn.style.display = 'block';
+			if (Battle.GetStatus('critical','oppo')){
+				if (Math.round(4*Maht.random())==1){
+					Battle.Damage(5,'self');
+				}
+			}
+			battlestats[2]++;
+			if (Battle.GetStatus('confusion','oppo')){
+				Battle.Damage(Math.round((battledata[13]+battledata[16]-statelist[0])*(1-statelist[1])),'oppo');
+			}else{
+				Battle.Damage(Math.round((battledata[13]+battledata[16]-statelist[0])*(1-statelist[1])),'self');
+			}
+			Battle.Damage(Math.round((battledata[13]+battledata[16]-statelist[0])*(1-statelist[1])),'oppo');
+			statelist[1] = 0;
+			battlestats[0] = 'self';
+			Battle.Deal(1,battlestats[0]);
+			Battle.TurnStart();
+		}
+	},
+	AiLogic:function(){
+		Battle.TurnEnd();
+	},
+	PlayCard:function(it,icont,ioveride){
+		if (Battle.GetStatus('silence','self')){
+			XMessage.Alert('Battle Informer','You cant play cards when you are silenced');
+		}
+		if (battlestats[0]!='self'){
+			XMessage.Alert('Battle Informer','Its not your turn');
+		}
+		if (it!=-1 && !Battle.GetStatus('silence','self') && battlestats[0]=='self'){
+			if (battledata[4]>=Card.Lookup(it,'aether') || Card.Lookup(it,'aether')=='?' || ioveride==1){
+				if (Card.Lookup(it,'aether')!='?' && ioveride!=1){
+					battledata[4] -= Card.Lookup(it,'aether');
+					if (battlestats[6]==1 && it==24){ //next fireball free statement
+						battledata[4] -=- Card.Lookup(it,'aether');
+						battlestats[6] = 0;
+					}
+				}
+				if (ioveride!=1){
+					document.getElementById(icont).it           = -1;
+					Card.Display(-1,icont);
+					document.getElementById(icont).style.cursor = 'arrow';
+				}
+				battlestats[4] = it;
+				eval(Card.Lookup(it,'command'));
+			}else{
+				XMessage.Alert('Battle Informer','Not enough Æther');
+			}
+		}
+	},
+	Update:function(ireset){
+		if (ireset==1){
+			for (n=0;n<=statuslist.length-1;n++){
+				window[battlestats[0]+'status'][n][1]--;
+				if (parseInt(window[battlestats[0]+'status'][n][1])<=0){
+					window[battlestats[0]+'status'][n] = new Array(0,0);
+				}
+			}
+			battledata[15] = 0;
+			battledata[16] = 0;
+		}
+		txtoppoaether.value = battledata[5];
+		txtmyaether.value   = battledata[4];
+		cr6atkdef.innerHTML = Math.round(battledata[11]+battledata[15]) + '/' + battledata[12];
+		cr7atkdef.innerHTML = Math.round(battledata[13]+battledata[16]) + '/' + battledata[14];
+
+		if (battledata[17]<=-1){
+			battledata[17] = 0;
+		}
+		if (battledata[18]<=-1){
+			battledata[18] = 0;
+		}
+		if (battledata[17]>=5){
+			battledata[17] = 4;
+		}
+		if (battledata[18]>=5){
+			battledata[18] = 4;
+		}
+		mysppic.src   = 'cardpics/special' + battledata[17] + '.png';
+		opposppic.src = 'cardpics/special' + battledata[18] + '.png';
+		for (n=0;n<=statuslist.length-1;n++){
+			if (selfstatus[n][0]!=0 || selfstatus[n][1]!=0){
+				document.getElementById('self'+'img'+statuslist[n]).title      = statuslist[n]+' '+selfstatus[n][0]+' for '+selfstatus[n][1]+' turn(s)';
+				document.getElementById('self'+'stat'+statuslist[n]).innerHTML = ''+selfstatus[n][0]+'/'+selfstatus[n][1];
+				document.getElementById('self'+'stat'+statuslist[n]).title     = statuslist[n]+' '+selfstatus[n][0]+' for '+selfstatus[n][1]+' turn(s)';
+				document.getElementById('self'+'img'+statuslist[n]).src        = 'status/'+statuslist[n]+'.png';
+			}else{
+				document.getElementById('self'+'img'+statuslist[n]).title      = statuslist[n];
+				document.getElementById('self'+'stat'+statuslist[n]).innerHTML = '';
+				document.getElementById('self'+'stat'+statuslist[n]).title     = statuslist[n];
+				document.getElementById('self'+'img'+statuslist[n]).src        = 'status/null'+statuslist[n]+'.png';	
+			}
+			if (oppostatus[n][0]!=0 || oppostatus[n][1]!=0){
+				document.getElementById('oppo'+'img'+statuslist[n]).title      = statuslist[n]+' '+oppostatus[n][0]+' for '+oppostatus[n][1]+' turn(s)';
+				document.getElementById('oppo'+'stat'+statuslist[n]).innerHTML = ''+oppostatus[n][0]+'/'+oppostatus[n][1];
+				document.getElementById('oppo'+'stat'+statuslist[n]).title     = statuslist[n]+' '+oppostatus[n][0]+' for '+oppostatus[n][1]+' turn(s)';	
+				document.getElementById('oppo'+'img'+statuslist[n]).src        = 'status/'+statuslist[n]+'.png';
+			}else{
+				document.getElementById('oppo'+'img'+statuslist[n]).title      = statuslist[n];
+				document.getElementById('oppo'+'stat'+statuslist[n]).innerHTML = '';
+				document.getElementById('oppo'+'stat'+statuslist[n]).title     = statuslist[n];	
+				document.getElementById('oppo'+'img'+statuslist[n]).src        = 'status/null'+statuslist[n]+'.png';
+			}
+		}
+		if (statelist[0]==1){
+			stateimggaia.src = 'status/gaia.png';
+		}else{
+			stateimggaia.src = 'status/nullgaia.png';
+		}
+		if (statelist[1]==1){
+			stateimgpeace.src = 'status/peace.png';
+		}else{
+			stateimgpeace.src = 'status/nullpeace.png';
+		}
+		if (statelist[2]==1){
+			stateimgpoisonx2.src = 'status/poisonx2.png';
+		}else{
+			stateimgpoisonx2.src = 'status/nullpoisonx2.png';
+		}
+		turncounter.innerHTML = '<font size="3em">Turn '+battlestats[2]+'</font>';
+	},
+	UseSpecial:function(){
+		if (battledata[17]==4){
+			battledata[17] = 0;
+			Battle.Update();
+			eval(Cret.Lookup(battledata[2],'command'));
+		}else{
+			XMessage.Alert('Battle Informer','Special bar is not full');
+		}
+	},
+	RandChk:function(it){
+		//alert(parseInt(it.split('-')[1])-parseInt(it.split('-')[0]));
+		return Math.round(Math.random()*(parseInt(it.split('-')[1])-parseInt(it.split('-')[0])));
+	},
+	Aether:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			battledata[4] -=- it;
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			battledata[5] -=- it;
+		}
+		Battle.Update();
+	},
+	Damage:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			if (!Battle.GetStatus('invin','self')){
+				battledata[12] -= it;
+			}
+			if (battledata[12]<=0){
+				XMessage.Alert('Battle Report','You lose');
+				sysinfo[6]++;
+				Arena.Show();
+			}
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			battledata[14] -= it;
+			Battle.WinCheck();
+		}
+		Battle.Update();
+	},
+	WinCheck:function(){
+		if (battledata[14]<=0){
+			battledata[8]++;
+			battledata[3] = battledata[9].split(':')[battledata[8]];
+			if (battledata[3]){
+				battledata[13] = Math.round(Cret.Lookup(battledata[3],'atk'));
+				battledata[14] = Math.round(Cret.Lookup(battledata[3],'def'));
+				Cret.Display(parseInt(battledata[3]),'cr7',1);
+				Battle.Shuffle();
+				Battle.Update(1);
+				battlestats[0] = 'self';
+				Battle.TurnStart();
+				battledata[10] = 0;
+			}else{
+				if (battlestats[3]==0){
+					temp_var[8] = 'It took '+battlestats[2]+' turn(s)<br><br><font color="silver">Standard Reward: '+mission_list[battlestats[1]][1]+'</font>';
+					sysinfo[5]++;
+					eval(mission_list[battlestats[1]][6]);
+					mymissions[battlestats[1]] = 1;
+					if (eval(mission_list[battlestats[1]][9])){
+						eval(mission_list[battlestats[1]][7]);
+						mymissions[battlestats[1]] = 2;
+						temp_var[8] += '<br><font color="gold">Ace Reward: '+mission_list[battlestats[1]][2]+'</font>';
+					}
+					XMessage.Alert('You Win',temp_var[8]);
+					battlestats[3] = 1;
+					Arena.Show();
+				}
+			}
+		}
+	},
+	Heal:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			battledata[12] -=- it;
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			battledata[14] -=- it;
+		}
+		Battle.Update();
+	},
+	Drain:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			Battle.Damage(it,'self');
+			Battle.Heal(it,'oppo');
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			Battle.Damage(it,'oppo');
+			Battle.Heal(it,'self');
+		}
+		Battle.Update();
+	},
+	Strength:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			battledata[15] -=- it;
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			battledata[16] -=- it;
+		}
+		Battle.Update();
+	},
+	AeDamage:function(itarg){
+		if (itarg=='self' || itarg=='both'){
+			Battle.Damage(battledata[4],'self');
+			Battle.Aether(-battledata[4],'self');
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			Battle.Damage(battledata[4],'oppo');
+			Battle.Aether(-battledata[4],'self');
+		}
+		Battle.Update();
+	},
+	AeHeal:function(itarg){
+		if (itarg=='self' || itarg=='both'){
+			Battle.Heal(battledata[4],'self');
+			Battle.Aether(-battledata[4],'self');
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			Battle.Heal(battledata[4],'oppo');
+			Battle.Aether(-battledata[4],'self');
+		}
+		Battle.Update();
+	},
+	GetStatus:function(it,itarg){
+		if (itarg=='idnum'){
+			for (n=0;n<=statuslist.length-1;n++){
+				if (statuslist[n] == it){
+					return n;
+				}
+			}
+		}else{
+			for (n=0;n<=statuslist.length-1;n++){
+				if (statuslist[n] == it){
+					if (window[itarg+'status'][n][1]>=1){
+						return true
+					}else{
+						return false;
+					}
+				}
+			}
+		}
+		
+	},
+	Status:function(it,itarg,iturns,istack){
+		if (itarg!='state'){
+			if (iturns==-1){
+				window[itarg+'status'][Battle.GetStatus(it,'idnum')] = new Array(0,0);
+			}else{
+				window[itarg+'status'][Battle.GetStatus(it,'idnum')] = new Array(istack,iturns);
+			}
+		}
+		//XMessage.Alert('Debug',it+'|'+itarg+'|'+iturns);
+		Battle.Update();
+	},
+	Draw:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			if (it>=1){
+				Battle.Deal(it);
+			}else{
+				for (z=6;z<=11;z++){
+					document.getElementById('c'+z).it = -1;
+					Card.Display(-1,'c'+z);
+					document.getElementById('c'+z).style.cursor = 'arrow';
+					//document.getElementById('c'+z).onclick = "";
+				}
+			}
+		}
+		if (itarg=='oppo' || itarg=='both'){
+
+		}
+		Battle.Update();	
+	},
+	Special:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			battledata[17] -=- it;
+		}
+		if (itarg=='oppo' || itarg=='both'){
+			battledata[18] -=- it;
+		}
+		Battle.Update();
+	},
+	Money:function(it,itarg){
+		if (Math.round(it*1)!=it){
+			it = Battle.RandChk(it);
+		}
+		if (itarg=='self' || itarg=='both'){
+			sysinfo[2] -=- it;
+		}
+		if (itarg=='oppo' || itarg=='both'){
+
+		}
+	},
+	Custom:function(it,itarg){
+		if (it==0){
+			document.getElementById('cr6image').src = "cretpics/"+Cret.Lookup(parseInt(battledata[3]),'image');
+		}
+		if (it==1){
+			if (Battle.GetStatus('poison','oppo')){
+				Battle.Damage(4,'oppo');
+			}else{
+				Battle.Damage(1,'oppo');
+			}
+		}
+		if (it==2){
+			if (battledata[4]>=6){
+				Battle.Damage(5,'oppo');
+			}else{
+				Battle.Damage(1,'oppo');
+			}
+		}
+		if (it==3){
+			if (Battle.GetStatus('poison','oppo')){
+				Battle.Drain(2,'oppo');
+			}
+		}
+		if (it==4){
+			if (itarg=='self' || itarg=='both'){
+				Battle.Damage(Math.round(battledata[11]+battledata[15]),'self');
+			}
+			if (itarg=='oppo' || itarg=='both'){
+				Battle.Damage(Math.round(battledata[11]+battledata[15]),'oppo');
+			}
+		}
+		if (it==5){
+			Battle.Heal(Math.round(1+battlestats[5]),'self');
+			battlestats[5]++;
+		}
+		if (it==6){
+			if (battledata[12]<=5){
+				Battle.Damage(4,'oppo');
+			}else{
+				Battle.Damage(2,'oppo');
+			}
+		}
+		if (it==7){
+			Battle.PlayCard(battlestats[4],0,1);
+		}
+		if (it==8){
+			battledata[17] = 0;
+			Battle.Damage(battledata[17],'oppo');
+		}
+		if (it==9){
+			Battle.Damage(Math.round(1+battlestats[7]),'oppo');
+			battlestats[7]++;
+		}
+		if (it==10){
+			battlestats[6] = 1;
+		}
+		if (it==11){
+			battlestats[8] = 1;
+		}
+		if (it==12){
+			statelist[0] = 1;
+			Battle.Update()
+		}
+		if (it==13){
+			statelist[1] = 1;
+			Battle.Update();
+		}
+		if (it==14){
+			statelist[2] = 1;
+			Battle.Update();
+		}
+	}
+};
+</script>
+</head>
+
+<body bgcolor="black" onload="Game.Ini();" text="white" onkeypress="if (event.keyCode==96){XDataSystem.VarState()}" scroll="no" oncontextmenu="Battle.TurnEnd()">
+<HTA:APPLICATION ID=""
+    APPLICATIONNAME=""
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="no"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<!--Start Battle Interface-->
+<span id="battle_interface" style="display:none;">
+<span id="battlecard_container"></span>
+<span id="battlecret_container"></span>
+<span id="myaether" style="position:absolute;top:140;left:20;"><img src="cardpics/aether2.png" style="height:20;width:20;"> <input type="textarea" id="txtmyaether" style="background-Color:black;color:white;border:0 solid red;font-size:20pt;width:50;" readonly value=0></span>
+
+<span id="oppoaether" style="position:absolute;top:140;left:1065;overflow-x:hidden;"><img src="cardpics/aether2.png" style="height:20;width:20;"> <input type="textarea" id="txtoppoaether" style="background-Color:black;color:white;border:0 solid red;font-size:20pt;width:50;" readonly value=0></span>
+
+<span id="myspecial" style="position:absolute;top:180;left:20;"><img src="cardpics/special0.png" id="mysppic"></span>
+<span id="oppospecial" style="position:absolute;top:180;left:1065;"><img src="cardpics/special0.png" id="opposppic"></span>
+
+<span id="mystatus"  style="position:absolute;top:310;left:30;">
+<table>
+<tr>
+<td><img id='selfimgheal' title='Heal' src='status/nullheal.png'></td>
+<td><img id='selfimgpoison' title='Poison' src='status/nullpoison.png'></td>
+<td><img id='selfimgcritical' title='Critical' src='status/nullcritical.png'></td>
+<td><img id='selfimgsilence' title='Silence' src='status/nullsilence.png'></td>
+<td><img id='selfimginvin' title='Invlnurable' src='status/nullinvin.png'></td>
+<td><img id='selfimgconfusion' title='Confusion' src='status/nullconfusion.png'></td>
+<td><img id='selfimgburn' title='Burn' src='status/nullburn.png'></td>
+</tr>
+<tr>
+<td id='selfstatheal'></td>
+<td id='selfstatpoison'></td>
+<td id='selfstatcritical'></td>
+<td id='selfstatsilence'></td>
+<td id='selfstatinvin'></td>
+<td id='selfstatconfusion'></td>
+<td id='selfstatburn'></td>
+</tr>
+</table>
+</span>
+
+<span id="oppostatus"  style="position:absolute;top:310;left:870;">
+<table>
+<tr>
+<td><img id='oppoimgheal' title='Heal' src='status/nullheal.png'></td>
+<td><img id='oppoimgpoison' title='Poison' src='status/nullpoison.png'></td>
+<td><img id='oppoimgcritical' title='Critical' src='status/nullcritical.png'></td>
+<td><img id='oppoimgsilence' title='Silence' src='status/nullsilence.png'></td>
+<td><img id='oppoimginvin' title='Invlnurable' src='status/nullinvin.png'></td>
+<td><img id='oppoimgconfusion' title='Confusion' src='status/nullconfusion.png'></td>
+<td><img id='oppoimgburn' title='Burn' src='status/nullburn.png'></td>
+</tr>
+<tr>
+<td id='oppostatheal'></td>
+<td id='oppostatpoison'></td>
+<td id='oppostatcritical'></td>
+<td id='oppostatsilence'></td>
+<td id='oppostatinvin'></td>
+<td id='oppostatconfusion'></td>
+<td id='oppostatburn'></td>
+</tr>
+</table>
+</span>
+
+<span id="statestatus"  style="position:absolute;top:50;left:530;">
+<table>
+<tr>
+<td><img id='stateimggaia' title='Gaia (All attacks reduced by 1)' src='status/nullgaia.png'></td>
+<td><img id='stateimgpeace' title='Peace (No attacks)' src='status/nullpeace.png'></td>
+<td><img id='stateimgpoisonx2' title='Poison damage doubled' src='status/nullpoisonx2.png'></td>
+</tr>
+<tr>
+<td id='statestatgaia'></td>
+<td id='statestatpeace'></td>
+<td id='statestatpoisonx2'></td>
+</tr>
+</table>
+</span>
+
+<span id="turncounter" style="position:absolute;top:100;left:565;"></span>
+
+<span id="turnendbtn" style="position:absolute;top:460;left:535;"><input type="button" class="btn" value="End Turn" onclick="Battle.TurnEnd()"></span>
+
+
+</span>
+<!--End Battle Interface-->
+
+
+<!--Start Arena Interface-->
+<span id="arena_interface" style="display:none;">
+<span id="arenacont1" style="position:absolute;top:120;left:50;"><h3 style="cursor:hand;" onmouseover="XUtil.RollColor('#0099ff')" onmouseout="XUtil.RollColor('white')" onclick="Arena.Challenges()">Challenges</h3><h3 style="cursor:hand;" onmouseover="XUtil.RollColor('#0099ff')" onmouseout="XUtil.RollColor('white')" onclick="Arena.Missions()">Missions</h3><h3 style="cursor:hand;" onmouseover="XUtil.RollColor('#0099ff')" onmouseout="XUtil.RollColor('white')" onclick="Arena.Network()">Network</h3><h3 style="cursor:hand;" onmouseover="XUtil.RollColor('#0099ff')" onmouseout="XUtil.RollColor('white')" onclick="Arena.Stats()">Stats</h3></span>
+
+<span id="arenacont2" style="position:absolute;top:120;left:250;"></span>
+</span>
+<!--End Arena Interface-->
+
+
+
+<!--Start Shop Interface-->
+<span id="shop_interface" style="display:none;">
+<span id="shopcard_container"></span>
+<span id="shopcret_container"></span>
+<select style="position:absolute;top:100;left:100;width:200;" id="cardshop" size=30 onchange="Card.Display(this.value,'c5');" class="select"></select>
+<select style="position:absolute;top:100;left:850;width:200;" id="cretshop" size=30 onchange="Cret.Display(this.value,'cr5');" class="select"></select>
+<span style="position:absolute;top:350;left:320;" id="shopcardprice"></span>
+<span style="position:absolute;top:350;left:650;" id="shopcretprice"></span>
+
+<table style="position:absolute;top:550;left:440;" id="shopextra">
+<tr><td style="color:red;">Attack+</td><td style="color:#0099ff;" id="shopatk">(0/5)</td><td>$25000</td><td><input type="button" class="btn" value="Buy" onclick="Shop.Attack()"></td></tr>
+<tr><td style="color:red;">Defense+</td><td style="color:#0099ff;" id="shopdef">(0/10)</td><td>$25000</td><td><input type="button" class="btn" value="Buy" onclick="Shop.Defense()"></td></tr>
+<tr><td style="color:red;">Money</td><td style="color:#0099ff;" id="shopmoney" colspan=3></td></tr>
+</table>
+
+</span>
+<!--End Shop Interface-->
+
+
+<!--Start Deck Interface-->
+<span id="deck_interface" style="display:none;">
+
+<span style="position:absolute;top:650;left:60;">
+<input type="button" value="<-" onclick="Deck.FillFive(deck_start,-5);" class="btn2">
+</span>
+<span style="position:absolute;top:650;left:1055;">
+<input type="button" value="->" onclick="Deck.FillFive(deck_start,5);" class="btn2">
+</span>
+
+<span style="position:absolute;top:475;left:-100;" id="deckaddbtn">
+<input type="button" value="+" onclick="Deck.Add();" class="btn2">
+<input type="button" value="-" onclick="Deck.Remove();" class="btn2">
+</span>
+
+<table id="deck_stats" style="position:absolute;top:500;left:10;">
+<tr><td style="text-align:right;font-size:12px;">Deck:</td><td id="deck_in" style="text-align:left;font-size:12px;"></td></tr>
+<tr><td style="text-align:right;font-size:12px;">Storage:</td><td id="deck_out" style="text-align:left;font-size:12px;"></td></tr>
+<tr><td style="text-align:right;font-size:12px;">Total:</td><td id="card_total" style="text-align:left;font-size:12px;"></td></tr>
+<tr><td style="text-align:right;font-size:12px;">Deck:</td><td id="deck_total" style="text-align:left;font-size:12px;"></td></tr>
+</table>
+
+<span id="card_container"></span>
+
+<span style="position:absolute;top:290;left:60;">
+<input type="button" value="<-" onclick="CretPen.FillFive(cret_start,-5);" class="btn2">
+</span>
+<span style="position:absolute;top:290;left:1055;">
+<input type="button" value="->" onclick="CretPen.FillFive(cret_start,5);" class="btn2">
+</span>
+
+<span style="position:absolute;top:210;left:-100;" id="cretaddbtn">
+<input type="button" value="Select" onclick="CretPen.Select();" class="btn">
+</span>
+
+<span id="cretcard_container"></span>
+
+<table id="cret_stats" style="position:absolute;top:150;left:20;">
+<tr><td style="text-align:right;font-size:12px;">In Use:</td><td id="cret_inuse" style="text-align:left;font-size:12px;"></td></tr>
+<tr><td style="text-align:right;font-size:12px;">Atk Bonus:</td><td id="cret_atkbns" style="text-align:left;font-size:12px;"></td></tr>
+<tr><td style="text-align:right;font-size:12px;">Def Bonus:</td><td id="cret_defbns" style="text-align:left;font-size:12px;"></td></tr>
+</table>
+
+</span>
+<!--End Deck Interface-->
+
+
+<span id="area_cont" style="position:absolute;top:40;left:40;">Preloading images... Please be patient.</span>
+
+
+<!--Start Top Menu-->
+<span id="menuselect" style="position:absolute;top:-800;left:-800;">
+<input type="button" value="Deck" onclick="Deck.Show();" class="btn">
+<input type="button" value="Shop" onclick="Shop.Show();" class="btn">
+<input type="button" value="Arena" onclick="Arena.Show();" class="btn">
+<input type="button" value="Save" onclick="XDataSystem.Save('saves/'+sysinfo[0]+'.txt');" class="btn">
+<input type="button" value="Quit" onclick="if (confirm('Unsaved data will be lost!')){window.close();}" class="btn">
+</span>
+<!--End Top Menu-->
+</body>
+</html>

@@ -1,0 +1,47 @@
+<script>
+var switchObj = {
+    alpha: function() {
+        return arguments[0];
+    },
+    beta: function() {
+        // statements
+        // a return
+    },
+    _default: function() {
+        // statements
+        // a return
+    }
+};
+
+var switchModule = (function () {
+    return {
+        alpha: function() {
+            	
+        },
+        beta: function() {
+            // statements
+            // a return
+        },
+        _default: function() {
+            // statements
+            // a return
+        }
+    };
+})();
+
+// 7.A.1.3
+// If `foo` is a property of `switchObj` or `switchModule`, execute as a method...
+
+//( switchObj.hasOwnProperty( foo ) && switchObj[ foo ] || switchObj._default )( args );
+
+//( switchModule.hasOwnProperty( foo ) && switchModule[ foo ] || switchModule._default )( args );
+
+// If you know and trust the value of `foo`, you could even omit the OR check
+// leaving only the execution:
+
+alert(switchObj.hasOwnProperty('alpha'));
+
+//switchModule[ foo ]( args );
+
+// This pattern also promotes code reusability.
+</script>

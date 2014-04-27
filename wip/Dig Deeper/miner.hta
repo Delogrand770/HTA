@@ -1,0 +1,387 @@
+<html>
+<head><title>Gem Miner Dig Deeper</title>
+<link rel=StyleSheet href="xres/xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+body{
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ font-family:arial,sans-serif;
+ background:url('gres/imgs/30.png'); repeat;
+ scroll:no;
+}
+.hudtl{
+ position:fixed; 
+ bottom:240; 
+ left:0;
+ z-index:2;
+ position:absolute;
+}
+.hudbl{
+ position:fixed; 
+ bottom:0; 
+ left:0;
+ z-index:2;
+ position:absolute;
+}
+.hudbr{
+ position:fixed; 
+ bottom:0; 
+ left:352;
+ z-index:2;
+ position:absolute;
+}
+.hudore{
+ position:fixed; 
+ bottom:8; 
+ left:75;
+ z-index:3;
+ position:absolute;
+ color:white;
+ font-size:20;
+}
+.huditem{
+ position:fixed; 
+ bottom:0; 
+ left:400;
+ z-index:3;
+ position:absolute;
+}
+.hudhealth{
+ position:fixed; 
+ bottom:287; 
+ left:36;
+ z-index:3;
+ position:absolute;
+ width:190;
+ height:10;
+}
+.hudcash{
+ position:fixed; 
+ bottom:283; 
+ left:270;
+ z-index:3;
+ position:absolute;
+ color:yellow;
+ font-size:20;
+}
+.torch{
+ position:fixed; 
+ bottom:-100; 
+ left:-30;
+ z-index:2;
+ position:absolute;
+}
+</style>
+
+<script>
+//XU.ErrorHandler(0);
+XU.ResizeWindow(354,488);
+var savedata    = new Array('saveslot','stamina rate','stamina');
+var xsave_vars  = new Array('savedata');
+var xall_vars   = new Array('');
+var tempdata    = new Array();
+var charx       = 3;
+var chary       = 2;
+var dimx        = 10;
+var dimy        = 10;
+var movelock    = 0;
+var msglock     = 0;
+var falllevel   = 0;
+var App={
+	Ini:function(){
+		msglock  = 0;
+		movelock = 1;
+		XM.Ini();
+		XDS.Ini();
+		App.Menu();
+		App.MapDraw(dimx,dimy);
+		App.MapGen(dimx,dimy);
+	},
+	Start:function(it){
+		if (XS.File('slot'+it+'.txt','exist')){
+			XDS.Load('slot'+it+'.txt');
+		}else{
+			savedata[0] = it;
+			savedata[1] = 1;
+			savedata[2] = 100;
+		}
+		App.Menu();
+		tent.style.visibility = 'visible';
+		shop.style.visibility = 'visible';
+		miner.style.top       = Math.round(chary*64);
+		miner.style.left      = Math.round(charx*64)+10;
+		App.Hud();
+		setInterval("App.Gravity()",100);
+	},
+	Gravity:function(){
+		if (App.Block(2,0,1).it==-1){
+			falllevel++;
+			chary++;
+			App.MoveMap();
+			movelock = 1;
+
+		}else{
+			if (falllevel>=5){
+				msglock = 1;
+				XM.Alert('Rescue Team','You have been rescued after a tragic fall.<br>Try and be more careful next time.',0,0,1);
+				charx = 3;
+				chary = 2;
+				App.MoveMap();
+				App.Torch();
+				setTimeout("msglock=0;XM.Close()",1500);
+			}
+			movelock  = 0;
+			falllevel = 0;
+		}	
+	},
+	MoveMap:function(){
+		if (chary==3){
+			App.Torch();
+		}
+		goin_shop.style.left 	   = Math.round(264-(charx-3)*64);
+		goin_shop.style.top  	   = Math.round(44-(chary-2)*64);
+		goin_tent.style.left 	   = Math.round(510-(charx-3)*64);
+		goin_tent.style.top  	   = Math.round(44-(chary-2)*64);
+		shop.style.left      	   = Math.round(200-(charx-3)*64);
+		shop.style.top       	   = Math.round(-64-(chary-2)*64);
+		tent.style.left      	   = Math.round(500-(charx-3)*64);
+		tent.style.top       	   = Math.round(64-(chary-2)*64);
+		maparea.style.top    	   = Math.round((2-chary)*64);
+		maparea.style.left  	   = Math.round((3-charx)*64);
+		goin_shop.style.visibility = 'hidden';
+		goin_tent.style.visibility = 'hidden';
+		if (charx == 4 && chary == 2){
+			goin_shop.style.visibility = 'visible';
+		}
+		else if (charx == 8 && chary == 2){
+			goin_tent.style.visibility = 'visible';
+		}
+		document.title = 'charx='+charx+' ~ chary='+chary+' ~ fall='+falllevel;
+	},
+	Menu:function(){
+		if (XU.El('mainmenu').style.visibility == 'hidden'){
+			XU.El('mainmenu').style.visibility = 'visible';
+			XU.CenterElement('saveslots','b',0,20);
+			XU.El('saveslots').filters.item(0).Apply();
+       	 		XU.El('saveslots').style.visibility = 'visible';
+       			XU.El('saveslots').filters.item(0).Play();
+		}else{
+			XU.El('saveslots').filters.item(0).Apply();
+       	 		XU.El('saveslots').style.visibility = 'hidden';
+       			XU.El('saveslots').filters.item(0).Play();
+			XU.El('mainmenu').style.visibility = 'hidden';
+		}
+	},
+	Hud:function(){
+		if (XU.El('hud').style.display == 'none'){
+			XU.El('hud').style.display = 'block';
+		}else{
+			XU.El('hud').style.display = 'none';
+		}
+	},
+	Torch:function(it){
+		if (XU.El('torch').style.visibility == 'hidden' || it==1){		
+			XU.El('torch').filters.item(0).Apply();
+       	 		XU.El('torch').style.visibility = 'visible';
+       			XU.El('torch').filters.item(0).Play();
+		}else{		
+			XU.El('torch').filters.item(0).Apply();
+       	 		XU.El('torch').style.visibility = 'hidden';
+       			XU.El('torch').filters.item(0).Play();
+		}
+	},
+	Event_Stamina:function(){
+		if (chary>=3){
+			savedata[2] -= savedata[1];
+			if (savedata[2]<=0){
+				savedata[2] = 100;
+				msglock     = 1;
+				XM.Alert('Rescue Team','You were found in the mine too weak to even move.<br>Try and be more careful next time.',0,0,1);
+				charx = 3;
+				chary = 2;
+				App.MoveMap();
+				App.Torch();
+				setTimeout("msglock=0;XM.Close()",2000);
+			}
+			hudhbar.style.width = parseInt(savedata[2])+'%';
+		}
+	},
+	MapGen:function(xmax,ymax){
+		tempdata[0] = 'var Map = {Data:function(){';
+		for (a=0;a<=ymax;a++){
+			for (b=0;b<=xmax;b++){
+				tempdata[1]  = XU.El('lay1x'+b+'y'+a+'e');
+				if (tempdata[1].it != -1){
+					tempdata[0] += 'lay1x'+b+'y'+a+'e.src="gres/imgs/'+tempdata[1].it+'.png";';
+					tempdata[0] += 'lay1x'+b+'y'+a+'e.it='+tempdata[1].it+';';
+				}
+				tempdata[1]  = XU.El('lay2x'+b+'y'+a+'e');
+				if (tempdata[1].it != 0){
+					tempdata[0] += 'lay2x'+b+'y'+a+'e.src="gres/imgs/'+tempdata[1].it+'.png";';
+					tempdata[0] += 'lay2x'+b+'y'+a+'e.it='+tempdata[1].it+';';
+				}
+			}
+		}
+		tempdata[0] += '}};';
+		XS.File('map.txt','create',tempdata[0]);
+	},
+	MapDraw:function(xmax,ymax){
+		tempdata[0] = '<table cellpadding=0 cellspacing=0 style="position:absolute;top:0;left:0;z-index:100;">';
+		for (a=0;a<=ymax;a++){
+			tempdata[0] += '<tr>';
+			for (b=0;b<=xmax;b++){
+				if (a == 2 && b!=0 && b!=dimx){
+					tempdata[0] += '<td style="height:64;width:64;"><img src="gres/imgs/28.png" id="lay1x'+b+'y'+a+'e" it=28></td>';
+				}else{
+					tempdata[0] += '<td style="height:64;width:64;"><img src="gres/imgs/-1.png" id="lay1x'+b+'y'+a+'e" it=-1></td>';
+				}
+			}
+			tempdata[0] += '</tr>';
+		}
+		tempdata[0]                      += '</table>';
+		XU.El('maparea').innerHTML        = tempdata[0];
+		tempdata[0] = '<table cellpadding=0 cellspacing=0 style="position:absolute;top:0;left:0;z-index:50;">';
+		for (a=0;a<=ymax;a++){
+			tempdata[0] += '<tr>';
+			for (b=0;b<=xmax;b++){
+				tempdata[2] = Math.round(2*Math.random()); //blocks
+				if (b==0 || b==dimx || a==dimy || (a==3 && b!=1) || (b==1 && a==5)){
+					tempdata[0] += '<td style="height:64;width:64;"><img src="gres/imgs/4.png" id="lay2x'+b+'y'+a+'e" it=4></td>';
+				}else if (a<=2){
+					tempdata[0] += '<td style="height:64;width:64;"><img src="gres/imgs/29.png" id="lay2x'+b+'y'+a+'e" it=29></td>';
+				}else{
+					tempdata[0] += '<td style="height:64;width:64;"><img src="gres/imgs/-1.png" id="lay2x'+b+'y'+a+'e" it=-1></td>';
+				}
+			}
+			tempdata[0] += '</tr>';
+		}
+		tempdata[0]                      += '</table>';
+		XU.El('maparea').innerHTML       += tempdata[0];
+		XU.El('maparea').style.visibility = 'visible';	
+	},
+	Keys:function(){
+		if (xmsg.style.display == 'block' && event.keyCode == 13){
+			XM.Close();
+		}
+		if (movelock == 0 && msglock == 0){
+			if (event.keyCode==39){ //right
+				miner.src = "gres/imgs/miner3_r.png";
+				charx++;
+				if (charx>=dimx){
+					charx--;
+				}else{
+					App.Event_Stamina();
+					App.MoveMap();
+				}
+			}else if (event.keyCode==37){ //left
+				miner.src = "gres/imgs/miner3_l.png";
+				charx--;
+				if (charx<=0){
+					charx++;
+				}else{
+					App.Event_Stamina();
+					App.MoveMap();
+				}
+			}else if (event.keyCode==38){ //up
+				chary--;
+				if (chary<=0 || App.Block(1).it == -1){
+					chary++;
+				}else{
+					App.Event_Stamina();
+					App.MoveMap();
+				}
+			}else if (event.keyCode==40){ //down
+				chary++;
+				if (chary>=dimy || App.Block(2).it != -1){
+					chary--;
+				}else{
+					App.Event_Stamina();
+					App.MoveMap();
+				}
+			}
+		}
+	},
+	Block:function(it,x,y){
+		if (!x){
+			x = 0;
+		}
+		if (!y){
+			y = 0;
+		}
+		return document.getElementById('lay'+it+'x'+Math.round(charx+x)+'y'+Math.round(chary+y)+'e');
+	},
+	Resize:function(){
+		//document.body.blur();
+		//alert('Please do not resize the game');
+		//XU.ResizeWindow(354,488);
+	},
+	DebugMenu:function(){
+		XM.Alert('Debug Menu','<input type="button" value="Hud" onclick="App.Hud()"> <input type="button" value="Torch" onclick="App.Torch()"> <input type="button" value="Menu" onclick="App.Menu()">',0,0,0,1);
+	},
+	SaveGame:function(){
+		if (savedata[0]!='saveslot'){
+			XDS.Save('slot'+savedata[0]+'.txt');
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" oncontextmenu="App.DebugMenu()" onkeydown="App.Keys()" onresize="App.Resize()" onbeforeunload="App.SaveGame()">
+<HTA:APPLICATION ID="gmdd"
+    APPLICATIONNAME="gmdd"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+
+<div id="iefix">
+<span id="maparea" style="visibility:hidden;position:absolute;top:0;left:0;"></span>
+
+<img src="gres/imgs/shop.png" style="position:absolute;top:-64;left:200;z-index:30;visibility:hidden;" id="shop">
+<img src="gres/imgs/go_in.png" style="position:absolute;top:44;left:264;z-index:35;visibility:hidden;cursor:hand;" id="goin_shop">
+
+<img src="gres/imgs/camp.png" style="position:absolute;top:64;left:500;z-index:30;visibility:hidden;" id="tent">
+<img src="gres/imgs/go_in.png" style="position:absolute;top:44;left:510;z-index:35;visibility:hidden;cursor:hand;" id="goin_tent">
+
+<span id="mainmenu" style="visibility:hidden;">
+<img src="gres/imgs/menusf.png" style="position:absolute;">
+<span id="saveslots" style="position:absolute;visibility:hidden;filter:progid:DXImageTransform.Microsoft.Fade(duration=.5);">
+<img src="gres/imgs/slot1.png" style="cursor:hand;" onclick="App.Start(1)">
+<img src="gres/imgs/slot2.png" style="cursor:hand;" onclick="App.Start(2)">
+<img src="gres/imgs/slot3.png" style="cursor:hand;" onclick="App.Start(3)">
+</span>
+</span>
+
+<img src="gres/imgs/miner3_r.png" id="miner" style="position:absolute;top:-100;left:-100;z-index:30;">
+
+</div>
+
+<div class="torch" id="torch" style="visibility:hidden;filter:progid:DXImageTransform.Microsoft.Fade(duration=.5);"><img src="gres/imgs/torch.png"></div>
+
+<span id="hud" style="display:none;">
+<div class="hudtl" id="hud_tl"><img src="gres/imgs/menu_tl.png"></div>
+<div class="hudbl" id="hud_bl"><img src="gres/imgs/menu_bp.png"></div>
+<div class="hudbr" id="hud_br"><img src="gres/imgs/menu_br.png"></div>
+<div class="hudcash" id="hud_cash">0</div>
+<div class="hudore" id="hud_ore">0</div>
+<div class="huditem" id="hud_item"><img src="gres/imgs/pickaxe.png" id="hudtool"></div>
+<div class="hudhealth" id="hud_health"><span id="hudhbar" style="background-Color:limegreen;height:10;width:100%;"></span></div>
+</span>
+
+</body>
+</html>

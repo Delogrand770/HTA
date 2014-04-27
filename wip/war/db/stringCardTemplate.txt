@@ -1,0 +1,8 @@
+<table>
+<tr>
+<td id="cardpic" style="background:url('cardpics/unknown.png') no-repeat;height:133;width:168;"></td>
+</tr>
+<tr>
+<td style="font-size:8pt;text-align:center;" id="carddes">---</td>
+</tr>
+</table>

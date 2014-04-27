@@ -1,0 +1,227 @@
+<html>
+<head><title>XCONN</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="fsol3.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+
+<script>
+var xusername     = XNetwork.UserName()+Math.round(100*Math.random());
+var xconndir      = 0;
+var xdatainact    = 0;
+var xdataoutact   = 0;
+var xmyrole       = 0;
+var xtimer        = 0;
+var xreceived     = 0;
+var xconnstate    = 0;
+var xappid        = 0;
+var xmaxplayers   = 0;
+var xminplayers   = 0;
+var xgamevalid    = 0;
+var xusersconn    = 0;
+var xgameready    = 0;
+var XConnect={
+	Ini:function(it1,it2,it3,it4,it5,it6,it7,it8){
+		if (it1){xconndir    = it1;}
+		if (it2){xdatainact  = it2;}
+		if (it3){xdataoutact = it3;}
+		if (it4){xappid      = it4;}
+		if (it5){xmaxplayers = it5;}
+		if (it6){xminplayers = it6;}
+		if (it7){xgamevalid  = it7;}
+		if (it8){xgameready  = it8;}
+		if (xconndir==0){
+			XMessage.Alert('XConnect','No xconndir directory specified');
+		}else if (xdatainact==0){
+			XMessage.Alert('XConnect','No xdatainact function specified');
+		}else if (xdataoutact==0){
+			XMessage.Alert('XConnect','No xdataoutact function specified');
+		}else if (xappid==0){
+			XMessage.Alert('XConnect','No xappid specified');
+		}else if (xmaxplayers==0){
+			XMessage.Alert('XConnect','No xmaxplayers specified');
+		}else if (xminplayers==0){
+			XMessage.Alert('XConnect','No xmminplayers specified');
+		}else if (xgamevalid==0){
+			XMessage.Alert('XConnect','No xgamevalid function specified');
+		}else if (xgameready==0){
+			XMessage.Alert('XConnect','No xgameready function specified');
+		}
+	},
+	Connect:function(){
+		xmyrole = 0;
+		if (!XScripting.FileExist(xconndir+xappid+'-host.xcon')){
+			XScripting.CreateFile(xconndir+xappid+'-host.xcon',0);
+			XScripting.CreateFile(xconndir+xappid+xusername+'-client.xcon',0);
+			xmyrole = 'host';
+			xtimer = setInterval("XConnect.GetOpponents()",2000);
+		}else{
+			XScripting.SearchDirectory(xconndir,'client.xcon');
+			if (scanned_files.length<xmaxplayers){
+				XScripting.CreateFile(xconndir+xappid+xusername+'-client.xcon',0);
+				xmyrole = 'client';
+				xtimer = setInterval("XConnect.GetOpponents()",2000);
+			}else{
+				clearInterval(xtimer);
+				XMessage.Alert(xappid,'Game is full');
+			}
+		}
+		if (xmyrole!=0){
+			document.title += ' - '+xmyrole;
+			XMessage.Alert(xappid,'Players connected',0,0,1);
+		}
+	},
+	GetOpponents:function(){
+		XScripting.SearchDirectory(xconndir,'client.xcon');
+		XMessage.Alert(xappid,'Players connected<br><br>'+scanned_files.join('<br>').replace(new RegExp(xappid,"g"),"").replace(new RegExp("-client.xcon","g"),""),0,0,1);
+		xusersconn = scanned_files.length;
+		if (XConnect.Role()){
+			if (xusersconn>=xminplayers){
+				clearInterval(xtimer);
+				XMessage.Close();
+				XScripting.CreateFile(xconndir+xappid+'-gamevalid.xcon');
+				eval(xgamevalid)();
+			}
+		}else{
+			if (XScripting.FileExist(xconndir+xappid+'-gamevalid.xcon')){
+				clearInterval(xtimer);
+				XMessage.Close();
+				eval(xgamevalid)();
+			}
+		}
+	},
+	Disconnect:function(){
+		if (XConnect.Role()){
+			XScripting.DeleteFile(xconndir+xappid+'-host.xcon');
+			XScripting.DeleteFile(xconndir+xappid+'-gamevalid.xcon');
+		}
+		XScripting.DeleteFile(xconndir+xappid+xusername+'-client.xcon');
+	},
+	Role:function(){
+		if (xmyrole == 'host'){
+			return true;
+		}else{
+			return false;
+		}
+	},
+	Send:function(it,oride,tgt){
+		if ((XConnect.Role() && !tgt) || oride==1){ //If host and no target or overide is 1, send to all
+			XScripting.CreateFile(xconndir+xappid+'-allread.xcon',it);
+		}else if (!tgt){ //If no target is specified and your not the host, send to host
+			XScripting.CreateFile(xconndir+xappid+xusername+'-tohost.xcon',it);
+		}else{ //If you are the host and have specified a target, send to target.
+			XScripting.CreateFile(xconndir+xappid+tgt+'-read.xcon',it);
+		}
+	},
+	Receive:function(){
+		if (XConnect.Role()){
+			XScripting.SearchDirectory(xconndir,'tohost.xcon');
+			for (xi=0;xi<=scanned_files.length-1;xi++){
+				if (XScripting.FileExist(xconndir+scanned_files[xi])){
+					xreceived = XScripting.OpenFile(xconndir+scanned_files[xi]);
+					XScripting.DeleteFile(xconndir+scanned_files[xi]);
+					eval(xdatainact)();
+				}
+			}
+		}
+		if (XScripting.FileExist(xconndir+xappid+'-allread.xcon')){
+				xreceived = XScripting.OpenFile(xconndir+xappid+'-allread.xcon');
+				XScripting.CreateFile(xconndir+xappid+xusername+'-receipt.xcon');
+				eval(xdatainact)();
+		}
+		if (XScripting.FileExist(xconndir+xappid+xusername+'-read.xcon')){
+				xreceived = XScripting.OpenFile(xconndir+xappid+xusername+'-read.xcon');
+				eval(xdatainact)();
+				XScripting.DeleteFile(xconndir+xappid+xusername+'-read.xcon');
+		}
+	},
+	ReadReceipt:function(){
+		XScripting.SearchDirectory(xconndir,'receipt.xcon');
+		if (scanned_files.length>=xusersconn){
+			XScripting.DeleteFile(xconndir+xappid+'-allread.xcon');
+			for (xi=0;xi<=scanned_files.length-1;xi++){
+				XScripting.DeleteFile(xconndir+scanned_files[xi]);
+			}
+		}
+	},
+	VerifyGameValid:function(){
+		XScripting.SearchDirectory(xconndir,'client.xcon');
+		xusersconn = scanned_files.length;
+		if (xusersconn>=xminplayers){
+			eval(xgamevalid)();
+		}else{
+			XScripting.DeleteFile(xconndir+xappid+'-gamevalid.xcon');
+			xtimer = setInterval("XConnect.GetOpponents()",2000);
+		}
+	}
+};
+
+var App = {
+	SendData:function(idata,itgt){
+		if (itgt==1){ //send to all, even if not host
+			XConnect.Send(idata,1);
+		}else if (itgt && itgt!=1){ //send to identified username
+			XConnect.Send(idata,0,itgt);
+		}else{ //send based on role
+			XConnect.Send(idata);
+		}
+	},
+	Ini:function(){
+		XMessage.Ini();
+		XConnect.Ini("K:\\PL\\PL\\PLA\\IT Fix\\Cant verify credentials\\",'App.ReceiveData','App.SendData','testapp',12,3,'App.UpdateUsers','App.GameReady');
+		document.title += ' ['+xusername+']';
+		XUtil.ResizeWindow(200,450);
+	},
+	Start:function(){
+		XConnect.Connect();
+	},
+	ReceiveData:function(){
+		alert(xreceived);
+	},
+	GameReady:function(){
+		App.UpdateUsers();
+	},
+	UpdateUsers:function(){
+		XScripting.SearchDirectory(xconndir,'client.xcon');
+		userlist.innerHTML = scanned_files.join('<br>').replace(new RegExp(xappid,"g"),"").replace(new RegExp("-client.xcon","g"),"");	
+	}
+};
+</script>
+</head>
+
+<body bgcolor="white" onload="App.Ini()" text="black" scroll="no" onbeforeunload="XConnect.Disconnect()">
+<HTA:APPLICATION ID=""
+    APPLICATIONNAME=""
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no"><br><br>
+<input type='button' value='Connect' onclick='App.Start()'>
+<input type='button' value='Disconnect' onclick='XConnect.Disconnect();userlist.innerHTML="";'>
+<input type='button' value='Send' onclick='App.SendData(prompt("Data",""),prompt("Send to (1=all)",""))'>
+<input type='button' value='Recieve' onclick='XConnect.Receive()'>
+<input type='button' value='Check Recepit' onclick='XConnect.ReadReceipt()'>
+<input type='button' value='Verify Users' onclick='XConnect.VerifyGameValid()'>
+<br><br>
+<span id="userlist"></span>
+</body>
+</html>

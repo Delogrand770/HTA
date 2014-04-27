@@ -1,0 +1,61 @@
+<html><head><title>CAPICOM Encryptor</title>
+<script src="gaia.js"></script>
+<script>
+var App={
+	Example1:function(){
+		var temp     = XCap.Encrypt(msgin.value,XCap.UseCard(prompt('Enter Password',' ')),4);
+		msgout.value = temp;
+		var temp2    = '<script src="gaia.js"><'+'/'+'script><textarea id="xdocon" style="display:none;">';
+		temp2       += temp+'<'+'/'+'textarea><script>';
+		temp2       += 'document.write(XCap.Decrypt(xdocon.value,XCap.UseCard(prompt("Enter Password","")),4));xdocon.value="";<'+'/'+'script>';
+		XS.File('xcap_secure.hta','create',temp2);
+	},
+	Example2:function(){
+		var temp    = XCap.Decrypt(msgout.value,XCap.UseCard(prompt('Enter Password',' ')),4);
+		msgin.value = temp;
+		XS.File('xcap_plaintext.hta','create',temp);
+	},
+	Example3:function(){
+		var temp     = XCap.Encrypt(msgin.value,prompt('Enter Password',''),4);
+		msgout.value = temp;
+		var temp2    = '<script src="gaia.js"><'+'/'+'script><textarea id="xdocon" style="display:none;">';
+		temp2       += temp+'<'+'/'+'textarea><script>';
+		temp2       += 'document.write(XCap.Decrypt(xdocon.value,prompt("Enter Password",""),4));xdocon.value="";<'+'/'+'script>';
+		XS.File('xcap_secure.hta','create',temp2);
+	},
+	Example4:function(){
+		var temp    = XCap.Decrypt(msgout.value,prompt('Enter Password',''),4);
+		msgin.value = temp;
+		XS.File('xcap_plaintext.hta','create',temp);
+	}
+};
+</script>
+</head>
+<body>
+<HTA:APPLICATION ID="app.encryptor"
+    APPLICATIONNAME="app.encryptor"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+To Encrypt:
+<textarea id='msgin' style="width:99%;height:40%;"></textarea>
+To Decrypt:
+<textarea id='msgout' style="width:99%;height:40%;"></textarea>
+<input type="button" value="CAC Encrypt" onclick="App.Example1()">
+<input type="button" value="CAC Decrypt" onclick="App.Example2()">
+<input type="button" value="Pass Encrypt" onclick="App.Example3()">
+<input type="button" value="Pass Decrypt" onclick="App.Example4()">
+</body></html>

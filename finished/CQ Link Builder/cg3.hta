@@ -1,0 +1,202 @@
+<html>
+<head><title>CQ Link Builder</title>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family: arial,sans-serif;
+}
+.spectd{
+  border: 1 solid black;
+  width: 100;
+  height: 40;
+  text-align: center;
+  color: white;
+}
+.btn{
+  border: 1 solid black;
+  color: black;
+}
+.txt{
+  border: 1 solid white;
+  color: black;
+  background-Color: transparent;
+  color: white;
+}
+</style>
+
+<script>
+XU.resizeWindow({height: 806, width: 1017});
+XU.moveWindow(0, 0);
+var App = {
+	total: 0,
+	//Start Configuration
+	organization: 'Group 3',
+	multipliers: [
+		["Monday", 1],
+		["Tuesday", 1],
+		["Wednesday", 1],
+		["Thursday", 1],
+		["Friday", 1],
+		["Saturday", 1.5],
+		["Sunday", 1.5]
+	],
+	data: [
+		['Reveille', 1.25, '0630-0745'],
+		['1st', 1, '0745-0845'],
+		['2nd', 1, '0845-0945'],
+		['3rd', 1, '0945-1045'],
+		['4th', 1, '1045-1145'],
+		['Lunch', 1.5, '1145-1320'],
+		['5th', 1, '1320-1425'],
+		['6th', 1, '1425-1525'],
+		['7th', 1, '1525-1625'],
+		['Dinner', 2, '1625-1830'],
+		['Intramurals Finished', 2, '1830-2030'],
+		['ACQ', 1.5, '2030-2200'],
+		['Weekday Taps', 1, '2200-2300'],
+		['Weekend Taps', 3.12, '2300-0130'],
+		['SILVER TAPS', 1, '2300-0000']
+	],
+	//End Configuration
+	Ini:function(){
+		var inject = '<table cellpadding=0 cellspacing=0>';
+		inject    += '<tr style="background-Color:blue;"><td class="spectd">Period</td><td class="spectd">Value</td><td class="spectd">Time</td>';
+		
+		for (i = 0; i < App.multipliers.length; i++) {
+			inject += '<td class="spectd">' + App.multipliers[i][0] + '<br>' + App.multipliers[i][1] + 'X</td>';
+		}
+		inject += '</tr>';
+
+		for (i = 0; i < App.data.length; i++){
+			inject += '<tr>';
+			inject += '<td class="spectd" style="background-Color:#0066ff;">' + App.data[i][0] + '</td><td class="spectd" style="background-Color:#0066ff;">' + App.data[i][1] + '</td><td class="spectd" style="background-Color:#0066ff;">' + App.data[i][2] + '</td>';
+			for (j = 1; j <= 7; j++){
+				inject += '<td day=' + j + ' period=' + (i + 1) + ' active=0 onclick="App.Sit()" id="x' + j + 'x' + (i + 1) + 'x" style="cursor:hand;" class="spectd">Sit</td>';
+			}
+			inject += '</tr>';
+		}
+		inject += '</table><br>&nbsp;<input type="button" value="Export Shifts" class="btn" onclick="App.ExportShifts()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="Create Link" onclick="App.CreateLink()" class="btn">';
+		inject += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hours: <span id="hours">0</span>';
+		XM.static({title: "CQ Shifts - " + App.organization, body: inject});
+	},
+	Sit:function(){
+		var day    = event.srcElement.day - 1;
+		var period = event.srcElement.period - 1;
+		App.total                             += App.data[period][1] * App.multipliers[day][1];
+		App.total 							   = (App.total <= .2) ? 0 : App.total;
+		var temp                               = (App.total + "").substring(0, 4);
+		event.srcElement.innerHTML             = "Don't Sit";
+		event.srcElement.onclick               = App.UnSit;
+		event.srcElement.active                = 1;
+		event.srcElement.style.backgroundColor = 'red';
+		hours.innerHTML                        = temp;
+	},
+	UnSit:function(){
+		var day    = event.srcElement.day -1;
+		var period = event.srcElement.period - 1;
+		App.total                             -= App.data[period][1] * App.multipliers[day][1];
+		App.total 							   = (App.total <= .2) ? 0 : App.total;
+		var temp                               = (App.total + "").substring(0, 4);
+		event.srcElement.innerHTML             = 'Sit';
+		event.srcElement.onclick               = App.Sit;
+		event.srcElement.active                = 0;	
+		event.srcElement.style.backgroundColor = 'transparent';
+		hours.innerHTML                        = temp;
+	},
+	CreateLink:function(){
+		XM.alert({
+			title: 'CQ Link',
+			body: '&nbsp;<textarea id="linkout" style="width:98%;height:100;" readonly class="txt"></textarea>',
+			width: 400
+			});
+
+		var cur    = 0;
+
+		var inject = "javascript:q1=window.location.href.split('=')[2];browser=navigator.userAgent.toLowerCase();exp=(browser.indexOf('chrome')>-1 || browser.indexOf('msie')>-1) ? \"\\\\',\\\\'\" : (browser.indexOf('firefox')>-1) ? \"','\" : alert('Your browser is not supported. Please use firefox, chrome or internet explorer');q2=insertsitlink.toString().split(exp)[4];";
+
+		for (i = 0; i < App.data.length; i++){
+			for (j = 1; j <= 7; j++){
+				cur = XU.el('x' + j + 'x' + (i + 1) + 'x');
+				if (cur.active == 1){
+					inject += "getCustomer('submitsit',q1," + cur.day + "," + cur.period + ",q2,'#d" + cur.day + "p" + cur.period + "');";
+				}
+			}
+		}
+		inject 	     += 'void(0);';
+		linkout.value = inject;
+		linkout.select();
+		document.execCommand("Copy");
+	},
+	ExportShifts:function(){
+		XM.alert({
+			title: 'Shifts Exported to data.js',
+			body: 'Open data.js with notepad to modify.<br><br>You can use this file as a template to modify the shift schedule.<br><br>Any changes made to data.js will update into the program.<br><br>If the program no longer runs after you make changes, delete data.js and try again.',
+			width: 600
+			});
+
+		var output = 'App.organization = "'+App.organization+'";\r\n'
+		output += 'App.multipliers = [\r\n\t';
+		for (var i = 0; i < App.multipliers.length; i++) {
+			var comma = (i < App.multipliers.length - 1) ? "," : "";
+			output += '["' + App.multipliers[i][0] + '", ' + App.multipliers[i][1] + ']' + comma + '\r\n\t';
+		};
+		output += '];\r\n';
+
+		output += 'App.data = [\r\n\t';
+		for (var i = 0; i < App.data.length; i++) {
+			var comma = (i < App.data.length - 1) ? "," : "";
+			output += '["' + App.data[i][0] + '", ' + App.data[i][1] + ', "' + App.data[i][2] + '"]' + comma + '\r\n\t';
+		};
+		output += '];\r\n\r\n//To add more shift possibilities just add another row to the App.data = [ entry and be sure to follow the format.\r\n//Every row has a comma after it except for the last row.\r\n\r\n';
+
+
+
+		output += '/* Nothing needs to be changed below this line\r\n';
+		output += '\torganization: "'+App.organization+'",\r\n';
+		output += '\tmultipliers: [\r\n\t\t';
+		for (var i = 0; i < App.multipliers.length; i++) {
+			var comma = (i < App.multipliers.length - 1) ? "," : "";
+			output += '["' + App.multipliers[i][0] + '", ' + App.multipliers[i][1] + ']' + comma + '\r\n\t\t';
+		};
+		output += '],\r\n';
+
+		output += '\tdata: [\r\n\t\t';
+		for (var i = 0; i < App.data.length; i++) {
+			var comma = (i < App.data.length - 1) ? "," : "";
+			output += '["' + App.data[i][0] + '", ' + App.data[i][1] + ', "' + App.data[i][2] + '"]' + comma + '\r\n\t\t';
+		};
+		output += '],\r\n*/';
+
+		XS.file('data.js','create',output);
+	}
+};
+</script>
+<script src="data.js"></script>
+</head>
+<body onload="App.Ini();">
+<HTA:APPLICATION ID="cqlinkbuilder"
+    APPLICATIONNAME="cqlinkbuilder"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id='screen'></span>
+</body>
+</html>
+<!---<script>Auth.setup()</script>--->

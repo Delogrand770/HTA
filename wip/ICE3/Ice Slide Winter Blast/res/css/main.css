@@ -1,0 +1,5 @@
+body{font-family:arial,sans-serif;}
+.btn1{cursor:pointer;margin-top:5px;border:outset 1px #ccc;background:#999;font-size:.9em;color:#666;font-weight:bold;padding:5px; background:url('../skins/button1.gif') repeat-x left top;padding:1px;height:21;width:150;}
+.btn2{cursor:pointer;margin-top:5px;border:outset 1px #ccc;background:#999;font-size:.9em;color:#666;font-weight:bold;padding:5px; background:url('../skins/button2.gif') repeat-x left top;padding:1px;height:21;}
+.btn3{cursor:pointer;margin-top:5px;border:outset 1px #ccc;background:#999;font-size:.9em;color:#666;font-weight:bold;padding:5px; background:url('../skins/button2.gif') repeat-x left top;padding:1px;height:21;width:150;}
+.txt1{background-Color:transparent;border:0 solid silver;width:70;}

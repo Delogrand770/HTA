@@ -1,0 +1,475 @@
+<html>
+<head><title>Chess v2.0</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script>var xdev = 0;</script>
+<script src="gaia.js"></script>
+<script src="fncheck.js"></script>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.block{
+  height:60;
+  width:60;
+  border:0 solid black;
+  text-align:left;
+}
+#board{
+  border:1 solid black;
+  position:absolute;
+}
+.box{
+  position:absolute;
+  height:90%;
+  width:20%;
+}
+#msgout{
+  height:90%;
+  width:100%;
+  border:1 solid black;
+}
+#msgin{
+  height:21;
+  width:100%;
+  border:1 solid black;
+}
+#moveout{
+  height:80%;
+  width:100%;
+  border:1 solid black;
+}
+#gamehead{
+  position:absolute;
+  top:8;
+  text-align:center;
+  font-size: 13pt;
+  font-weight:bold;
+}
+.txt2{
+  font-size:9pt;
+  font-weight:bold;
+}
+.uline{
+  text-decoration:underline;
+}
+.btn{
+ border:1 solid white;
+ background-Color:black;
+ color:white;
+ height:21;
+}
+</style>
+
+<script>
+if (xdev!=1){
+alert('Please extract all files before running');
+window.close();
+}
+XU.ResizeWindow(570,940,0,1);
+var tlist  = new Array('club','classic','vintage','cases','maya','lines','alpha','book','modern');
+var noman  = new Array('a','b','c','d','e','f','g','h');
+var pieces = new Array('empty','pawn','castle','horse','bishop','queen','king');
+var clist  = new Array('white','black','navajowhite','green','blue','purple','cyan','red','brown','pink','orange','yellow','#0099ff');
+var sett   = new Array(0,12,2,0,9,0,7);//c1,c2,p#me,theme,mehcolor,p#oppo,ohcolor
+var owner  = new Array('','white-','black-');
+var bdata  = new Array();
+var kings  = new Array();
+var mstate = 0; //movestate
+var mlock  = 1; //movelock
+var minf   = new Array(); //moveinfo
+var rdex   = 0;
+var token  = Math.round(10000000*Math.random());
+var olm    = 0; // oppolastmove
+var plost  = 0; //last piece lost used only for updating settings when they change
+var App={
+	Ini:function(){
+		XM.Ini();
+		XCIP.Ini(1);
+		XM.Alert('Chess','Created by Gavin Delphia<br><br>--Features to Add--<br>Castleing<br>En Passant<br>CheckMate',0,0,1);
+		setTimeout("XCIP.Connect()",2000);
+		App.DrawBoard();
+		App.Resize();
+		App.Header('Connection Setup');
+	},
+	DrawBoard:function(){
+		var color = 0;
+		var txt   = '';
+		var toadd = '<table cellpadding = 0 cellspacing = 0 id="board">';
+		for (a=0;a<=7;a++){
+			bdata[a] = new Array();
+			toadd += '<tr>';
+			for (b=0;b<=7;b++){
+				bdata[a][b] = new Array(0,0);
+				color = (a%2==0)?(b%2==0)?clist[sett[0]]:clist[sett[1]]:(b%2==0)?clist[sett[1]]:clist[sett[0]]; //colors board
+				txt   = (a==7)?noman[b]:(b==0)?a+1:''; //numbers and letters board
+				txt   = (b==0 && a==7)?'8a':txt; //handles 8a drawing
+				//txt   = noman[b]+Math.round(8-a);
+				toadd += '<td class="block" style="background-Color:'+color+';" id="'+noman[b]+Math.round(8-a)+'" onclick="App.Move(this.id)">'+txt+'</td>';
+			}
+			toadd += '</tr>';
+		}
+		toadd += '</table>';
+		gamearea.innerHTML = toadd;
+	},
+	Resize:function(){
+		XU.CenterElement('board','b',0,5);
+		XU.CenterElement('msgbox','v');
+		msgbox.style.left = 10;
+		XU.CenterElement('movebox','v');
+		XU.DFR('movebox',10);
+		XU.CenterElement('gamehead','h');
+	},
+	Header:function(it){
+		gamehead.innerHTML = it;
+		XU.CenterElement('gamehead','h');
+	},
+	InfUpdate:function(it,it2){
+		if (it=='name'){
+			infname.innerHTML = it2;
+		}else if (it=='piece'){
+			if (it2=='empty'){
+				infpiece.src = 'img/empty.png';
+			}else{
+				plost        = it2;
+				infpiece.src = 'img/'+owner[sett[2]]+tlist[sett[3]]+'/'+it2+'.png';
+			}
+		}
+		
+	},
+	DefaultPieces:function(it){
+		if (it==1){
+			App.AssignPiece('a8',2,2);App.AssignPiece('a7',2,1);
+			App.AssignPiece('b8',2,3);App.AssignPiece('b7',2,1);
+			App.AssignPiece('c8',2,4);App.AssignPiece('c7',2,1);
+			App.AssignPiece('d8',2,6);App.AssignPiece('d7',2,1);
+			App.AssignPiece('e8',2,5);App.AssignPiece('e7',2,1);
+			App.AssignPiece('f8',2,4);App.AssignPiece('f7',2,1);
+			App.AssignPiece('g8',2,3);App.AssignPiece('g7',2,1);
+			App.AssignPiece('h8',2,2);App.AssignPiece('h7',2,1);
+
+			App.AssignPiece('a1',1,2);App.AssignPiece('a2',1,1);
+			App.AssignPiece('b1',1,3);App.AssignPiece('b2',1,1);
+			App.AssignPiece('c1',1,4);App.AssignPiece('c2',1,1);
+			App.AssignPiece('d1',1,5);App.AssignPiece('d2',1,1);
+			App.AssignPiece('e1',1,6);App.AssignPiece('e2',1,1);
+			App.AssignPiece('f1',1,4);App.AssignPiece('f2',1,1);
+			App.AssignPiece('g1',1,3);App.AssignPiece('g2',1,1);
+			App.AssignPiece('h1',1,2);App.AssignPiece('h2',1,1);
+		}else{
+			App.AssignPiece('a8',1,2);App.AssignPiece('a7',1,1);
+			App.AssignPiece('b8',1,3);App.AssignPiece('b7',1,1);
+			App.AssignPiece('c8',1,4);App.AssignPiece('c7',1,1);
+			App.AssignPiece('d8',1,6);App.AssignPiece('d7',1,1);
+			App.AssignPiece('e8',1,5);App.AssignPiece('e7',1,1);
+			App.AssignPiece('f8',1,4);App.AssignPiece('f7',1,1);
+			App.AssignPiece('g8',1,3);App.AssignPiece('g7',1,1);
+			App.AssignPiece('h8',1,2);App.AssignPiece('h7',1,1);
+
+			App.AssignPiece('a1',2,2);App.AssignPiece('a2',2,1);
+			App.AssignPiece('b1',2,3);App.AssignPiece('b2',2,1);
+			App.AssignPiece('c1',2,4);App.AssignPiece('c2',2,1);
+			App.AssignPiece('d1',2,5);App.AssignPiece('d2',2,1);
+			App.AssignPiece('e1',2,6);App.AssignPiece('e2',2,1);
+			App.AssignPiece('f1',2,4);App.AssignPiece('f2',2,1);
+			App.AssignPiece('g1',2,3);App.AssignPiece('g2',2,1);
+			App.AssignPiece('h1',2,2);App.AssignPiece('h2',2,1);
+		}
+	},	
+	AssignPiece:function(it,iowner,ipiece){
+		it = it.split('');
+		bdata[noman.indexOf(it[0])][Math.round(it[1]-1)] = new Array(iowner,ipiece);
+		if (ipiece == 0){	
+			document.getElementById(it[0]+it[1]).style.backgroundImage = 'url("img/empty.png")';
+		}else{	
+			document.getElementById(it[0]+it[1]).style.backgroundImage = 'url("img/'+owner[iowner]+tlist[sett[3]]+'/'+pieces[ipiece]+'.png")';
+		}
+	},
+	SpotInfo:function(it,it2){
+		it = it.split('');
+		if (it2 == 'owner'){
+			return bdata[noman.indexOf(it[0])][Math.round(it[1]-1)][0];
+		}else if (it2 == 'piece'){
+			return bdata[noman.indexOf(it[0])][Math.round(it[1]-1)][1];
+		}
+	},
+	Move:function(it){
+		var tdata = new Array();
+		if (mlock!=1){
+			if (mstate == 0){
+				if (App.SpotInfo(it,'owner')==sett[2]){
+					minf[0] = it;
+					minf[1] = XU.El(it).style.backgroundColor;
+					mstate  = 1;
+					XU.El(it).style.backgroundColor = clist[sett[4]];
+				}
+			}else{
+				if (App.SpotInfo(it,'owner')!=sett[2] && Check.IllegalMove(minf[0],it)){
+					tdata[3] = App.SpotInfo(minf[0],'owner');
+					tdata[4] = App.SpotInfo(minf[0],'piece');
+					tdata[5] = bdata.copy();
+					tdata[6] = it.split('');
+					tdata[8] =  App.SpotInfo(it,'piece');
+					if (tdata[4] == 1 && tdata[6][1]==8){
+						App.AssignPiece(it,tdata[3],5);
+					}else{
+						App.AssignPiece(it,tdata[3],tdata[4]);
+					}
+					App.AssignPiece(minf[0],0,0);
+					if (App.LookForCheck(sett[5],sett[2])){
+						bdata = tdata[5].copy();
+						App.ReDraw();
+						mstate = 0;
+						return false;
+					}
+					tdata[7] = minf[0].split('')[0]+Math.round(9-parseInt(minf[0].split('')[1]))+'-'+tdata[6][0]+Math.round(9-parseInt(tdata[6][1]))+'\n';
+					moveout.value += tdata[7];
+					XU.El(minf[0]).style.backgroundColor = minf[1];
+					//tdata[3] = 2; //comment out. for localhost testing only
+					tdata[0] = noman[Math.round(7-noman.indexOf(minf[0].split('')[0]))]+''+Math.round(9-minf[0].split('')[1]);
+					tdata[1] = noman[Math.round(7-noman.indexOf(it.split('')[0]))]+''+Math.round(9-it.split('')[1]);
+					tdata[7] = tdata[0].split('')[0]+Math.round(9-parseInt(tdata[0].split('')[1]))+'-'+tdata[1].split('')[0]+Math.round(9-parseInt(tdata[1].split('')[1]));
+					if (tdata[4] == 1 && tdata[6][1]==8){
+						tdata[2] = 'App.AssignPiece("'+tdata[1]+'",'+tdata[3]+',5);';	
+					}else{
+						tdata[2] = 'App.AssignPiece("'+tdata[1]+'",'+tdata[3]+','+tdata[4]+');';
+					}
+					tdata[2] += 'App.AssignPiece("'+tdata[0]+'",0,0);';
+					tdata[2] += 'moveout.value+="'+tdata[7]+'";XU.El("'+tdata[1]+'").style.backgroundColor=clist[sett[6]];';
+					tdata[2] += 'App.InfUpdate("piece","'+pieces[tdata[8]]+'");';
+					tdata[2] += 'olm="'+tdata[1]+'";';
+					App.Header('Opponents Turn');
+					XCIP.Out(xcipdata[1],'cmd::move::'+tdata[2]);
+					mstate = 0;
+					mlock  = 1;
+					if (App.LookForCheck(sett[2],sett[5])){
+						App.Header('Opponent is in Check');
+					}
+				}else{
+					mstate = 0;
+					XU.El(minf[0]).style.backgroundColor = minf[1];
+				}
+			}
+		}
+	},
+	ReDraw:function(it){
+		var color = 0;
+		for (a=0;a<=7;a++){
+			for (b=0;b<=7;b++){
+				color = (a%2==0)?(b%2==0)?clist[sett[1]]:clist[sett[0]]:(b%2==0)?clist[sett[0]]:clist[sett[1]];
+				document.getElementById(noman[b]+(a+1)).style.backgroundColor = color;
+				document.getElementById(noman[b]+(a+1)).style.backgroundImage = 'url("img/'+owner[bdata[b][a][0]]+tlist[sett[3]]+'/'+pieces[bdata[b][a][1]]+'.png")';
+			}
+		}
+		if (olm!=0 && it==1){
+			document.getElementById(olm).style.backgroundColor = clist[sett[6]];
+		}
+		if (plost!=0){
+			App.InfUpdate('piece',plost);
+		}
+	},
+	LookForCheck:function(it,it2){ //attacker,attacked
+		var tdata = 0;
+		for (a=0;a<=7;a++){
+			for (b=0;b<=7;b++){
+				tdata = noman[b]+Math.round(a+1);
+				if (App.SpotInfo(tdata,'piece')==6 && App.SpotInfo(tdata,'owner')==it2){
+					kings[it2] = tdata;
+					b = a = 9;
+				}
+			}
+		}
+		for (c=0;c<=7;c++){
+			for (d=0;d<=7;d++){
+				tdata = noman[d]+Math.round(c+1);
+				if (App.SpotInfo(tdata,'owner')==it && Check.IllegalMove(tdata,kings[it2])){
+					return true;
+				}
+			}
+		}
+		return false;
+	},
+	SendMessage:function(){
+		if (event.keyCode == 13 && msgin.value){
+			msgin.value = msgin.value.split('::').join('');
+			XCIP.Out(xcipdata[1],'chat::>>'+msgin.value+'\n');
+			msgout.value += '<<'+msgin.value+'\n';
+			msgin.value = '';
+		}
+	},
+	Read:function(){
+		var temp = 0;
+		if (rdex<xcipque[1].length){
+			temp = xcipque[1][rdex][1].split('::');
+			if (temp[0] == 'chat'){
+				msgout.value += temp[1]+'\n';
+				msgout.scrollTop = msgout.scrollHeight;
+			}
+			if (temp[0] == 'cmd'){
+				if (temp[1] == 'handshake'){
+					if (token>=parseInt(temp[2])){
+						App.Header('Your Turn');
+						mlock   = 0;
+						sett[2] = 1;
+						sett[5] = 2;
+					}else{
+						App.Header('Opponents Turn');
+						mlock   = 1;
+						sett[2] = 2;
+						sett[5] = 1;
+					}
+					App.DefaultPieces(sett[2]);
+					App.InfUpdate('name',xcipque[1][rdex][0]);
+					XM.Close();
+				}
+				else if (temp[1] == 'eval'){
+					eval(temp[2]);
+				}
+				else if (temp[1] == 'move'){
+					App.InfUpdate('piece','empty');
+					App.ReDraw();
+					eval(temp[2]);
+					App.Header('Your Turn');
+					mstate = 0;
+					mlock  = 0;
+					moveout.value += '\n';
+					moveout.scrollTop = moveout.scrollHeight;
+					if (App.LookForCheck(sett[5],sett[2])){
+						App.Header('You are in Check');
+					}
+				}
+				else if (temp[1] == 'disconnect'){
+					XM.Alert('Error','Opponent had disconnected',0,0,1);
+				}
+				else if (temp[1] == 'resign'){
+					mlock = 1;
+					App.Header('You win! Opponent Resigned');
+				}
+			}
+			rdex++;
+		}
+	},
+	Handshake:function(){
+		XCIP.Out(xcipdata[1],'cmd::handshake::'+token);
+	},
+	End:function(){
+		XCIP.Purge();
+		XCIP.Clean();
+	},
+	ThemeList:function(){
+		var tdata = 0;
+		XM.Alert('Board Settings','<table style="color:white;"><tr><td style="text-align:right;">Pieces: </td><td><select id="sel_theme" onchange="sett[3]=this.value;App.ReDraw(1)" style="background-Color:black;color:white;"></select></td><tr><td style="text-align:right;">White Squares: </td><td><select id="sel_white" onchange="sett[0]=this.value;App.ReDraw(1)" style="background-Color:black;color:white;"></select></td></tr><tr><td style="text-align:right;">Black Squares: </td><td><select id="sel_black" onchange="sett[1]=this.value;App.ReDraw(1)" style="background-Color:black;color:white;"></select></td></tr></tr><tr><td style="text-align:right;">Your move color: </td><td><select id="sel_lwhite" onchange="sett[4]=this.value;App.ReDraw(1)" style="background-Color:black;color:white;"></select></td></tr></tr><tr><td style="text-align:right;">Oppo move color: </td><td><select id="sel_lblack" onchange="sett[6]=this.value;App.ReDraw(1)" style="background-Color:black;color:white;"></select></td></tr></table>');
+		for (c=0;c<=tlist.length-1;c++){
+			tdata       = document.createElement("option");
+			tdata.text  = tlist[c];
+			tdata.value = c;
+			sel_theme.options.add(tdata);
+			if (sel_theme.options[c].value == sett[3]){
+				sel_theme.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=clist.length-1;c++){
+			tdata       = document.createElement("option");
+			tdata.text  = clist[c];
+			tdata.value = c;
+			sel_white.options.add(tdata);
+			if (sel_white.options[c].value == sett[0]){
+				sel_white.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=clist.length-1;c++){
+			tdata       = document.createElement("option");
+			tdata.text  = clist[c];
+			tdata.value = c;
+			sel_black.options.add(tdata);
+			if (sel_black.options[c].value == sett[1]){
+				sel_black.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=clist.length-1;c++){
+			tdata       = document.createElement("option");
+			tdata.text  = clist[c];
+			tdata.value = c;
+			sel_lwhite.options.add(tdata);
+			if (sel_lwhite.options[c].value == sett[4]){
+				sel_lwhite.selectedIndex = c;
+			}
+		}
+		for (c=0;c<=clist.length-1;c++){
+			tdata       = document.createElement("option");
+			tdata.text  = clist[c];
+			tdata.value = c;
+			sel_lblack.options.add(tdata);
+			if (sel_lblack.options[c].value == sett[6]){
+				sel_lblack.selectedIndex = c;
+			}
+		}
+
+	},
+	Resign:function(){
+		if (confirm('Resign the game?')){
+			XCIP.Out(xcipdata[1],'cmd::resign');
+			mlock = 1;
+			App.Header('You Resign');
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" onresize="App.Resize()" onbeforeunload="App.End()">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+<span id="gamehead"></span>
+<span id="gamearea"></span>
+
+<span id="msgbox" class="box">
+<center><b>Chat Box</b></center>
+<textarea id="msgout" readonly></textarea><br>
+<input type="textarea" id="msgin" onkeypress="App.SendMessage()" onclick="this.value=''" value='press enter to send'>
+<input type="button" value="Settings" onclick="App.ThemeList()" class="btn">
+<input type="button" value="Resign" onclick="App.Resign()" class="btn">
+</span>
+
+<span id="movebox" class="box">
+<center><b>Move List</b></center>
+<textarea id="moveout" readonly></textarea>
+<table style="width:100%;">
+<tr><td class="txt2 uline" style="text-align:left;">Lost Piece</td><td class="txt2 uline" style="text-align:right;">Opponent</td></tr>
+<tr><td><img src="img/empty.png" id="infpiece"></td><td class="txt2" style="text-align:right;" id="infname"></td></tr>
+</table>
+</span>
+
+<span style="display:none;" id="xciptemp">
+<fieldset style="width:200;height:255;position:absolute;top:10;left:10;">
+<legend>Message</legend>
+<center><br><textarea id="xinp" style="border:1 solid black;height:205;" onclick="this.select()"></textarea><br><br></center>
+<input type="button" value="Send" style="border:1 solid black;" onclick="XCIP.Out(xcipdata[1],xinp.value)">
+</fieldset>
+<fieldset style="width:320;height:255;position:absolute;top:10;left:250;">
+<legend>History</legend>
+<center><br><textarea id="xout" style="border:1 solid black;height:205;width:290;" readonly></textarea><br><br></center>
+</fieldset>
+</span>
+
+</body>
+</html>

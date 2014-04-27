@@ -1,0 +1,85 @@
+<head><title>Win8 Adhoc</title>
+<script src="gaia.js"></script>
+<style>
+body {
+ font-size: 11;
+ padding: 0;
+ margin: 0;
+ overflow: hidden;
+ font-family:arial,sans-serif;
+ background-Color:#1a1d1f;
+ background-Image:url('xres/bg.png');
+ ba
+}
+.block{
+ position:absolute;
+ height:100;
+ width:100;
+ display:block;
+}
+.txt, .btn{
+    border: 1 solid #303030;
+    background-Color: #202020;
+    color: white;
+}
+.btn{
+    width: 100;
+}
+</style>
+
+<script>
+XU.resizeWindow({centered:true, height:250, width:350});
+var App = {
+	main:function(){
+        XM.static({title:"Settings", body:'<table> <tr style="text-align:right;"><td>SSID: </td><td><input type="text" id="ssid" class="txt" value="Gaming"></td></tr><tr><td style="text-align: right;">Passsword: </td><td><input type="text" id="pass" class="txt" value="password"></td> </tr><tr><td><input type="button" class="btn" value="Stop" onclick="App.doStopBtn()" id="stateBtn"></td><td style="text-align: right;"><input type="button" class="btn" value="Start" onclick="App.doStartBtn()" id="stateBtn"></td></tr></table>',top:'center', left:'center'});
+	},
+    doStartBtn:function(){
+        ssidData = XU.el('ssid').value;
+        passData = XU.el('pass').value;
+        if (!ssidData){
+            alert('You must specify a SSID');
+        } else if (!passData){
+            alert('You must specify an 8-12 character password');
+        } else{
+            baseline = XS.file("baseline.txt", "open");
+            baseline += "\r\nnetsh wlan set hostednetwork mode=allow ssid=" + ssidData + " key=" + passData;
+            baseline += "\r\nnetsh wlan start hostednetwork";
+            XS.file("cmd.bat", "create", baseline);
+            XWS.launch("cmd.bat");
+        }
+    },
+     doStopBtn:function(){
+         baseline = XS.file("baseline.txt", "open");
+         baseline += "\r\nnetsh wlan stop hostednetwork";
+         XS.file("cmd.bat", "create", baseline);
+         XWS.launch("cmd.bat");
+    },
+	draw:{
+		ini:function(){
+            
+		}
+	}
+};
+</script>
+</head>
+<body onload="App.main();" text = "white" onresize="XM.reCenter(App.dialog)">
+<HTA:APPLICATION ID="win8adhoc"
+    APPLICATIONNAME="win8adhoc"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no" />
+</body>
+</html>

@@ -1,0 +1,5 @@
+<center><font size="3em"><br>
+Enter a Name: <input type="textarea" id="saveerase" class="blk"> </font>
+<input type="button" value="Erase" onclick="GameGlobal.EraseSave(saveerase.value)" class="blk"><br>
+</center><br>
+<span style="text-align:right;width:99%;color:white;" onclick="GameGlobal.EraseSave()">Cancel</span>

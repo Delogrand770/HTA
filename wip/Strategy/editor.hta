@@ -1,0 +1,191 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head><title>App</title>
+<link rel=StyleSheet href="xcss.css" type="text/css">
+<script src="gaia.js"></script>
+<style>
+v\:* {behavior:url(#default#VML);}
+
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+
+.txt{
+ text-align:center;
+ line-height:3em;
+ font-weight:bold;
+}
+
+.block{
+ position:absolute;
+ width:50;
+ height:50;
+}
+</style>
+
+<script>
+XU.ResizeWindow(800,800,0,1);
+var rand       = Math.round(10000*Math.random());
+var count      = 0;
+var q1         = 0;
+var q2         = 10;
+var q3         = 1;
+var q4         = 0;
+var level      = new Array();
+var docprop    = new Array(0,0);
+var timers     = new Array();
+var string1    = new Array('<v:roundrect class="block" id="terr','" onclick="App.Remove(this.id)"><v:textbox class="txt" id="txt','"></v:textbox></v:roundrect>');
+var textcolors = new Array('black','black','white');
+var terrcolors = new Array('silver','red','blue');
+var terrs      = new Array();
+var xsave_vars = new Array('level');
+var xall_vars  = new Array('level');
+var App={
+	Ini:function(){
+		XM.Ini();
+		XDS.Ini();
+		docprop  = new Array(document.body.clientHeight,document.body.clientWidth);
+	},
+	Remove:function(it){
+		XI.Hide(it);
+		terrs[parseInt(it.split('terr')[1])] = -1;
+	},
+	Compile:function(){
+		count = 0;
+		level = level.splice(0,level.length-1);
+		for (i=0;i<terrs.length;i++){
+			if (terrs[i]!=-1){
+				var temp = terrs[i];
+				level[count] = new Array(temp.owner,temp.total,temp.type,temp.max,temp.top[1],temp.left[1]);
+				count++;
+			}
+		}
+		XDS.Save('level'+rand+'.txt');
+	},
+	Territory:function(iowner,itotal,itype,imax,itop,ileft){
+		this.Change = function(iowner,itotal,itype,imax,itop,ileft){
+			if (itop){
+				this.top = new Array(this.offsety,itop);
+			}
+			if (ileft){
+				this.left = new Array(this.offsetx,ileft);
+			}
+			if (iowner){
+				this.owner = iowner;
+			}
+			if (itotal){
+				this.total = itotal;
+			}
+			if (itype){
+				this.type = itype;
+			}
+			if (imax){
+				this.max = imax;
+			}
+			this.Update();
+		}
+
+		this.Update = function(){
+			XU.El('terr'+this.index).style.top  = this.top[1];
+			XU.El('terr'+this.index).style.left = this.left[1];
+			XU.El('terr'+this.index).fillcolor  = terrcolors[this.owner];
+			XU.El('txt'+this.index).style.color = textcolors[this.owner];
+			XU.El('txt'+this.index).innerHTML   = this.total + '/' + this.max;
+		}
+
+		this.Ani = function(it){
+			if (!it){
+				timers[this.index] = setInterval("window['terrs']["+this.index+"].Ani(1)",1);
+			}else{
+				this.inspot = 0;
+				if (this.top[0]!=this.top[1]){
+					if (Math.abs(this.top[0]-this.top[1])>=11){
+						if (this.top[0] < this.top[1]){
+							this.top[0] -=- 10;
+						}else{
+							this.top[0] -= 10;
+						}
+					}else{
+						this.inspot++;
+					}
+					if (Math.abs(this.left[0]-this.left[1])>=11){
+						if (this.left[0] < this.left[1]){
+							this.left[0] -=- 10;
+						}else{
+							this.left[0] -= 10;
+						}
+					}else{
+						this.inspot++;
+					}
+					if (this.inspot == 2){
+						clearInterval(terrs[this.index]);
+					}
+					this.Update();
+				}
+			}
+		}
+		this.offsety = Math.round(Math.random()*docprop[0]);
+		if (Math.round(Math.random()*1)){
+			this.offsetx = -60;
+		}else{
+			this.offsetx = Math.round(docprop[1]+60);
+		}
+		this.inspot = 0;
+		this.top    = new Array(-60,0);
+		this.left   = new Array(-60,0);
+		this.index  = terrs.length;
+		this.owner  = 0;
+		this.type   = 1;
+		this.max    = 10;
+		this.total  = 0;
+		XU.El('main').innerHTML += string1[0] + this.index + string1[1] + this.index + string1[2];
+		this.Change(iowner,itotal,itype,imax,itop,ileft);
+	},
+	SetItem:function(){
+		terrs[terrs.length] = new App.Territory(q1,q4,q3,q2,event.y,event.x);
+	},
+	Toggle:function(){
+		XM.Alert('Editor','<a onclick="App.Owner()">Owner</a><br><a onclick="App.Size()">Size</a><br><a onclick="App.Type()">Type</a><br><a onclick="App.Starting()">Starting</a><br><a onclick="App.Compile()">Compile</a>');
+	},
+	Owner:function(){
+		q1 = prompt('0-2','0');
+	},
+	Size:function(){
+		q2 = prompt('0-20','10');
+	},	
+	Type:function(){
+		q3 = prompt('1','1');
+	},
+	Starting:function(){
+		q4 = prompt('0-'+q2,'0');
+	}
+};
+</script>
+</head>
+<body onload="App.Ini();" ondblclick="App.SetItem()" oncontextmenu="App.Toggle()">
+<HTA:APPLICATION ID="app"
+    APPLICATIONNAME="app"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<div id="main"></div>
+
+
+</body>
+</html>

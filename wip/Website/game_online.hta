@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>The Things We Say</title>
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+<script src="http://ttws.zzl.org/js/gaia_online.js" type="text/javascript"></script>
+<script type="text/javascript">
+var xmlhttp;
+XU.ResizeWindow(700,1000);
+var AJAX = {
+	stage:'ini',
+	parsed:0,
+	uid:"Gavin",
+	score:0,
+	caption:"C",
+	vote:"V",
+	cmd:0,
+	data:0,
+	Ini:function(){
+		XM.Ini();
+		XI.New('mainarea','scores','1:1','1:250',0);
+		if (window.XMLHttpRequest){
+  			xmlhttp = new XMLHttpRequest();
+  		}else{
+  			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  		}
+		xmlhttp.onreadystatechange=function(){
+  			if (xmlhttp.readyState == 4 && xmlhttp.status == 200 && AJAX.stage=='ini'){
+    				AJAX.parsed = xmlhttp.responseText;
+				AJAX.ParseData();
+				AJAX.Ask();
+    			}
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200 && AJAX.stage=='new'){
+				AJAX.stage = 'update';
+				AJAX.GetData();
+				XM.Close();
+			}
+  			if (xmlhttp.readyState == 4 && xmlhttp.status == 200 && AJAX.stage=='update'){
+    				AJAX.parsed = xmlhttp.responseText;
+				AJAX.ParseData();
+				var inject = '<table style="color:white;"><tr><td><u>Name</u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><u>Score</u></td></tr>';
+				for (i=0;i<=AJAX.parsed.length-1;i++){
+					inject += '<tr><td>'+AJAX.parsed[i][0]+'</td><td style="text-align:right;">'+AJAX.parsed[i][1]+'</td></tr>';
+				}
+				inject += "</table>";
+				XI.Fill('scores','Scores','<center>'+inject+'</center>',1);
+				//XU.CenterElement('scores','v');
+    			}
+		}
+		XM.Alert('Welcome','Connecting to server...','inform');
+		AJAX.GetData();
+	},
+	Ask:function(){
+		XM.Alert('Your Name?','<Center><input type="textarea" id="myname" style="border:1 solid silver;background-Color:transparent;color:white;"></center>','accept');
+		setTimeout("myname.focus();",1);
+		XU.El('nxmbtn').onclick = function(){
+			if (AJAX.Lookup('uid',myname.value) || !myname.value){
+				XM.Alert('Error','Name Taken','inform');
+				setTimeout("AJAX.Ask();",2000);
+			}else{
+				AJAX.stage = 'new';
+				AJAX.uid   = myname.value;
+				AJAX.NewUser();
+
+			}
+		}
+	},
+	NewUser:function(){
+		AJAX.cmd  = 'new';
+		AJAX.data = "cmd="+AJAX.cmd+"&uid="+AJAX.uid+"&score="+AJAX.score+"&caption="+AJAX.caption+"&vote="+AJAX.vote;
+		xmlhttp.open("POST","http://ttws.zzl.org/php/ttws.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(AJAX.data);
+	},
+	UpdateUser:function(){
+		AJAX.cmd     = 'update';
+		AJAX.vote    = 'test1';
+		AJAX.caption = 'texst2';
+		AJAX.score   = 1;
+		AJAX.data    = "cmd="+AJAX.cmd+"&uid="+AJAX.uid+"&score="+AJAX.score+"&caption="+AJAX.caption+"&vote="+AJAX.vote;
+		xmlhttp.open("POST","http://ttws.zzl.org/php/ttws.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(AJAX.data);
+	},
+	SignOff:function(){
+		AJAX.cmd     = 'signoff';
+		AJAX.data    = "cmd="+AJAX.cmd+"&uid="+AJAX.uid;
+		xmlhttp.open("POST","http://ttws.zzl.org/php/ttws.php",false);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(AJAX.data);
+	},
+	GetData:function(){
+		AJAX.cmd     = 'getdata';
+		AJAX.data    = "cmd="+AJAX.cmd;
+		xmlhttp.open("POST","http://ttws.zzl.org/php/ttws.php",true);
+		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		xmlhttp.send(AJAX.data);
+	},
+	ParseData:function(){
+		AJAX.parsed = AJAX.parsed.split('::');
+		AJAX.parsed.remove(AJAX.parsed.length-1);
+		for (i=0;i<=AJAX.parsed.length-1;i++){
+			AJAX.parsed[i] = AJAX.parsed[i].split(':');
+		}
+	},
+	Lookup:function(icat,it){
+		var sdex = (icat=='uid')?0:(icat=='score')?1:(icat=='caption')?2:3;
+		for (i=0;i<=AJAX.parsed.length-1;i++){
+			for (b=0;b<=AJAX.parsed[i].length-1;b++){
+				if (AJAX.parsed[i][sdex].toLowerCase() == it.toLowerCase()){
+					return true;
+				}
+			}
+
+		}
+		return false;
+	}
+};
+</script>
+</head>
+<body onload="AJAX.Ini()" onbeforeunload="AJAX.SignOff()" background="http://ttws.zzl.org/js/xres/bg.png">
+<HTA:APPLICATION ID="ttws"
+    APPLICATIONNAME="ttws"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="http://ttws.zzl.org/js/xres/ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainarea"></span>
+</body>
+</html>

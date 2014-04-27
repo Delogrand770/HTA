@@ -1,0 +1,211 @@
+<html>
+<head><title>WTF Client</title>
+<script src="gaia.js"></script>
+<style>
+body{
+  font-size: 10;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+.txt{
+ border:1 solid white;
+ color:white;
+ background-Color:transparent;
+ text-align:center;
+}
+#captin{
+ border:1 solid silver;
+ color:silver;
+ background-Color:transparent;
+ width:75%;
+}
+.t{
+ border:1 solid white;
+}
+.btn{
+ height:20;
+ border:1 solid silver;
+ color:silver;
+ background-Color:black;
+}
+<style type="text/css">
+#mydiv p { font-size:10px;color:BLACK; margin:2px; }
+#mydiv { width:360px;
+ text-align:center;
+ background:#FFFFFF;padding:0px; }
+#mydiv img { border:none; }
+</style>
+<script language="Javascript" src="" id="imgloader"></script>
+<script>
+var App = {
+	voted:0,
+	aware:0,
+	users:[],
+	settings:[30,0,5,0], //action time,temp,rounds per game,round #
+	image:0,
+	timer:0,
+	data:[],
+	msgidx:0,
+	voteover:0,
+	Ini:function(){
+		XL.Ini();
+		XM.Ini();
+		XI.New('mainarea','pic','1:1',parseInt(document.body.offsetHeight)+':'+Math.round(parseInt(document.body.offsetWidth)*.5));
+		XI.New('mainarea','users','1:1',parseInt(document.body.offsetHeight*.5)+':'+Math.round(parseInt(document.body.offsetWidth)*.5));
+		XI.New('mainarea','vote','1:1',parseInt(document.body.offsetHeight*.5)+':'+Math.round(parseInt(document.body.offsetWidth)*.5));
+		XI.Title('pic','Waiting for Image');
+		XI.Title('users','Scores - Round '+App.settings[3]+'/'+App.settings[2]);
+		XI.Title('vote','Votes');
+		XU.DFR('users',0);
+		XU.DFR('vote',0);
+		XU.DFB('vote',0);
+		XCIP.Ini();
+		XCIP.Connect();
+	},
+	LoadImage:function(it){
+		App.voted = 0;
+		App.settings[3]++;
+		XI.Title('users','Scores - Round '+App.settings[3]+'/'+App.settings[2]);
+		XI.Fill('pic','Write a Caption','<center><br><br><i>'+it+'</i><br><br><img src="'+it+'"><br><br><input type="textarea" id="captin" onkeypress="App.Keys()"><br><br>Press enter to submit</center>');
+		setTimeout("captin.focus()",100);
+		App.voteover = 0;
+	},
+	UpdateUsers:function(){
+		App.users.sort(function(a, b){return b[1]-a[1];});
+		var temp = '<center><table class="t" style="width:100%;">';
+		temp += '<tr><td style="width:33%;">Name</td><td style="width:33%;">Score</td><td style="width:33%;">Rounds</td></tr>';
+		for (i=0;i<=App.users.length-1;i++){
+			temp += '<tr><td style="width:33%;">'+App.users[i][0]+'</td><td style="width:33%;">'+App.users[i][1]+'</td><td style="width:33%;">'+App.users[i][2]+'</td></tr>';
+		}
+		temp += '</table></center>';
+		XI.Fill('users','Scores - Round '+App.settings[3]+'/'+App.settings[2],temp);
+	},
+	SendData:function(idata){
+		XCIP.Out(xcipdata[1],idata);
+	},
+	PingServer:function(){
+		App.SendData('ping');
+		XM.Alert('WTF','Waiting for server',1);
+		setInterval("App.ReadMessages()",2000);
+	},
+	ReadMessages:function(){
+		if (xcipque[2] && xcipque[2][App.msgidx]){
+			var temp = xcipque[2][App.msgidx];
+			if (App.msgidx<xcipque[2].length){
+				if (temp[1] == 'ping_r'){
+					XM.Close();
+				}else if (temp[1] == 'toofew'){
+					clearInterval(App.timer);
+					App.settings[1] = 0;
+					App.settings[3] = 0;
+					XM.Alert('WTF','Not enough players to continue. Please wait for more to connect',1);
+					XI.Fill('pic','Waiting for Image','');
+					XI.Fill('vote','Votes','');
+					App.UpdateUsers();
+				}else if (temp[1].split('::')[0] == 'image'){
+					App.LoadImage(temp[1].split('::')[1]);
+				}else if (temp[1] == 'delay1'){
+					App.Delay();
+				}else if (temp[1] == 'delay2'){
+					XI.Title('pic','Time to Vote');
+					var inject = new Array();
+					for (i=0;i<=App.users.length-1;i++){
+						if (App.users[i][0].toLowerCase() != App.aware.toLowerCase()){
+							inject[inject.length] = App.users[i][4];
+						}
+					}
+					inject.shuffle();
+					var temp2 = '<center><table>';
+					for (i=0;i<=inject.length-1;i++){
+						temp2 += '<tr><td>' + inject[i] + '</td><td><input type="button" value="Vote" class="btn" onclick="App.PlaceVote(\''+inject[i]+'\')">';
+					}
+					temp2 += '</table><br><br>You must vote to recieve points</center>';
+					XI.Fill('vote','Please Vote ['+Math.round(App.settings[0]-App.settings[1])+']',temp2);
+					App.Delay(1);
+				}else if (temp[1].split('::')[0] == 'ulist'){
+					App.users = temp[1].split('::')[1].split('``');
+					for (i=0;i<=App.users.length-1;i++){
+						App.users[i] = App.users[i].split('~~');
+					}
+					App.users.pop();
+					App.UpdateUsers();
+				}else if (temp[1].split('::')[0] == 'setts'){
+					App.settings = temp[1].split('::')[1].split('~~');
+					App.settings[0] -= 10;
+					XI.Title('users','Scores - Round '+App.settings[3]+'/'+App.settings[2]);
+				}else if (temp[1].split('::')[0] == 'aware'){
+					App.aware = temp[1].split('::')[1];
+				}else if (temp[1] == 'showresults'){
+					App.users.sort(function(a, b){return b[6]-a[6];});
+					var temp2 = '<center>';
+					temp2 += '1st '+App.users[0][0]+'<br>'+App.users[0][4]+'<br><br>';
+					temp2 += '2nd '+App.users[1][0]+'<br>'+App.users[1][4]+'<br><br>';
+					temp2 += '3rd '+App.users[2][0]+'<br>'+App.users[2][4]+'<br><br>';
+					temp2 += '</table></center>';
+					XI.Fill('vote','Vote Results',temp2);
+				}
+				App.msgidx++;
+			}
+		}
+	},
+	PlaceVote:function(it){
+		if (App.voted == 0){
+			event.srcElement.style.display = 'none';
+			App.voted = 1;
+			App.SendData('vote::'+it);
+		}
+	},
+	Disconnect:function(){
+		App.SendData('discon');
+		XCIP.Clean()
+	},
+	SendCaption:function(){
+		if (captin.value){
+			captin.value = captin.value.split('::').join('');
+			App.SendData('capt::'+captin.value);
+			captin.value = '';
+		}
+	},
+	Delay:function(it){
+		clearInterval(App.timer);
+		App.settings[1] = 0;
+		if (it!=1){
+			App.timer = setInterval("App.settings[1]++;XI.Title('pic','Write a Caption ['+Math.round(App.settings[0]-App.settings[1])+']');if (App.settings[1]>=App.settings[0]){clearInterval(App.timer);App.voteover = 1;XI.Fill('vote','Vote','<center>Waiting for Captions</center>');XI.Title('pic','Out of Time')}",1000);
+		}else{
+			App.timer = setInterval("App.settings[1]++;XI.Title('vote','Please Vote ['+Math.round(App.settings[0]-App.settings[1])+']');if (App.settings[1]>=App.settings[0]){clearInterval(App.timer);XI.Fill('vote','Vote','<center>Waiting for Results</center>')}",1000);
+		}
+	},
+	Keys:function(){
+		if (event.keyCode == 13 && App.voteover == 0){
+			App.SendCaption();
+		}
+	}
+};
+</script>
+
+</head>
+<body onload="App.Ini()" text="silver" onbeforeunload="App.Disconnect()" oncontextmenu="alert(xcipque[2])">
+<HTA:APPLICATION ID="wtf.client"
+    APPLICATIONNAME="wtf.client"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="no"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="yes"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+<span id="mainarea"></span>
+<span id="mydiv" style="display:none;"></span>
+</body>
+</html>
