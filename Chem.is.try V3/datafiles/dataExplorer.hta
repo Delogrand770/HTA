@@ -57,17 +57,17 @@ var explorer = {
 			this.createOption(select, i, data.names[0]);
 		}
 	},
-	listSelect:function(source){
-		this.index = source.value;
+	listSelect:function(index){
+		this.index = index;
 		document.getElementById('edit2').value = "";
-		if (source.value != -1){
+		if (index != -1){
 			var set = this[this.mode];
-			document.getElementById('edit').innerHTML = "<br>" + set[source.value].properties() + "<br><b>Pretty Formulas</b>: ";
-			document.getElementById('edit2').value = JSON.stringify(set[source.value], null, " ");
+			document.getElementById('edit').innerHTML = "<br>" + set[index].properties() + "<br><b>Pretty Formulas</b>: ";
+			document.getElementById('edit2').value = JSON.stringify(set[index], null, " ");
 
 			var results = [];
-			for (var i = 0; i < set[source.value].formulas.length; i++){
-				results.push(this.prettyFormula(set[source.value].formulas[i]));
+			for (var i = 0; i < set[index].formulas.length; i++){
+				results.push(this.prettyFormula(set[index].formulas[i]));
 			}
 
 			document.getElementById('edit').innerHTML += results.join();
@@ -86,6 +86,7 @@ var explorer = {
 
 			XS.file(this.mode + ".txt", 'create', data);
 			alert('Changes Saved!');
+			this.listSelect(this.index);
 		}
 	},
 	prettyFormula:function(formula){
@@ -148,6 +149,7 @@ var conversion = {
 		XS.file(name + '.txt', 'create', JSON.stringify(output, null, ' '));		
 	}
 }
+XU.resizeWindow({height: 600, width: 500, centered: true});
 </script>
 </head>
 <body onload="explorer.ini();">
@@ -156,7 +158,7 @@ var conversion = {
     BORDER="normal"
     BORDERSTYLE="normal"
     CAPTION="yes"
-    ICON="ico.ico"
+    ICON="../ico.ico"
     SCROLL="no"
     MAXIMIZEBUTTON="yes"
     MINIMIZEBUTTON="yes"
@@ -177,11 +179,13 @@ var conversion = {
 <input type="button" value="acids" onclick="explorer.display(this)">
 <input type="button" value="ionics" onclick="explorer.display(this)">
 <br><br>
-<select id="nameList" onchange="explorer.listSelect(this)"></select>
+<select id="nameList" onchange="explorer.listSelect(this.value)" style="width:400;"></select>
 <br>
 
+
 <span id="edit"></span>
-<textarea id="edit2" style="width:95%; height: 400;"></textarea><br>
+<br><br>
+<textarea id="edit2" style="width:95%;height:50%;"></textarea><br>
 <input type="button" value="save" onclick="explorer.save()">
 
 </body>
