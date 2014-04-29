@@ -1,7 +1,7 @@
 <html>
 <head><title>dataExplorer</title>
-<script src="gaia.js"></script>
-<script src="json2.js"></script>
+<script src="../gaia.js"></script>
+<script src="../json2.js"></script>
 <script src="chemdata.js"></script>
 
 <style>
@@ -25,14 +25,13 @@ var explorer = {
 	mode: null,
 	index: -1,
 	ini:function(){
+		//conversion.ini();
 		this.elements = JSON.parse(XS.file('elements.txt', 'open'));
 		this.nonionics = JSON.parse(XS.file('nonionics.txt', 'open'));
 		this.ions = JSON.parse(XS.file('ions.txt', 'open'));
 		this.alkanes = JSON.parse(XS.file('alkanes.txt', 'open'));
 		this.acids = JSON.parse(XS.file('acids.txt', 'open'));
 		this.ionics = JSON.parse(XS.file('ionics.txt', 'open'));
-
-		XS.file('text.txt', 'create', JSON.stringify(this.nonionics, null, ' '))
 	},
 	createOption:function(appendTo, value, html){
 		var option = document.createElement("option");
@@ -60,7 +59,7 @@ var explorer = {
 	},
 	listSelect:function(source){
 		this.index = source.value;
-
+		document.getElementById('edit2').value = "";
 		if (source.value != -1){
 			var set = this[this.mode];
 			document.getElementById('edit').innerHTML = "<br>" + set[source.value].properties() + "<br><b>Pretty Formulas</b>: ";
