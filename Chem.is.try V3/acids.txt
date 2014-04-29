@@ -1,0 +1,130 @@
+[
+ {
+  "names": [
+   "hydrofluoric acid"
+  ],
+  "formulas": [
+   "HF (aq)"
+  ]
+ },
+ {
+  "names": [
+   "hydrochloric acid"
+  ],
+  "formulas": [
+   "HCl (aq)"
+  ]
+ },
+ {
+  "names": [
+   "hydrobromic acid"
+  ],
+  "formulas": [
+   "HBr (aq)"
+  ]
+ },
+ {
+  "names": [
+   "hydroiodic acid"
+  ],
+  "formulas": [
+   "HI (aq)"
+  ]
+ },
+ {
+  "names": [
+   "hydrosulfuric acid"
+  ],
+  "formulas": [
+   "H2S (aq)"
+  ]
+ },
+ {
+  "names": [
+   "acetic acid"
+  ],
+  "formulas": [
+   "HC2H3O2 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "carbonic acid"
+  ],
+  "formulas": [
+   "H2CO3 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "hypochlorous acid"
+  ],
+  "formulas": [
+   "HClO (aq)"
+  ]
+ },
+ {
+  "names": [
+   "chlorous acid"
+  ],
+  "formulas": [
+   "HClO2 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "chloric acid"
+  ],
+  "formulas": [
+   "HClO3 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "perchloric acid"
+  ],
+  "formulas": [
+   "HClO4 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "sulfuric acid"
+  ],
+  "formulas": [
+   "H2SO4 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "sulfurous acid"
+  ],
+  "formulas": [
+   "H2SO3 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "phosphoric acid"
+  ],
+  "formulas": [
+   "H3PO4 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "nitrous acid"
+  ],
+  "formulas": [
+   "HNO2 (aq)"
+  ]
+ },
+ {
+  "names": [
+   "nitric acid"
+  ],
+  "formulas": [
+   "HNO3 (aq)"
+  ]
+ }
+]

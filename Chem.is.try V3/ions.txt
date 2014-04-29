@@ -1,0 +1,532 @@
+[
+ {
+  "names": [
+   "lithium"
+  ],
+  "formulas": [
+   "Li+",
+   "Li1+"
+  ]
+ },
+ {
+  "names": [
+   "sodium"
+  ],
+  "formulas": [
+   "Na+",
+   "Na1+"
+  ]
+ },
+ {
+  "names": [
+   "potassium"
+  ],
+  "formulas": [
+   "K+",
+   "K1+"
+  ]
+ },
+ {
+  "names": [
+   "hydrogen"
+  ],
+  "formulas": [
+   "H+",
+   "H1+"
+  ]
+ },
+ {
+  "names": [
+   "cesium"
+  ],
+  "formulas": [
+   "Cs+",
+   "Cs1+"
+  ]
+ },
+ {
+  "names": [
+   "beryllium"
+  ],
+  "formulas": [
+   "Be2+"
+  ]
+ },
+ {
+  "names": [
+   "magnesium"
+  ],
+  "formulas": [
+   "Mg2+"
+  ]
+ },
+ {
+  "names": [
+   "calcium"
+  ],
+  "formulas": [
+   "Ca2+"
+  ]
+ },
+ {
+  "names": [
+   "strontium"
+  ],
+  "formulas": [
+   "Sr2+"
+  ]
+ },
+ {
+  "names": [
+   "barium"
+  ],
+  "formulas": [
+   "Ba2+"
+  ]
+ },
+ {
+  "names": [
+   "aluminum"
+  ],
+  "formulas": [
+   "Al3+"
+  ]
+ },
+ {
+  "names": [
+   "zinc"
+  ],
+  "formulas": [
+   "Zn2+"
+  ]
+ },
+ {
+  "names": [
+   "silver"
+  ],
+  "formulas": [
+   "Ag1+",
+   "Ag+"
+  ]
+ },
+ {
+  "names": [
+   "cadmium"
+  ],
+  "formulas": [
+   "Cd2+"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii)"
+  ],
+  "formulas": [
+   "Mn2+"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii)"
+  ],
+  "formulas": [
+   "Fe2+"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii)"
+  ],
+  "formulas": [
+   "Fe3+"
+  ]
+ },
+ {
+  "names": [
+   "copper(i)"
+  ],
+  "formulas": [
+   "Cu+",
+   "Cu1+"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii)"
+  ],
+  "formulas": [
+   "Cu2+"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii)"
+  ],
+  "formulas": [
+   "Ni2+"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii)"
+  ],
+  "formulas": [
+   "Ni3+"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii)"
+  ],
+  "formulas": [
+   "Sn2+"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv)"
+  ],
+  "formulas": [
+   "Sn4+"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i)"
+  ],
+  "formulas": [
+   "Hg22+"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii)"
+  ],
+  "formulas": [
+   "Hg2+"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii)"
+  ],
+  "formulas": [
+   "Pb2+"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv)"
+  ],
+  "formulas": [
+   "Pb4+"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii)"
+  ],
+  "formulas": [
+   "Cr2+"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iv)"
+  ],
+  "formulas": [
+   "Cr4+"
+  ]
+ },
+ {
+  "names": [
+   "chromium(vi)"
+  ],
+  "formulas": [
+   "Cr6+"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii)"
+  ],
+  "formulas": [
+   "Co3+"
+  ]
+ },
+ {
+  "names": [
+   "hydride"
+  ],
+  "formulas": [
+   "H1-",
+   "H-"
+  ]
+ },
+ {
+  "names": [
+   "fluoride"
+  ],
+  "formulas": [
+   "F1-",
+   "F-"
+  ]
+ },
+ {
+  "names": [
+   "chloride"
+  ],
+  "formulas": [
+   "Cl1-",
+   "Cl-"
+  ]
+ },
+ {
+  "names": [
+   "bromide"
+  ],
+  "formulas": [
+   "Br1-",
+   "Br-"
+  ]
+ },
+ {
+  "names": [
+   "iodide"
+  ],
+  "formulas": [
+   "I1-",
+   "I-"
+  ]
+ },
+ {
+  "names": [
+   "oxide"
+  ],
+  "formulas": [
+   "O2-"
+  ]
+ },
+ {
+  "names": [
+   "sulfide"
+  ],
+  "formulas": [
+   "S2-"
+  ]
+ },
+ {
+  "names": [
+   "nitride"
+  ],
+  "formulas": [
+   "N3-"
+  ]
+ },
+ {
+  "names": [
+   "phosphide"
+  ],
+  "formulas": [
+   "P3-"
+  ]
+ },
+ {
+  "names": [
+   "ammonium"
+  ],
+  "formulas": [
+   "NH4+",
+   "NH41+"
+  ]
+ },
+ {
+  "names": [
+   "acetate"
+  ],
+  "formulas": [
+   "C2H3O21-",
+   "C2H3O2-"
+  ]
+ },
+ {
+  "names": [
+   "carbonate"
+  ],
+  "formulas": [
+   "CO32-"
+  ]
+ },
+ {
+  "names": [
+   "hydrogen carbonate"
+  ],
+  "formulas": [
+   "HCO31-",
+   "HCO3-"
+  ]
+ },
+ {
+  "names": [
+   "hypochlorite"
+  ],
+  "formulas": [
+   "ClO1-",
+   "ClO-"
+  ]
+ },
+ {
+  "names": [
+   "chlorite"
+  ],
+  "formulas": [
+   "ClO21-",
+   "ClO2-"
+  ]
+ },
+ {
+  "names": [
+   "chlorate"
+  ],
+  "formulas": [
+   "ClO31-",
+   "ClO3-"
+  ]
+ },
+ {
+  "names": [
+   "perchlorate"
+  ],
+  "formulas": [
+   "ClO41-",
+   "ClO4-"
+  ]
+ },
+ {
+  "names": [
+   "cyanide"
+  ],
+  "formulas": [
+   "CN1-",
+   "CN-"
+  ]
+ },
+ {
+  "names": [
+   "sulfate"
+  ],
+  "formulas": [
+   "SO42-"
+  ]
+ },
+ {
+  "names": [
+   "hydrogen sulfate"
+  ],
+  "formulas": [
+   "HSO41-",
+   "HSO4-"
+  ]
+ },
+ {
+  "names": [
+   "sulfite"
+  ],
+  "formulas": [
+   "SO32-"
+  ]
+ },
+ {
+  "names": [
+   "chromate"
+  ],
+  "formulas": [
+   "CrO42-"
+  ]
+ },
+ {
+  "names": [
+   "dichromate"
+  ],
+  "formulas": [
+   "Cr2O72-"
+  ]
+ },
+ {
+  "names": [
+   "phosphate"
+  ],
+  "formulas": [
+   "PO43-"
+  ]
+ },
+ {
+  "names": [
+   "hydrogen phosphate"
+  ],
+  "formulas": [
+   "HPO42-"
+  ]
+ },
+ {
+  "names": [
+   "dihydrogen phosphate"
+  ],
+  "formulas": [
+   "H2PO41-",
+   "H2PO4-"
+  ]
+ },
+ {
+  "names": [
+   "nitrite"
+  ],
+  "formulas": [
+   "NO21-",
+   "NO2-"
+  ]
+ },
+ {
+  "names": [
+   "nitrate"
+  ],
+  "formulas": [
+   "NO31-",
+   "NO3-"
+  ]
+ },
+ {
+  "names": [
+   "permanganate"
+  ],
+  "formulas": [
+   "MnO41-",
+   "MnO4-"
+  ]
+ },
+ {
+  "names": [
+   "hydroxide"
+  ],
+  "formulas": [
+   "OH1-",
+   "OH-"
+  ]
+ },
+ {
+  "names": [
+   "peroxide"
+  ],
+  "formulas": [
+   "O22-"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii)"
+  ],
+  "formulas": [
+   "Co2+"
+  ]
+ }
+]

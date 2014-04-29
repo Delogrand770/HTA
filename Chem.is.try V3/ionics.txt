@@ -1,0 +1,7234 @@
+[
+ {
+  "names": [
+   "lithium fluoride"
+  ],
+  "formulas": [
+   "LiF"
+  ]
+ },
+ {
+  "names": [
+   "lithium bromide"
+  ],
+  "formulas": [
+   "LiBr"
+  ]
+ },
+ {
+  "names": [
+   "lithium chloride"
+  ],
+  "formulas": [
+   "LiCl"
+  ]
+ },
+ {
+  "names": [
+   "lithium iodide"
+  ],
+  "formulas": [
+   "LiI"
+  ]
+ },
+ {
+  "names": [
+   "lithium oxide"
+  ],
+  "formulas": [
+   "Li2O"
+  ]
+ },
+ {
+  "names": [
+   "lithium sulfide"
+  ],
+  "formulas": [
+   "Li2S"
+  ]
+ },
+ {
+  "names": [
+   "lithium hypochlorite"
+  ],
+  "formulas": [
+   "LiClO"
+  ]
+ },
+ {
+  "names": [
+   "lithium nitride"
+  ],
+  "formulas": [
+   "Li3N"
+  ]
+ },
+ {
+  "names": [
+   "lithium phosphide"
+  ],
+  "formulas": [
+   "Li3P"
+  ]
+ },
+ {
+  "names": [
+   "lithium acetate"
+  ],
+  "formulas": [
+   "LiC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "lithium carbonate"
+  ],
+  "formulas": [
+   "Li2CO3"
+  ]
+ },
+ {
+  "names": [
+   "lithium hydrogen carbonate"
+  ],
+  "formulas": [
+   "LiHCO3"
+  ]
+ },
+ {
+  "names": [
+   "lithium chlorite"
+  ],
+  "formulas": [
+   "LiClO2"
+  ]
+ },
+ {
+  "names": [
+   "lithium chlorate"
+  ],
+  "formulas": [
+   "LiClO3"
+  ]
+ },
+ {
+  "names": [
+   "lithium perchlorate"
+  ],
+  "formulas": [
+   "LiClO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium cyanide"
+  ],
+  "formulas": [
+   "LiCN"
+  ]
+ },
+ {
+  "names": [
+   "lithium sulfate"
+  ],
+  "formulas": [
+   "Li2SO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium hydrogen sulfate"
+  ],
+  "formulas": [
+   "LiHSO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium sulfite"
+  ],
+  "formulas": [
+   "Li2SO3"
+  ]
+ },
+ {
+  "names": [
+   "lithium chromate"
+  ],
+  "formulas": [
+   "Li2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium dichromate"
+  ],
+  "formulas": [
+   "Li2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "lithium phosphate"
+  ],
+  "formulas": [
+   "Li3PO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium hydrogen phosphate"
+  ],
+  "formulas": [
+   "Li2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium dihydrogen phosphate"
+  ],
+  "formulas": [
+   " LiH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium nitrite"
+  ],
+  "formulas": [
+   "LiNO2"
+  ]
+ },
+ {
+  "names": [
+   "lithium nitrate"
+  ],
+  "formulas": [
+   "LiNO3"
+  ]
+ },
+ {
+  "names": [
+   "lithium permanganate"
+  ],
+  "formulas": [
+   "LiMnO4"
+  ]
+ },
+ {
+  "names": [
+   "lithium hydroxide"
+  ],
+  "formulas": [
+   "LiOH"
+  ]
+ },
+ {
+  "names": [
+   "lithium peroxide"
+  ],
+  "formulas": [
+   "Li2O2"
+  ]
+ },
+ {
+  "names": [
+   "sodium fluoride"
+  ],
+  "formulas": [
+   "NaF"
+  ]
+ },
+ {
+  "names": [
+   "sodium bromide"
+  ],
+  "formulas": [
+   "NaBr"
+  ]
+ },
+ {
+  "names": [
+   "sodium chloride"
+  ],
+  "formulas": [
+   "NaCl"
+  ]
+ },
+ {
+  "names": [
+   "sodium iodide"
+  ],
+  "formulas": [
+   "NaI"
+  ]
+ },
+ {
+  "names": [
+   "sodium oxide"
+  ],
+  "formulas": [
+   "Na2O"
+  ]
+ },
+ {
+  "names": [
+   "sodium sulfide"
+  ],
+  "formulas": [
+   "Na2S"
+  ]
+ },
+ {
+  "names": [
+   "sodium nitride"
+  ],
+  "formulas": [
+   "Na3N"
+  ]
+ },
+ {
+  "names": [
+   "sodium phosphide"
+  ],
+  "formulas": [
+   "Na3P"
+  ]
+ },
+ {
+  "names": [
+   "sodium acetate"
+  ],
+  "formulas": [
+   "NaC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "sodium carbonate"
+  ],
+  "formulas": [
+   "Na2CO3"
+  ]
+ },
+ {
+  "names": [
+   "sodium hypochlorite"
+  ],
+  "formulas": [
+   "NaClO"
+  ]
+ },
+ {
+  "names": [
+   " sodium chlorite"
+  ],
+  "formulas": [
+   "NaClO2"
+  ]
+ },
+ {
+  "names": [
+   "sodium chlorate"
+  ],
+  "formulas": [
+   "NaClO3"
+  ]
+ },
+ {
+  "names": [
+   "sodium perchlorate"
+  ],
+  "formulas": [
+   "NaClO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium cyanide"
+  ],
+  "formulas": [
+   "NaCN"
+  ]
+ },
+ {
+  "names": [
+   "sodium sulfate"
+  ],
+  "formulas": [
+   "Na2SO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium hydrogen sulfate"
+  ],
+  "formulas": [
+   "NaHSO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium sulfite"
+  ],
+  "formulas": [
+   "Na2SO3"
+  ]
+ },
+ {
+  "names": [
+   "sodium chromate"
+  ],
+  "formulas": [
+   "Na2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium dichromate"
+  ],
+  "formulas": [
+   "Na2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "sodium phosphate"
+  ],
+  "formulas": [
+   "Na3PO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium hydrogen phosphate"
+  ],
+  "formulas": [
+   "Na2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "NaH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium hydrogen carbonate"
+  ],
+  "formulas": [
+   "NaHCO3"
+  ]
+ },
+ {
+  "names": [
+   "sodium nitrite"
+  ],
+  "formulas": [
+   "NaNO2"
+  ]
+ },
+ {
+  "names": [
+   "sodium nitrate"
+  ],
+  "formulas": [
+   "NaNO3"
+  ]
+ },
+ {
+  "names": [
+   "sodium permanganate"
+  ],
+  "formulas": [
+   "NaMnO4"
+  ]
+ },
+ {
+  "names": [
+   "sodium hydroxide"
+  ],
+  "formulas": [
+   "NaOH"
+  ]
+ },
+ {
+  "names": [
+   "sodium peroxide"
+  ],
+  "formulas": [
+   "Na2O2"
+  ]
+ },
+ {
+  "names": [
+   "potassium fluoride"
+  ],
+  "formulas": [
+   "KF"
+  ]
+ },
+ {
+  "names": [
+   "potassium bromide"
+  ],
+  "formulas": [
+   "KBr"
+  ]
+ },
+ {
+  "names": [
+   "potassium chloride"
+  ],
+  "formulas": [
+   "KCl"
+  ]
+ },
+ {
+  "names": [
+   "potassium iodide"
+  ],
+  "formulas": [
+   "KI"
+  ]
+ },
+ {
+  "names": [
+   "potassium oxide"
+  ],
+  "formulas": [
+   "K2O"
+  ]
+ },
+ {
+  "names": [
+   "potassium sulfide"
+  ],
+  "formulas": [
+   "K2S"
+  ]
+ },
+ {
+  "names": [
+   "potassium nitride"
+  ],
+  "formulas": [
+   "K3N"
+  ]
+ },
+ {
+  "names": [
+   "potassium phosphide"
+  ],
+  "formulas": [
+   "K3P"
+  ]
+ },
+ {
+  "names": [
+   "potassium acetate"
+  ],
+  "formulas": [
+   "KC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "potassium carbonate"
+  ],
+  "formulas": [
+   "K2CO3"
+  ]
+ },
+ {
+  "names": [
+   "potassium hydrogen carbonate"
+  ],
+  "formulas": [
+   "KHCO3"
+  ]
+ },
+ {
+  "names": [
+   "potassium hypochlorite"
+  ],
+  "formulas": [
+   "KClO"
+  ]
+ },
+ {
+  "names": [
+   "potassium chlorite"
+  ],
+  "formulas": [
+   "KClO2"
+  ]
+ },
+ {
+  "names": [
+   "potassium chlorate"
+  ],
+  "formulas": [
+   "KClO3"
+  ]
+ },
+ {
+  "names": [
+   "potassium perchlorate"
+  ],
+  "formulas": [
+   "KClO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium cyanide"
+  ],
+  "formulas": [
+   "KCN"
+  ]
+ },
+ {
+  "names": [
+   "potassium sulfate"
+  ],
+  "formulas": [
+   "K2SO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium hydrogen sulfate"
+  ],
+  "formulas": [
+   "KHSO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium sulfite"
+  ],
+  "formulas": [
+   "K2SO3"
+  ]
+ },
+ {
+  "names": [
+   "potassium chromate"
+  ],
+  "formulas": [
+   "K2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium dichromate"
+  ],
+  "formulas": [
+   "K2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "potassium phosphate"
+  ],
+  "formulas": [
+   "K3PO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium hydrogen phosphate"
+  ],
+  "formulas": [
+   "K2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "KH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium nitrite"
+  ],
+  "formulas": [
+   "KNO2"
+  ]
+ },
+ {
+  "names": [
+   "potassium nitrate"
+  ],
+  "formulas": [
+   "KNO3"
+  ]
+ },
+ {
+  "names": [
+   "potassium permanganate"
+  ],
+  "formulas": [
+   "KMnO4"
+  ]
+ },
+ {
+  "names": [
+   "potassium hydroxide"
+  ],
+  "formulas": [
+   "KOH"
+  ]
+ },
+ {
+  "names": [
+   "potassium peroxide"
+  ],
+  "formulas": [
+   "K2O2"
+  ]
+ },
+ {
+  "names": [
+   "cesium fluoride"
+  ],
+  "formulas": [
+   "CsF"
+  ]
+ },
+ {
+  "names": [
+   "cesium bromide"
+  ],
+  "formulas": [
+   "CsBr"
+  ]
+ },
+ {
+  "names": [
+   "cesium chloride"
+  ],
+  "formulas": [
+   "CsCl"
+  ]
+ },
+ {
+  "names": [
+   "cesium iodide"
+  ],
+  "formulas": [
+   "CsI"
+  ]
+ },
+ {
+  "names": [
+   "cesium oxide"
+  ],
+  "formulas": [
+   "Cs2O"
+  ]
+ },
+ {
+  "names": [
+   "cesium sulfide"
+  ],
+  "formulas": [
+   "Cs2S"
+  ]
+ },
+ {
+  "names": [
+   "cesium nitride"
+  ],
+  "formulas": [
+   "Cs3N"
+  ]
+ },
+ {
+  "names": [
+   "cesium phosphide"
+  ],
+  "formulas": [
+   "Cs3P"
+  ]
+ },
+ {
+  "names": [
+   "cesium acetate"
+  ],
+  "formulas": [
+   "CsC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "cesium carbonate"
+  ],
+  "formulas": [
+   "Cs2CO3"
+  ]
+ },
+ {
+  "names": [
+   "cesium hydrogen carbonate"
+  ],
+  "formulas": [
+   "CsHCO3"
+  ]
+ },
+ {
+  "names": [
+   "cesium hypochlorite"
+  ],
+  "formulas": [
+   "CsClO"
+  ]
+ },
+ {
+  "names": [
+   "cesium chlorite"
+  ],
+  "formulas": [
+   "CsClO2"
+  ]
+ },
+ {
+  "names": [
+   "cesium chlorate"
+  ],
+  "formulas": [
+   "CsClO3"
+  ]
+ },
+ {
+  "names": [
+   "cesium perchlorate"
+  ],
+  "formulas": [
+   "CsClO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium cyanide"
+  ],
+  "formulas": [
+   "CsCN"
+  ]
+ },
+ {
+  "names": [
+   "cesium sulfate"
+  ],
+  "formulas": [
+   "Cs2SO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium hydrogen sulfate"
+  ],
+  "formulas": [
+   "CsHSO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium sulfite"
+  ],
+  "formulas": [
+   "Cs2SO3"
+  ]
+ },
+ {
+  "names": [
+   "cesium chromate"
+  ],
+  "formulas": [
+   "Cs2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium dichromate"
+  ],
+  "formulas": [
+   "Cs2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "cesium phosphate"
+  ],
+  "formulas": [
+   "Cs3PO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium hydrogen phosphate"
+  ],
+  "formulas": [
+   "Cs2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "CsH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium nitrite"
+  ],
+  "formulas": [
+   "CsNO2"
+  ]
+ },
+ {
+  "names": [
+   "cesium nitrate"
+  ],
+  "formulas": [
+   "CsNO3"
+  ]
+ },
+ {
+  "names": [
+   "cesium permanganate"
+  ],
+  "formulas": [
+   "CsMnO4"
+  ]
+ },
+ {
+  "names": [
+   "cesium hydroxide"
+  ],
+  "formulas": [
+   "CsOH"
+  ]
+ },
+ {
+  "names": [
+   "cesium peroxide"
+  ],
+  "formulas": [
+   "Cs2O2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium fluoride"
+  ],
+  "formulas": [
+   "BeF2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium bromide"
+  ],
+  "formulas": [
+   "BeBr2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium chloride"
+  ],
+  "formulas": [
+   "BeCl2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium iodide"
+  ],
+  "formulas": [
+   "BeI2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium oxide"
+  ],
+  "formulas": [
+   "BeO"
+  ]
+ },
+ {
+  "names": [
+   "beryllium sulfide"
+  ],
+  "formulas": [
+   "BeS"
+  ]
+ },
+ {
+  "names": [
+   "beryllium nitride"
+  ],
+  "formulas": [
+   "Be3N2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium phosphide"
+  ],
+  "formulas": [
+   "Be3P2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium acetate"
+  ],
+  "formulas": [
+   "Be(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium carbonate"
+  ],
+  "formulas": [
+   "BeCO3"
+  ]
+ },
+ {
+  "names": [
+   "beryllium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Be(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium hypochlorite"
+  ],
+  "formulas": [
+   "Be(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium chlorite"
+  ],
+  "formulas": [
+   "Be(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium chlorate"
+  ],
+  "formulas": [
+   "Be(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium perchlorate"
+  ],
+  "formulas": [
+   "Be(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium cyanide"
+  ],
+  "formulas": [
+   "Be(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium sulfate"
+  ],
+  "formulas": [
+   "BeSO4"
+  ]
+ },
+ {
+  "names": [
+   "beryllium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Be(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium sulfite"
+  ],
+  "formulas": [
+   "BeSO3"
+  ]
+ },
+ {
+  "names": [
+   "beryllium chromate"
+  ],
+  "formulas": [
+   "BeCrO4"
+  ]
+ },
+ {
+  "names": [
+   "beryllium dichromate"
+  ],
+  "formulas": [
+   "BeCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "beryllium phosphate"
+  ],
+  "formulas": [
+   "Be3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium hydrogen phosphate"
+  ],
+  "formulas": [
+   "BeHPO4"
+  ]
+ },
+ {
+  "names": [
+   "beryllium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Be(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium nitrite"
+  ],
+  "formulas": [
+   "Be(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium nitrate"
+  ],
+  "formulas": [
+   "Be(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium permanganate"
+  ],
+  "formulas": [
+   "Be(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium hydroxide"
+  ],
+  "formulas": [
+   "Be(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "beryllium peroxide"
+  ],
+  "formulas": [
+   "BeO2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium fluoride"
+  ],
+  "formulas": [
+   "MgF2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium bromide"
+  ],
+  "formulas": [
+   "MgBr2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium chloride"
+  ],
+  "formulas": [
+   "MgCl2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium iodide"
+  ],
+  "formulas": [
+   "MgI2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium oxide"
+  ],
+  "formulas": [
+   "MgO"
+  ]
+ },
+ {
+  "names": [
+   "magnesium sulfide"
+  ],
+  "formulas": [
+   "MgS"
+  ]
+ },
+ {
+  "names": [
+   "magnesium nitride"
+  ],
+  "formulas": [
+   "Mg3N2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium phosphide"
+  ],
+  "formulas": [
+   "Mg3P2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium acetate"
+  ],
+  "formulas": [
+   "Mg(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium carbonate"
+  ],
+  "formulas": [
+   "MgCO3"
+  ]
+ },
+ {
+  "names": [
+   "magnesium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Mg(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium hypochlorite"
+  ],
+  "formulas": [
+   "Mg(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium chlorite"
+  ],
+  "formulas": [
+   "Mg(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium chlorate"
+  ],
+  "formulas": [
+   "Mg(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium perchlorate"
+  ],
+  "formulas": [
+   "Mg(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium cyanide"
+  ],
+  "formulas": [
+   "Mg(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium sulfate"
+  ],
+  "formulas": [
+   "MgSO4"
+  ]
+ },
+ {
+  "names": [
+   "magnesium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Mg(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium sulfite"
+  ],
+  "formulas": [
+   "MgSO3"
+  ]
+ },
+ {
+  "names": [
+   "magnesium chromate"
+  ],
+  "formulas": [
+   "MgCrO4"
+  ]
+ },
+ {
+  "names": [
+   "magnesium dichromate"
+  ],
+  "formulas": [
+   "MgCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "magnesium phosphate"
+  ],
+  "formulas": [
+   "Mg3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium hydrogen phosphate"
+  ],
+  "formulas": [
+   "MgHPO4"
+  ]
+ },
+ {
+  "names": [
+   "magnesium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Mg(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium nitrite"
+  ],
+  "formulas": [
+   "Mg(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium nitrate"
+  ],
+  "formulas": [
+   "Mg(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium permanganate"
+  ],
+  "formulas": [
+   "Mg(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium hydroxide"
+  ],
+  "formulas": [
+   "Mg(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "magnesium peroxide"
+  ],
+  "formulas": [
+   "MgO2"
+  ]
+ },
+ {
+  "names": [
+   "calcium fluoride"
+  ],
+  "formulas": [
+   "CaF2"
+  ]
+ },
+ {
+  "names": [
+   "calcium bromide"
+  ],
+  "formulas": [
+   "CaBr2"
+  ]
+ },
+ {
+  "names": [
+   "calcium chloride"
+  ],
+  "formulas": [
+   "CaCl2"
+  ]
+ },
+ {
+  "names": [
+   "calcium iodide"
+  ],
+  "formulas": [
+   "CaI2"
+  ]
+ },
+ {
+  "names": [
+   "calcium oxide"
+  ],
+  "formulas": [
+   "CaO"
+  ]
+ },
+ {
+  "names": [
+   "calcium sulfide"
+  ],
+  "formulas": [
+   "CaS"
+  ]
+ },
+ {
+  "names": [
+   "calcium nitride"
+  ],
+  "formulas": [
+   "Ca3N2"
+  ]
+ },
+ {
+  "names": [
+   "calcium phosphide"
+  ],
+  "formulas": [
+   "Ca3P2"
+  ]
+ },
+ {
+  "names": [
+   "calcium acetate"
+  ],
+  "formulas": [
+   "Ca(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium carbonate"
+  ],
+  "formulas": [
+   "CaCO3"
+  ]
+ },
+ {
+  "names": [
+   "calcium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Ca(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium hypochlorite"
+  ],
+  "formulas": [
+   "Ca(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium chlorite"
+  ],
+  "formulas": [
+   "Ca(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium chlorate"
+  ],
+  "formulas": [
+   "Ca(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium perchlorate"
+  ],
+  "formulas": [
+   "Ca(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium cyanide"
+  ],
+  "formulas": [
+   "Ca(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium sulfate"
+  ],
+  "formulas": [
+   "CaSO4"
+  ]
+ },
+ {
+  "names": [
+   "calcium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Ca(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium sulfite"
+  ],
+  "formulas": [
+   "CaSO3"
+  ]
+ },
+ {
+  "names": [
+   "calcium chromate"
+  ],
+  "formulas": [
+   "CaCrO4"
+  ]
+ },
+ {
+  "names": [
+   "calcium dichromate"
+  ],
+  "formulas": [
+   "CaCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "calcium phosphate"
+  ],
+  "formulas": [
+   "Ca3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium hydrogen phosphate"
+  ],
+  "formulas": [
+   "CaHPO4"
+  ]
+ },
+ {
+  "names": [
+   "calcium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Ca(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium nitrite"
+  ],
+  "formulas": [
+   "Ca(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium nitrate"
+  ],
+  "formulas": [
+   "Ca(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium permanganate"
+  ],
+  "formulas": [
+   "Ca(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium hydroxide"
+  ],
+  "formulas": [
+   "Ca(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "calcium peroxide"
+  ],
+  "formulas": [
+   "CaO2"
+  ]
+ },
+ {
+  "names": [
+   "strontium fluoride"
+  ],
+  "formulas": [
+   "SrF2"
+  ]
+ },
+ {
+  "names": [
+   "strontium bromide"
+  ],
+  "formulas": [
+   "SrBr2"
+  ]
+ },
+ {
+  "names": [
+   "strontium chloride"
+  ],
+  "formulas": [
+   "SrCl2"
+  ]
+ },
+ {
+  "names": [
+   "strontium iodide"
+  ],
+  "formulas": [
+   "SrI2"
+  ]
+ },
+ {
+  "names": [
+   "strontium oxide"
+  ],
+  "formulas": [
+   "SrO"
+  ]
+ },
+ {
+  "names": [
+   "strontium sulfide"
+  ],
+  "formulas": [
+   "SrS"
+  ]
+ },
+ {
+  "names": [
+   "strontium nitride"
+  ],
+  "formulas": [
+   "Sr3N2"
+  ]
+ },
+ {
+  "names": [
+   "strontium phosphide"
+  ],
+  "formulas": [
+   "Sr3P2"
+  ]
+ },
+ {
+  "names": [
+   "strontium acetate"
+  ],
+  "formulas": [
+   "Sr(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium carbonate"
+  ],
+  "formulas": [
+   "SrCO3"
+  ]
+ },
+ {
+  "names": [
+   "strontium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Sr(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium hypochlorite"
+  ],
+  "formulas": [
+   "Sr(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium chlorite"
+  ],
+  "formulas": [
+   "Sr(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium chlorate"
+  ],
+  "formulas": [
+   "Sr(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium perchlorate"
+  ],
+  "formulas": [
+   "Sr(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium cyanide"
+  ],
+  "formulas": [
+   "Sr(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium sulfate"
+  ],
+  "formulas": [
+   "SrSO4"
+  ]
+ },
+ {
+  "names": [
+   "strontium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Sr(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium sulfite"
+  ],
+  "formulas": [
+   "SrSO3"
+  ]
+ },
+ {
+  "names": [
+   "strontium chromate"
+  ],
+  "formulas": [
+   "SrCrO4"
+  ]
+ },
+ {
+  "names": [
+   "strontium dichromate"
+  ],
+  "formulas": [
+   "SrCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "strontium phosphate"
+  ],
+  "formulas": [
+   "Sr3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium hydrogen phosphate"
+  ],
+  "formulas": [
+   "SrHPO4"
+  ]
+ },
+ {
+  "names": [
+   "strontium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Sr(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium nitrite"
+  ],
+  "formulas": [
+   "Sr(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium nitrate"
+  ],
+  "formulas": [
+   "Sr(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium permanganate"
+  ],
+  "formulas": [
+   "Sr(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium hydroxide"
+  ],
+  "formulas": [
+   "Sr(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "strontium peroxide"
+  ],
+  "formulas": [
+   "SrO2"
+  ]
+ },
+ {
+  "names": [
+   "barium fluoride"
+  ],
+  "formulas": [
+   "BaF2"
+  ]
+ },
+ {
+  "names": [
+   "barium bromide"
+  ],
+  "formulas": [
+   "BaBr2"
+  ]
+ },
+ {
+  "names": [
+   "barium chloride"
+  ],
+  "formulas": [
+   "BaCl2"
+  ]
+ },
+ {
+  "names": [
+   "barium iodide"
+  ],
+  "formulas": [
+   "BaI2"
+  ]
+ },
+ {
+  "names": [
+   "barium oxide"
+  ],
+  "formulas": [
+   "BaO"
+  ]
+ },
+ {
+  "names": [
+   "barium sulfide"
+  ],
+  "formulas": [
+   "BaS"
+  ]
+ },
+ {
+  "names": [
+   "barium nitride"
+  ],
+  "formulas": [
+   "Ba3N2"
+  ]
+ },
+ {
+  "names": [
+   "barium phosphide"
+  ],
+  "formulas": [
+   "Ba3P2"
+  ]
+ },
+ {
+  "names": [
+   "barium acetate"
+  ],
+  "formulas": [
+   "Ba(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "barium carbonate"
+  ],
+  "formulas": [
+   "BaCO3"
+  ]
+ },
+ {
+  "names": [
+   "barium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Ba(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "barium hypochlorite"
+  ],
+  "formulas": [
+   "Ba(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "barium chlorite"
+  ],
+  "formulas": [
+   "Ba(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "barium chlorate"
+  ],
+  "formulas": [
+   "Ba(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "barium perchlorate"
+  ],
+  "formulas": [
+   "Ba(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "Ba(CN)2"
+  ],
+  "formulas": [
+   "Ba(CN)<sub>2</sub>"
+  ]
+ },
+ {
+  "names": [
+   "BaSO4"
+  ],
+  "formulas": [
+   "BaSO<sub>4</sub>"
+  ]
+ },
+ {
+  "names": [
+   "barium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Ba(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "barium sulfite"
+  ],
+  "formulas": [
+   "BaSO3"
+  ]
+ },
+ {
+  "names": [
+   "barium chromate"
+  ],
+  "formulas": [
+   "BaCrO4"
+  ]
+ },
+ {
+  "names": [
+   "barium dichromate"
+  ],
+  "formulas": [
+   "BaCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "barium phosphate"
+  ],
+  "formulas": [
+   "Ba3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "barium hydrogen phosphate"
+  ],
+  "formulas": [
+   "BaHPO4"
+  ]
+ },
+ {
+  "names": [
+   "barium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Ba(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "barium nitrite"
+  ],
+  "formulas": [
+   "Ba(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "barium nitrate"
+  ],
+  "formulas": [
+   "Ba(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "barium permanganate"
+  ],
+  "formulas": [
+   "Ba(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "barium hydroxide"
+  ],
+  "formulas": [
+   "Ba(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "barium peroxide"
+  ],
+  "formulas": [
+   "BaO2"
+  ]
+ },
+ {
+  "names": [
+   "aluminum fluoride"
+  ],
+  "formulas": [
+   "AlF3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum bromide"
+  ],
+  "formulas": [
+   "AlBr3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum chloride"
+  ],
+  "formulas": [
+   "AlCl3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum iodide"
+  ],
+  "formulas": [
+   "AlI3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum oxide"
+  ],
+  "formulas": [
+   "Al2O3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum sulfide"
+  ],
+  "formulas": [
+   "Al2S3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum nitride"
+  ],
+  "formulas": [
+   "AlN"
+  ]
+ },
+ {
+  "names": [
+   "aluminum phosphide"
+  ],
+  "formulas": [
+   "AlP"
+  ]
+ },
+ {
+  "names": [
+   "aluminum acetate"
+  ],
+  "formulas": [
+   "Al(C2H3O2)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum carbonate"
+  ],
+  "formulas": [
+   "Al2(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum hydrogen carbonate"
+  ],
+  "formulas": [
+   "Al(HCO3)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum hypochlorite"
+  ],
+  "formulas": [
+   "Al(ClO)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum chlorite"
+  ],
+  "formulas": [
+   "Al(ClO2)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum chlorate"
+  ],
+  "formulas": [
+   "Al(ClO3)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum perchlorate"
+  ],
+  "formulas": [
+   "Al(ClO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum cyanide"
+  ],
+  "formulas": [
+   "Al(CN)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum sulfate"
+  ],
+  "formulas": [
+   "Al2(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum hydrogen sulfate"
+  ],
+  "formulas": [
+   "Al(HSO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum sulfite"
+  ],
+  "formulas": [
+   "Al2(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum chromate"
+  ],
+  "formulas": [
+   "Al2(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum dichromate"
+  ],
+  "formulas": [
+   "Al2(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum phosphate"
+  ],
+  "formulas": [
+   "AlPO4"
+  ]
+ },
+ {
+  "names": [
+   "aluminum hydrogen phosphate"
+  ],
+  "formulas": [
+   "Al2(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Al(H2PO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum nitrite"
+  ],
+  "formulas": [
+   "Al(NO2)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum nitrate"
+  ],
+  "formulas": [
+   "Al(NO3)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum permanganate"
+  ],
+  "formulas": [
+   "Al(MnO4)3"
+  ]
+ },
+ {
+  "names": [
+   "aluminum hydroxide"
+  ],
+  "formulas": [
+   "Al(OH)3"
+  ]
+ },
+ {
+  "names": [
+   "zinc fluoride"
+  ],
+  "formulas": [
+   "ZnF2"
+  ]
+ },
+ {
+  "names": [
+   "zinc bromide"
+  ],
+  "formulas": [
+   "ZnBr2"
+  ]
+ },
+ {
+  "names": [
+   "zinc chloride"
+  ],
+  "formulas": [
+   "ZnCl2"
+  ]
+ },
+ {
+  "names": [
+   "zinc iodide"
+  ],
+  "formulas": [
+   "ZnI2"
+  ]
+ },
+ {
+  "names": [
+   "zinc oxide"
+  ],
+  "formulas": [
+   "ZnO"
+  ]
+ },
+ {
+  "names": [
+   "zinc sulfide"
+  ],
+  "formulas": [
+   "ZnS"
+  ]
+ },
+ {
+  "names": [
+   "zinc nitride"
+  ],
+  "formulas": [
+   "Zn3N2"
+  ]
+ },
+ {
+  "names": [
+   "zinc phosphide"
+  ],
+  "formulas": [
+   "Zn3P2"
+  ]
+ },
+ {
+  "names": [
+   "zinc acetate"
+  ],
+  "formulas": [
+   "Zn(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc carbonate"
+  ],
+  "formulas": [
+   "ZnCO3"
+  ]
+ },
+ {
+  "names": [
+   "zinc hydrogen carbonate"
+  ],
+  "formulas": [
+   "Zn(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc hypochlorite"
+  ],
+  "formulas": [
+   "Zn(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc chlorite"
+  ],
+  "formulas": [
+   "Zn(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc chlorate"
+  ],
+  "formulas": [
+   "Zn(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc perchlorate"
+  ],
+  "formulas": [
+   "Zn(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc cyanide"
+  ],
+  "formulas": [
+   "Zn(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc sulfate"
+  ],
+  "formulas": [
+   "ZnSO4"
+  ]
+ },
+ {
+  "names": [
+   "zinc hydrogen sulfate"
+  ],
+  "formulas": [
+   "Zn(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc sulfite"
+  ],
+  "formulas": [
+   "ZnSO3"
+  ]
+ },
+ {
+  "names": [
+   "zinc chromate"
+  ],
+  "formulas": [
+   "ZnCrO4"
+  ]
+ },
+ {
+  "names": [
+   "zinc dichromate"
+  ],
+  "formulas": [
+   "ZnCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "zinc phosphate"
+  ],
+  "formulas": [
+   "Zn3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc hydrogen phosphate"
+  ],
+  "formulas": [
+   "ZnHPO4"
+  ]
+ },
+ {
+  "names": [
+   "zinc dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Zn(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc nitrite"
+  ],
+  "formulas": [
+   "Zn(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc nitrate"
+  ],
+  "formulas": [
+   "Zn(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc permanganate"
+  ],
+  "formulas": [
+   "Zn(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "Zinc hydroxide"
+  ],
+  "formulas": [
+   "Zn(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "zinc peroxide"
+  ],
+  "formulas": [
+   "ZnO2"
+  ]
+ },
+ {
+  "names": [
+   "silver fluoride"
+  ],
+  "formulas": [
+   "AgF"
+  ]
+ },
+ {
+  "names": [
+   "silver bromide"
+  ],
+  "formulas": [
+   "AgBr"
+  ]
+ },
+ {
+  "names": [
+   "silver chloride"
+  ],
+  "formulas": [
+   "AgCl"
+  ]
+ },
+ {
+  "names": [
+   "silver iodide"
+  ],
+  "formulas": [
+   "AgI"
+  ]
+ },
+ {
+  "names": [
+   "silver oxide"
+  ],
+  "formulas": [
+   "Ag2O"
+  ]
+ },
+ {
+  "names": [
+   "silver sulfide"
+  ],
+  "formulas": [
+   "Ag2S"
+  ]
+ },
+ {
+  "names": [
+   "silver nitride"
+  ],
+  "formulas": [
+   "Ag3N"
+  ]
+ },
+ {
+  "names": [
+   "silver phosphide"
+  ],
+  "formulas": [
+   "Ag3P"
+  ]
+ },
+ {
+  "names": [
+   "silver acetate"
+  ],
+  "formulas": [
+   "AgC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "silver carbonate"
+  ],
+  "formulas": [
+   "Ag2CO3"
+  ]
+ },
+ {
+  "names": [
+   "silver hydrogen carbonate"
+  ],
+  "formulas": [
+   "AgHCO3"
+  ]
+ },
+ {
+  "names": [
+   "silver hypochlorite"
+  ],
+  "formulas": [
+   "AgClO"
+  ]
+ },
+ {
+  "names": [
+   "silver chlorite"
+  ],
+  "formulas": [
+   "AgClO2"
+  ]
+ },
+ {
+  "names": [
+   "silver chlorate"
+  ],
+  "formulas": [
+   "AgClO3"
+  ]
+ },
+ {
+  "names": [
+   "silver perchlorate"
+  ],
+  "formulas": [
+   "AgClO4"
+  ]
+ },
+ {
+  "names": [
+   "silver cyanide"
+  ],
+  "formulas": [
+   "AgCN"
+  ]
+ },
+ {
+  "names": [
+   "silver sulfate"
+  ],
+  "formulas": [
+   "Ag2SO4"
+  ]
+ },
+ {
+  "names": [
+   "silver hydrogen sulfate"
+  ],
+  "formulas": [
+   "AgHSO4"
+  ]
+ },
+ {
+  "names": [
+   "silver sulfite"
+  ],
+  "formulas": [
+   "Ag2SO3"
+  ]
+ },
+ {
+  "names": [
+   "silver chromate"
+  ],
+  "formulas": [
+   "Ag2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "silver dichromate"
+  ],
+  "formulas": [
+   "Ag2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "silver phosphate"
+  ],
+  "formulas": [
+   "Ag3PO4"
+  ]
+ },
+ {
+  "names": [
+   "silver hydrogen phosphate"
+  ],
+  "formulas": [
+   "Ag2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "silver dihydrogen phosphate"
+  ],
+  "formulas": [
+   "AgH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "silver nitrite"
+  ],
+  "formulas": [
+   "AgNO2"
+  ]
+ },
+ {
+  "names": [
+   "silver nitrate"
+  ],
+  "formulas": [
+   "AgNO3"
+  ]
+ },
+ {
+  "names": [
+   "silver permanganate"
+  ],
+  "formulas": [
+   "AgMnO4"
+  ]
+ },
+ {
+  "names": [
+   "silver hydroxide"
+  ],
+  "formulas": [
+   "AgOH"
+  ]
+ },
+ {
+  "names": [
+   "silver peroxide"
+  ],
+  "formulas": [
+   "Ag2O2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium fluoride"
+  ],
+  "formulas": [
+   "CdF2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium bromide"
+  ],
+  "formulas": [
+   "CdBr2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium chloride"
+  ],
+  "formulas": [
+   "CdCl2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium iodide"
+  ],
+  "formulas": [
+   "CdI2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium oxide"
+  ],
+  "formulas": [
+   "CdO"
+  ]
+ },
+ {
+  "names": [
+   "cadmium sulfide"
+  ],
+  "formulas": [
+   "CdS"
+  ]
+ },
+ {
+  "names": [
+   "cadmium nitride"
+  ],
+  "formulas": [
+   "Cd3N2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium phosphide"
+  ],
+  "formulas": [
+   "Cd3P2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium acetate"
+  ],
+  "formulas": [
+   "Cd(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium carbonate"
+  ],
+  "formulas": [
+   "CdCO3"
+  ]
+ },
+ {
+  "names": [
+   "cadmium hydrogen carbonate"
+  ],
+  "formulas": [
+   "Cd(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium hypochlorite"
+  ],
+  "formulas": [
+   "Cd(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium chlorite"
+  ],
+  "formulas": [
+   "Cd(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium chlorate"
+  ],
+  "formulas": [
+   "Cd(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium perchlorate"
+  ],
+  "formulas": [
+   "Cd(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium cyanide"
+  ],
+  "formulas": [
+   "Cd(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium sulfate"
+  ],
+  "formulas": [
+   "CdSO4"
+  ]
+ },
+ {
+  "names": [
+   "cadmium hydrogen sulfate"
+  ],
+  "formulas": [
+   "Cd(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium sulfite"
+  ],
+  "formulas": [
+   "CdSO3"
+  ]
+ },
+ {
+  "names": [
+   "cadmium chromate"
+  ],
+  "formulas": [
+   "CdCrO4"
+  ]
+ },
+ {
+  "names": [
+   "cadmium dichromate"
+  ],
+  "formulas": [
+   "CdCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "cadmium phosphate"
+  ],
+  "formulas": [
+   "Cd3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium hydrogen phosphate"
+  ],
+  "formulas": [
+   "CdHPO4"
+  ]
+ },
+ {
+  "names": [
+   "cadmium dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Cd(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium nitrite"
+  ],
+  "formulas": [
+   "Cd(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium nitrate"
+  ],
+  "formulas": [
+   "Cd(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium permanganate"
+  ],
+  "formulas": [
+   "Cd(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium hydroxide"
+  ],
+  "formulas": [
+   "Cd(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "cadmium peroxide"
+  ],
+  "formulas": [
+   "CdO2"
+  ]
+ },
+ {
+  "names": [
+   "ammonium fluoride"
+  ],
+  "formulas": [
+   "NH4F"
+  ]
+ },
+ {
+  "names": [
+   "ammonium bromide"
+  ],
+  "formulas": [
+   "NH4Br"
+  ]
+ },
+ {
+  "names": [
+   "ammonium chloride"
+  ],
+  "formulas": [
+   "NH4Cl"
+  ]
+ },
+ {
+  "names": [
+   "ammonium iodide"
+  ],
+  "formulas": [
+   "NH4I"
+  ]
+ },
+ {
+  "names": [
+   "ammonium oxide"
+  ],
+  "formulas": [
+   "(NH4)2O"
+  ]
+ },
+ {
+  "names": [
+   "ammonium sulfide"
+  ],
+  "formulas": [
+   "(NH4)2S"
+  ]
+ },
+ {
+  "names": [
+   "ammonium nitride"
+  ],
+  "formulas": [
+   "(NH4)3N"
+  ]
+ },
+ {
+  "names": [
+   "ammonium phosphide"
+  ],
+  "formulas": [
+   "(NH4)3P"
+  ]
+ },
+ {
+  "names": [
+   "ammonium acetate"
+  ],
+  "formulas": [
+   "NH4C2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "ammonium carbonate"
+  ],
+  "formulas": [
+   "(NH4)2CO3"
+  ]
+ },
+ {
+  "names": [
+   "ammonium hydrogen carbonate"
+  ],
+  "formulas": [
+   "NH4HCO3"
+  ]
+ },
+ {
+  "names": [
+   "ammonium hypochlorite"
+  ],
+  "formulas": [
+   "NH4ClO"
+  ]
+ },
+ {
+  "names": [
+   "ammonium chlorite"
+  ],
+  "formulas": [
+   "NH4ClO2"
+  ]
+ },
+ {
+  "names": [
+   "ammonium chlorate"
+  ],
+  "formulas": [
+   "NH4ClO3"
+  ]
+ },
+ {
+  "names": [
+   "ammonium perchlorate"
+  ],
+  "formulas": [
+   "NH4ClO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium cyanide"
+  ],
+  "formulas": [
+   "NH4CN"
+  ]
+ },
+ {
+  "names": [
+   "ammonium sulfate"
+  ],
+  "formulas": [
+   "(NH4)2SO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium hydrogen sulfate"
+  ],
+  "formulas": [
+   "NH4HSO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium sulfite"
+  ],
+  "formulas": [
+   "(NH4)2SO3"
+  ]
+ },
+ {
+  "names": [
+   "ammonium chromate"
+  ],
+  "formulas": [
+   "(NH4)2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium dichromate"
+  ],
+  "formulas": [
+   "(NH4)2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "ammonium phosphate"
+  ],
+  "formulas": [
+   "(NH4)3PO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium nitrite"
+  ],
+  "formulas": [
+   "NH4NO2"
+  ]
+ },
+ {
+  "names": [
+   "ammonium nitrate"
+  ],
+  "formulas": [
+   "NH4NO3"
+  ]
+ },
+ {
+  "names": [
+   "ammonium permanganate"
+  ],
+  "formulas": [
+   "NH4MnO4"
+  ]
+ },
+ {
+  "names": [
+   "ammonium hydroxide"
+  ],
+  "formulas": [
+   "NH4OH"
+  ]
+ },
+ {
+  "names": [
+   "ammonium peroxide"
+  ],
+  "formulas": [
+   "(NH4)2O2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) fluoride"
+  ],
+  "formulas": [
+   "MnF2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) bromide"
+  ],
+  "formulas": [
+   "MnBr2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) chloride"
+  ],
+  "formulas": [
+   "MnCl2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) iodide"
+  ],
+  "formulas": [
+   "MnI2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) oxide"
+  ],
+  "formulas": [
+   "MnO"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) sulfide"
+  ],
+  "formulas": [
+   "MnS"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) nitride"
+  ],
+  "formulas": [
+   "Mn3N2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) phosphide"
+  ],
+  "formulas": [
+   "Mn3P2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) acetate"
+  ],
+  "formulas": [
+   "Mn(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) carbonate"
+  ],
+  "formulas": [
+   "MnCO3"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Mn(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Mn(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) chlorite"
+  ],
+  "formulas": [
+   "Mn(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) chlorate"
+  ],
+  "formulas": [
+   "Mn(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) perchlorate"
+  ],
+  "formulas": [
+   "Mn(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) cyanide"
+  ],
+  "formulas": [
+   "Mn(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) sulfate"
+  ],
+  "formulas": [
+   "MnSO4"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Mn(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) sulfite"
+  ],
+  "formulas": [
+   "MnSO3"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) chromate"
+  ],
+  "formulas": [
+   "MnCrO4"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) dichromate"
+  ],
+  "formulas": [
+   "MnCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) phosphate"
+  ],
+  "formulas": [
+   "Mn3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "MnHPO4"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Mn(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) nitrite"
+  ],
+  "formulas": [
+   "Mn(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) nitrate"
+  ],
+  "formulas": [
+   "Mn(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) permanganate"
+  ],
+  "formulas": [
+   "Mn(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) hydroxide"
+  ],
+  "formulas": [
+   "Mn(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "manganese(ii) peroxide"
+  ],
+  "formulas": [
+   "MnO2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) fluoride"
+  ],
+  "formulas": [
+   "FeF2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) bromide"
+  ],
+  "formulas": [
+   "FeBr2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) chloride"
+  ],
+  "formulas": [
+   "FeCl2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) iodide"
+  ],
+  "formulas": [
+   "FeI2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) oxide"
+  ],
+  "formulas": [
+   "FeO"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) sulfide"
+  ],
+  "formulas": [
+   "FeS"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) nitride"
+  ],
+  "formulas": [
+   "Fe3N2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) phosphide"
+  ],
+  "formulas": [
+   " "
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) acetate"
+  ],
+  "formulas": [
+   "Fe(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) carbonate"
+  ],
+  "formulas": [
+   "FeCO3"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Fe(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Fe(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) chlorite"
+  ],
+  "formulas": [
+   "Fe(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) chlorate"
+  ],
+  "formulas": [
+   "Fe(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) perchlorate"
+  ],
+  "formulas": [
+   "Fe(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) cyanide"
+  ],
+  "formulas": [
+   "Fe(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) sulfate"
+  ],
+  "formulas": [
+   "FeSO4"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Fe(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) sulfite"
+  ],
+  "formulas": [
+   "FeSO3"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) chromate"
+  ],
+  "formulas": [
+   "FeCrO4"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) dichromate"
+  ],
+  "formulas": [
+   "FeCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) phosphate"
+  ],
+  "formulas": [
+   "Fe3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "FeHPO4"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Fe(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) nitrite"
+  ],
+  "formulas": [
+   "Fe(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) nitrate"
+  ],
+  "formulas": [
+   "Fe(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) permanganate"
+  ],
+  "formulas": [
+   "Fe(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) hydroxide"
+  ],
+  "formulas": [
+   "Fe(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "iron(ii) peroxide"
+  ],
+  "formulas": [
+   "FeO2"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) fluoride"
+  ],
+  "formulas": [
+   "FeF3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) bromide"
+  ],
+  "formulas": [
+   "FeBr3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) chloride"
+  ],
+  "formulas": [
+   "FeCl3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) iodide"
+  ],
+  "formulas": [
+   "FeI3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) oxide"
+  ],
+  "formulas": [
+   "Fe2O3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) sulfide"
+  ],
+  "formulas": [
+   "Fe2S3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) nitride"
+  ],
+  "formulas": [
+   "FeN"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) phosphide"
+  ],
+  "formulas": [
+   "FeP"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) acetate"
+  ],
+  "formulas": [
+   "Fe(C2H3O2)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) carbonate"
+  ],
+  "formulas": [
+   "Fe2(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Fe(HCO3)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) hypochlorite"
+  ],
+  "formulas": [
+   "Fe(ClO)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) chlorite"
+  ],
+  "formulas": [
+   "Fe(ClO2)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) chlorate"
+  ],
+  "formulas": [
+   "Fe(ClO3)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) perchlorate"
+  ],
+  "formulas": [
+   "Fe(ClO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) cyanide"
+  ],
+  "formulas": [
+   "Fe(CN)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) sulfate"
+  ],
+  "formulas": [
+   "Fe2(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Fe(HSO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) sulfite"
+  ],
+  "formulas": [
+   "Fe2(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) chromate"
+  ],
+  "formulas": [
+   "Fe2(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) dichromate"
+  ],
+  "formulas": [
+   "Fe2(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) phosphate"
+  ],
+  "formulas": [
+   "FePO4"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Fe2(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) dihydrogen"
+  ],
+  "formulas": [
+   "Fe(H2PO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) nitrite"
+  ],
+  "formulas": [
+   "Fe(NO2)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) nitrate"
+  ],
+  "formulas": [
+   "Fe(NO3)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) permanganate"
+  ],
+  "formulas": [
+   "Fe(MnO4)3"
+  ]
+ },
+ {
+  "names": [
+   "iron(iii) hydroxide"
+  ],
+  "formulas": [
+   "Fe(OH)3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) fluoride"
+  ],
+  "formulas": [
+   "CuF"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) bromide"
+  ],
+  "formulas": [
+   "CuBr"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) chloride"
+  ],
+  "formulas": [
+   "CuCl"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) iodide"
+  ],
+  "formulas": [
+   "CuI"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) oxide"
+  ],
+  "formulas": [
+   "Cu2O"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) sulfide"
+  ],
+  "formulas": [
+   "Cu2S"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) nitride"
+  ],
+  "formulas": [
+   "Cu3N"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) phosphide"
+  ],
+  "formulas": [
+   "Cu3P"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) acetate"
+  ],
+  "formulas": [
+   "CuC2H3O2"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) hydrogen carbonate"
+  ],
+  "formulas": [
+   "CuHCO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) carbonate"
+  ],
+  "formulas": [
+   "Cu2CO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) hypochlorite"
+  ],
+  "formulas": [
+   "CuClO"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) chlorite"
+  ],
+  "formulas": [
+   "CuClO2"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) chlorate"
+  ],
+  "formulas": [
+   "CuClO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) perchlorate"
+  ],
+  "formulas": [
+   "CuClO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) cyanide"
+  ],
+  "formulas": [
+   "CuCN"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) sulfate"
+  ],
+  "formulas": [
+   "Cu2SO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) hydrogen sulfate"
+  ],
+  "formulas": [
+   "CuHSO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) sulfite"
+  ],
+  "formulas": [
+   "Cu2SO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) chromate"
+  ],
+  "formulas": [
+   "Cu2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) dichromate"
+  ],
+  "formulas": [
+   "Cu2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) phosphate"
+  ],
+  "formulas": [
+   "Cu3PO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Cu2HPO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "CuH2PO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) nitrite"
+  ],
+  "formulas": [
+   "CuNO2"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) nitrate"
+  ],
+  "formulas": [
+   "CuNO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) permanganate"
+  ],
+  "formulas": [
+   "CuMnO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) hydroxide"
+  ],
+  "formulas": [
+   "CuOH"
+  ]
+ },
+ {
+  "names": [
+   "copper(i) peroxide"
+  ],
+  "formulas": [
+   "Cu2O2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) fluoride"
+  ],
+  "formulas": [
+   "CuF2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) bromide"
+  ],
+  "formulas": [
+   "CuBr2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) chloride"
+  ],
+  "formulas": [
+   "CuCl2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) iodide"
+  ],
+  "formulas": [
+   "CuI2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) oxide"
+  ],
+  "formulas": [
+   "CuO"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) sulfide"
+  ],
+  "formulas": [
+   "CuS"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) nitride"
+  ],
+  "formulas": [
+   "Cu3N2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) phosphide"
+  ],
+  "formulas": [
+   "Cu3P2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) acetate"
+  ],
+  "formulas": [
+   "Cu(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) carbonate"
+  ],
+  "formulas": [
+   "CuCO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Cu(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Cu(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) chlorite"
+  ],
+  "formulas": [
+   "Cu(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) chlorate"
+  ],
+  "formulas": [
+   "Cu(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) perchlorate"
+  ],
+  "formulas": [
+   "Cu(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) cyanide"
+  ],
+  "formulas": [
+   "Cu(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) sulfate"
+  ],
+  "formulas": [
+   "CuSO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Cu(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) sulfite"
+  ],
+  "formulas": [
+   "CuSO3"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) chromate"
+  ],
+  "formulas": [
+   "CuCrO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) dichromate"
+  ],
+  "formulas": [
+   "CuCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) phosphate"
+  ],
+  "formulas": [
+   "Cu3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "CuHPO4"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Cu(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) nitrite"
+  ],
+  "formulas": [
+   "Cu(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) nitrate"
+  ],
+  "formulas": [
+   "Cu(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) permanganate"
+  ],
+  "formulas": [
+   "Cu(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) hydroxide"
+  ],
+  "formulas": [
+   "Cu(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "copper(ii) peroxide"
+  ],
+  "formulas": [
+   "CuO2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) fluoride"
+  ],
+  "formulas": [
+   "NiF2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) bromide"
+  ],
+  "formulas": [
+   "NiBr2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) chloride"
+  ],
+  "formulas": [
+   "NiCl2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) iodide"
+  ],
+  "formulas": [
+   "NiI2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) oxide"
+  ],
+  "formulas": [
+   "NiO"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) sulfide"
+  ],
+  "formulas": [
+   "NiS"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) nitride"
+  ],
+  "formulas": [
+   "Ni3N2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) phosphide"
+  ],
+  "formulas": [
+   "Ni3P2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) acetate"
+  ],
+  "formulas": [
+   "Ni(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) carbonate"
+  ],
+  "formulas": [
+   "NiCO3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Ni(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Ni(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) chlorite"
+  ],
+  "formulas": [
+   "Ni(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) chlorate"
+  ],
+  "formulas": [
+   "Ni(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) perchlorate"
+  ],
+  "formulas": [
+   "Ni(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) cyanide"
+  ],
+  "formulas": [
+   "Ni(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) sulfate"
+  ],
+  "formulas": [
+   "NiSO4"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Ni(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) sulfite"
+  ],
+  "formulas": [
+   "NiSO3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) chromate"
+  ],
+  "formulas": [
+   "NiCrO4"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) dichromate"
+  ],
+  "formulas": [
+   "NiCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) phosphate"
+  ],
+  "formulas": [
+   "Ni3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "NiHPO4"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Ni(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) nitrite"
+  ],
+  "formulas": [
+   "Ni(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) nitrate"
+  ],
+  "formulas": [
+   "Ni(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) permanganate"
+  ],
+  "formulas": [
+   "Ni(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) hydroxide"
+  ],
+  "formulas": [
+   "Ni(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(ii) peroxide"
+  ],
+  "formulas": [
+   "NiO2"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) fluoride"
+  ],
+  "formulas": [
+   "NiF3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) bromide"
+  ],
+  "formulas": [
+   "NiBr3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) chloride"
+  ],
+  "formulas": [
+   "NiCl3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) iodide"
+  ],
+  "formulas": [
+   "NiI3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) oxide"
+  ],
+  "formulas": [
+   "Ni2O3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) sulfide"
+  ],
+  "formulas": [
+   "Ni2S3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) nitride"
+  ],
+  "formulas": [
+   "NiN"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) phosphide"
+  ],
+  "formulas": [
+   "NiP"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) acetate"
+  ],
+  "formulas": [
+   "Ni(C2H3O2)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) carbonate"
+  ],
+  "formulas": [
+   "Ni2(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Ni(HCO3)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) hypochlorite"
+  ],
+  "formulas": [
+   "Ni(ClO)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) chlorite"
+  ],
+  "formulas": [
+   "Ni(ClO2)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) chlorate"
+  ],
+  "formulas": [
+   "Ni(ClO3)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) perchlorate"
+  ],
+  "formulas": [
+   "Ni(ClO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) cyanide"
+  ],
+  "formulas": [
+   "Ni(CN)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) sulfate"
+  ],
+  "formulas": [
+   "Ni2(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Ni(HSO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) sulfite"
+  ],
+  "formulas": [
+   "Ni2(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) chromate"
+  ],
+  "formulas": [
+   "Ni2(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) dichromate"
+  ],
+  "formulas": [
+   "Ni2(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) phosphate"
+  ],
+  "formulas": [
+   "NiPO4"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Ni2(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Ni(H2PO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) nitrite"
+  ],
+  "formulas": [
+   "Ni(NO2)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) nitrate"
+  ],
+  "formulas": [
+   "Ni(NO3)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) permanganate"
+  ],
+  "formulas": [
+   "Ni(MnO4)3"
+  ]
+ },
+ {
+  "names": [
+   "nickel(iii) hydroxide"
+  ],
+  "formulas": [
+   "Ni(OH)3"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) fluoride"
+  ],
+  "formulas": [
+   "SnF2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) bromide"
+  ],
+  "formulas": [
+   "SnBr2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) chloride"
+  ],
+  "formulas": [
+   "SnCl2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) iodide"
+  ],
+  "formulas": [
+   "SnI2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) oxide"
+  ],
+  "formulas": [
+   "SnO"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) sulfide"
+  ],
+  "formulas": [
+   "SnS"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) nitride"
+  ],
+  "formulas": [
+   "Sn3N2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) phosphide"
+  ],
+  "formulas": [
+   "Sn3P2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) acetate"
+  ],
+  "formulas": [
+   "Sn(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) carbonate"
+  ],
+  "formulas": [
+   "SnCO3"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Sn(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Sn(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) chlorite"
+  ],
+  "formulas": [
+   "Sn(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) chlorate"
+  ],
+  "formulas": [
+   "Sn(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) perchlorate"
+  ],
+  "formulas": [
+   "Sn(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) cyanide"
+  ],
+  "formulas": [
+   "Sn(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) sulfate"
+  ],
+  "formulas": [
+   "SnSO4"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Sn(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) sulfite"
+  ],
+  "formulas": [
+   "SnSO3"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) chromate"
+  ],
+  "formulas": [
+   "SnCrO4"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) dichromate"
+  ],
+  "formulas": [
+   "SnCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) phosphate"
+  ],
+  "formulas": [
+   "Sn3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "SnHPO4"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Sn(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) nitrite"
+  ],
+  "formulas": [
+   "Sn(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) nitrate"
+  ],
+  "formulas": [
+   "Sn(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) permanganate"
+  ],
+  "formulas": [
+   "Sn(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(ii) hydroxide"
+  ],
+  "formulas": [
+   "Sn(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) fluoride"
+  ],
+  "formulas": [
+   "SnF4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) bromide"
+  ],
+  "formulas": [
+   "SnBr4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) chloride"
+  ],
+  "formulas": [
+   "SnCl4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) iodide"
+  ],
+  "formulas": [
+   "SnI4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) oxide"
+  ],
+  "formulas": [
+   "SnO2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) sulfide"
+  ],
+  "formulas": [
+   "SnS2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) nitride"
+  ],
+  "formulas": [
+   "Sn3N4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) phosphide"
+  ],
+  "formulas": [
+   "Sn3P4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) acetate"
+  ],
+  "formulas": [
+   "Sn(C2H3O2)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) carbonate"
+  ],
+  "formulas": [
+   "Sn(CO3)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Sn(HCO3)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) hypochlorite"
+  ],
+  "formulas": [
+   "Sn(ClO)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) chlorite"
+  ],
+  "formulas": [
+   "Sn(ClO2)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) chlorate"
+  ],
+  "formulas": [
+   "Sn(ClO3)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) perchlorate"
+  ],
+  "formulas": [
+   "Sn(ClO4)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) cyanide"
+  ],
+  "formulas": [
+   "Sn(CN)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) sulfate"
+  ],
+  "formulas": [
+   "Sn(SO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Sn(HSO4)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) sulfite"
+  ],
+  "formulas": [
+   "Sn(SO3)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) chromate"
+  ],
+  "formulas": [
+   "Sn(CrO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) dichromate"
+  ],
+  "formulas": [
+   "Sn(Cr2O7)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) phosphate"
+  ],
+  "formulas": [
+   "Sn3(PO4)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Sn(HPO4)2"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Sn(H2PO4)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) nitrite"
+  ],
+  "formulas": [
+   "Sn(NO2)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) nitrate"
+  ],
+  "formulas": [
+   "Sn(NO3)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) permanganate"
+  ],
+  "formulas": [
+   "Sn(MnO4)4"
+  ]
+ },
+ {
+  "names": [
+   "tin(iv) hydroxide"
+  ],
+  "formulas": [
+   "Sn(OH)4"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) fluoride"
+  ],
+  "formulas": [
+   "Hg2F2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) bromide"
+  ],
+  "formulas": [
+   "Hg2Br2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) chloride"
+  ],
+  "formulas": [
+   "Hg2Cl2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) iodide"
+  ],
+  "formulas": [
+   "Hg2I2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) oxide"
+  ],
+  "formulas": [
+   "Hg2O"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) sulfide"
+  ],
+  "formulas": [
+   "Hg2S"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) acetate"
+  ],
+  "formulas": [
+   "Hg2(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) carbonate"
+  ],
+  "formulas": [
+   "Hg2CO3"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Hg2(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) hypochlorite"
+  ],
+  "formulas": [
+   "Hg2(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) chlorite"
+  ],
+  "formulas": [
+   "Hg2(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) chlorate"
+  ],
+  "formulas": [
+   "Hg2(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) perchlorate"
+  ],
+  "formulas": [
+   "Hg2(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) cyanide"
+  ],
+  "formulas": [
+   "Hg2(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) sulfate"
+  ],
+  "formulas": [
+   "Hg2SO4"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Hg2(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) sulfite"
+  ],
+  "formulas": [
+   "Hg2SO3"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) chromate"
+  ],
+  "formulas": [
+   "Hg2CrO4"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) dichromate"
+  ],
+  "formulas": [
+   "Hg2Cr2O7"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) nitrite"
+  ],
+  "formulas": [
+   "Hg2(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) nitrate"
+  ],
+  "formulas": [
+   "Hg2(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) permanganate"
+  ],
+  "formulas": [
+   "Hg2(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(i) hydroxide"
+  ],
+  "formulas": [
+   "Hg2(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) fluoride"
+  ],
+  "formulas": [
+   "HgF2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) bromide"
+  ],
+  "formulas": [
+   "HgBr2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) chloride"
+  ],
+  "formulas": [
+   "HgCl2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) iodide"
+  ],
+  "formulas": [
+   "HgI2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) oxide"
+  ],
+  "formulas": [
+   "HgO"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) sulfide"
+  ],
+  "formulas": [
+   "HgS"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) acetate"
+  ],
+  "formulas": [
+   "Hg(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) carbonate"
+  ],
+  "formulas": [
+   "HgCO3"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Hg(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Hg(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) chlorite"
+  ],
+  "formulas": [
+   "Hg(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) chlorate"
+  ],
+  "formulas": [
+   "Hg(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) perchlorate"
+  ],
+  "formulas": [
+   "Hg(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) cyanide"
+  ],
+  "formulas": [
+   "Hg(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) sulfate"
+  ],
+  "formulas": [
+   "HgSO4"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Hg(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) sulfite"
+  ],
+  "formulas": [
+   "HgSO3"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) chromate"
+  ],
+  "formulas": [
+   "HgCrO4"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) dichromate"
+  ],
+  "formulas": [
+   "HgCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) nitrite"
+  ],
+  "formulas": [
+   "Hg(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) nitrate"
+  ],
+  "formulas": [
+   "Hg(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) permanganate"
+  ],
+  "formulas": [
+   "Hg(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "mercury(ii) hydroxide"
+  ],
+  "formulas": [
+   "Hg(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) fluoride"
+  ],
+  "formulas": [
+   "PbF2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) bromide"
+  ],
+  "formulas": [
+   "PbBr2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) chloride"
+  ],
+  "formulas": [
+   "PbCl2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) iodide"
+  ],
+  "formulas": [
+   "PbI2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) oxide"
+  ],
+  "formulas": [
+   "PbO"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) sulfide"
+  ],
+  "formulas": [
+   "PbS"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) nitride"
+  ],
+  "formulas": [
+   "Pb3N2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) phosphide"
+  ],
+  "formulas": [
+   "Pb3P2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) acetate"
+  ],
+  "formulas": [
+   "Pb(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) carbonate"
+  ],
+  "formulas": [
+   "PbCO3"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Pb(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Pb(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) chlorite"
+  ],
+  "formulas": [
+   "Pb(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) chlorate"
+  ],
+  "formulas": [
+   "Pb(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) perchlorate"
+  ],
+  "formulas": [
+   "Pb(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) cyanide"
+  ],
+  "formulas": [
+   "Pb(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) sulfate"
+  ],
+  "formulas": [
+   "PbSO4"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Pb(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) sulfite"
+  ],
+  "formulas": [
+   "PbSO3"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) chromate"
+  ],
+  "formulas": [
+   "PbCrO4"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) dichromate"
+  ],
+  "formulas": [
+   "PbCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "Pb3(PO4)2"
+  ],
+  "formulas": [
+   "Pb<sub>3</sub>(PO<sub>4</sub>)<sub>2</sub>"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "PbHPO4"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Pb(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) nitrite"
+  ],
+  "formulas": [
+   "Pb(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) nitrate"
+  ],
+  "formulas": [
+   "Pb(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) permanganate"
+  ],
+  "formulas": [
+   "Pb(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(ii) hydroxide"
+  ],
+  "formulas": [
+   "Pb(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) fluoride"
+  ],
+  "formulas": [
+   "PbF4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) bromide"
+  ],
+  "formulas": [
+   "PbBr4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) chloride"
+  ],
+  "formulas": [
+   "PbCl4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) iodide"
+  ],
+  "formulas": [
+   "PbI4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) oxide"
+  ],
+  "formulas": [
+   "PbO2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) sulfide"
+  ],
+  "formulas": [
+   "PbS2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) nitride"
+  ],
+  "formulas": [
+   "Pb3N4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) phosphide"
+  ],
+  "formulas": [
+   "Pb3P4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) acetate"
+  ],
+  "formulas": [
+   "Pb(C2H3O2)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) carbonate"
+  ],
+  "formulas": [
+   "Pb(CO3)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Pb(HCO3)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) hypochlorite"
+  ],
+  "formulas": [
+   "Pb(ClO)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) chlorite"
+  ],
+  "formulas": [
+   "Pb(ClO2)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) chlorate"
+  ],
+  "formulas": [
+   "Pb(ClO3)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) perchlorate"
+  ],
+  "formulas": [
+   "Pb(ClO4)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) cyanide"
+  ],
+  "formulas": [
+   "Pb(CN)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) sulfate"
+  ],
+  "formulas": [
+   "Pb(SO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Pb(HSO4)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) sulfite"
+  ],
+  "formulas": [
+   "Pb(SO3)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) chromate"
+  ],
+  "formulas": [
+   "Pb(CrO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) dichromate"
+  ],
+  "formulas": [
+   "Pb(Cr2O7)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) phosphate"
+  ],
+  "formulas": [
+   "Pb3(PO4)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Pb(HPO4)2"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Pb(H2PO4)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) nitrite"
+  ],
+  "formulas": [
+   "Pb(NO2)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) nitrate"
+  ],
+  "formulas": [
+   "Pb(NO3)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) permanganate"
+  ],
+  "formulas": [
+   "Pb(MnO4)4"
+  ]
+ },
+ {
+  "names": [
+   "lead(iv) hydroxide"
+  ],
+  "formulas": [
+   "Pb(OH)4"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) fluoride"
+  ],
+  "formulas": [
+   "CoF2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) bromide"
+  ],
+  "formulas": [
+   "CoBr2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) chloride"
+  ],
+  "formulas": [
+   "CoCl2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) iodide"
+  ],
+  "formulas": [
+   "CoI2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) oxide"
+  ],
+  "formulas": [
+   "CoO"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) sulfide"
+  ],
+  "formulas": [
+   "CoS"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) nitride"
+  ],
+  "formulas": [
+   "Co3N2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) phosphide"
+  ],
+  "formulas": [
+   "Co3P2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) acetate"
+  ],
+  "formulas": [
+   "Co(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) carbonate"
+  ],
+  "formulas": [
+   "CoCO3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Co(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Co(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) chlorite"
+  ],
+  "formulas": [
+   "Co(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) chlorate"
+  ],
+  "formulas": [
+   "Co(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) perchlorate"
+  ],
+  "formulas": [
+   "Co(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) cyanide"
+  ],
+  "formulas": [
+   "Co(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) sulfate"
+  ],
+  "formulas": [
+   "CoSO4"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Co(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) sulfite"
+  ],
+  "formulas": [
+   "CoSO3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) chromate"
+  ],
+  "formulas": [
+   "CoCrO4"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) dichromate"
+  ],
+  "formulas": [
+   "CoCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) phosphate"
+  ],
+  "formulas": [
+   "Co3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "CoHPO4"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Co(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) nitrite"
+  ],
+  "formulas": [
+   "Co(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) nitrate"
+  ],
+  "formulas": [
+   "Co(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) permanganate"
+  ],
+  "formulas": [
+   "Co(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) hydroxide"
+  ],
+  "formulas": [
+   "Co(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(ii) peroxide"
+  ],
+  "formulas": [
+   "CoO2"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) fluoride"
+  ],
+  "formulas": [
+   "CoF3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) bromide"
+  ],
+  "formulas": [
+   "CoBr3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) chloride"
+  ],
+  "formulas": [
+   "CoCl3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) iodide"
+  ],
+  "formulas": [
+   "CoI3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) oxide"
+  ],
+  "formulas": [
+   "Co2O3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) sulfide"
+  ],
+  "formulas": [
+   "Co2S3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) nitride"
+  ],
+  "formulas": [
+   "CoN"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) phosphide"
+  ],
+  "formulas": [
+   "CoP"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) acetate"
+  ],
+  "formulas": [
+   "Co(C2H3O2)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) carbonate"
+  ],
+  "formulas": [
+   "Co2(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Co(HCO3)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) hypochlorite"
+  ],
+  "formulas": [
+   "Co(ClO)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) chlorite"
+  ],
+  "formulas": [
+   "Co(ClO2)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) chlorate"
+  ],
+  "formulas": [
+   "Co(ClO3)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) perchlorate"
+  ],
+  "formulas": [
+   "Co(ClO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) cyanide"
+  ],
+  "formulas": [
+   "Co(CN)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) sulfate"
+  ],
+  "formulas": [
+   "Co2(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Co(HSO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) sulfite"
+  ],
+  "formulas": [
+   "Co2(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) chromate"
+  ],
+  "formulas": [
+   "Co2(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) dichromate"
+  ],
+  "formulas": [
+   "Co2(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) phosphate"
+  ],
+  "formulas": [
+   "CoPO4"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Co2(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Co(H2PO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) nitrite"
+  ],
+  "formulas": [
+   "Co(NO2)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) nitrate"
+  ],
+  "formulas": [
+   "Co(NO3)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) permanganate"
+  ],
+  "formulas": [
+   "Co(MnO4)3"
+  ]
+ },
+ {
+  "names": [
+   "cobalt(iii) hydroxide"
+  ],
+  "formulas": [
+   "Co(OH)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) fluoride"
+  ],
+  "formulas": [
+   "CrF2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) bromide"
+  ],
+  "formulas": [
+   "CrBr2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) chloride"
+  ],
+  "formulas": [
+   "CrCl2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) iodide"
+  ],
+  "formulas": [
+   "CrI2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) oxide"
+  ],
+  "formulas": [
+   "CrO"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) sulfide"
+  ],
+  "formulas": [
+   "CrS"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) nitride"
+  ],
+  "formulas": [
+   "Cr3N2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) phosphide"
+  ],
+  "formulas": [
+   "Cr3P2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) acetate"
+  ],
+  "formulas": [
+   "Cr(C2H3O2)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) carbonate"
+  ],
+  "formulas": [
+   "CrCO3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Cr(HCO3)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) hypochlorite"
+  ],
+  "formulas": [
+   "Cr(ClO)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) chlorite"
+  ],
+  "formulas": [
+   "Cr(ClO2)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) chlorate"
+  ],
+  "formulas": [
+   "Cr(ClO3)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) perchlorate"
+  ],
+  "formulas": [
+   "Cr(ClO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) cyanide"
+  ],
+  "formulas": [
+   "Cr(CN)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) sulfate"
+  ],
+  "formulas": [
+   "CrSO4"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Cr(HSO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) sulfite"
+  ],
+  "formulas": [
+   "CrSO3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) chromate4"
+  ],
+  "formulas": [
+   "CrCrO"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) dichromate"
+  ],
+  "formulas": [
+   "CrCr2O7"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) phosphate"
+  ],
+  "formulas": [
+   "Cr3(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "CrHPO4"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Cr(H2PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) nitrite"
+  ],
+  "formulas": [
+   "Cr(NO2)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) nitrate"
+  ],
+  "formulas": [
+   "Cr(NO3)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) permanganate"
+  ],
+  "formulas": [
+   "Cr(MnO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) hydroxide"
+  ],
+  "formulas": [
+   "Cr(OH)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(ii) peroxide"
+  ],
+  "formulas": [
+   "CrO2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) fluoride"
+  ],
+  "formulas": [
+   "CrF3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) bromide"
+  ],
+  "formulas": [
+   "CrBr3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) chloride"
+  ],
+  "formulas": [
+   "CrCl3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) iodide"
+  ],
+  "formulas": [
+   "CrI3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) oxide"
+  ],
+  "formulas": [
+   "Cr2O3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) sulfide"
+  ],
+  "formulas": [
+   "Cr2S3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) nitride"
+  ],
+  "formulas": [
+   "CrN"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) phosphide"
+  ],
+  "formulas": [
+   "CrP"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) acetate"
+  ],
+  "formulas": [
+   "Cr(C2H3O2)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) carbonate"
+  ],
+  "formulas": [
+   "Cr2(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Cr(HCO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) hypochlorite"
+  ],
+  "formulas": [
+   "Cr(ClO)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) chlorite"
+  ],
+  "formulas": [
+   "Cr(ClO2)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) chlorate"
+  ],
+  "formulas": [
+   "Cr(ClO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) perchlorate"
+  ],
+  "formulas": [
+   "Cr(ClO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) cyanide"
+  ],
+  "formulas": [
+   "Cr(CN)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) sulfate"
+  ],
+  "formulas": [
+   "Cr2(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Cr(HSO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) sulfite"
+  ],
+  "formulas": [
+   "Cr2(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) chromate"
+  ],
+  "formulas": [
+   "Cr2(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) dichromate"
+  ],
+  "formulas": [
+   "Cr2(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) phosphate"
+  ],
+  "formulas": [
+   "CrPO4"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Cr2(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Cr(H2PO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) nitrite"
+  ],
+  "formulas": [
+   "Cr(NO2)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) nitrate"
+  ],
+  "formulas": [
+   "Cr(NO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) permanganate"
+  ],
+  "formulas": [
+   "Cr(MnO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(iii) hydroxide"
+  ],
+  "formulas": [
+   "Cr(OH)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) fluoride"
+  ],
+  "formulas": [
+   "CrF6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) bromide"
+  ],
+  "formulas": [
+   "CrBr6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) chloride"
+  ],
+  "formulas": [
+   "CrCl6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) iodide"
+  ],
+  "formulas": [
+   "CrI6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) oxide"
+  ],
+  "formulas": [
+   "CrO3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) sulfide"
+  ],
+  "formulas": [
+   "CrS3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) nitride"
+  ],
+  "formulas": [
+   "CrN2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) phosphide"
+  ],
+  "formulas": [
+   "CrP2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) acetate"
+  ],
+  "formulas": [
+   "Cr(C2H3O2)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) carbonate"
+  ],
+  "formulas": [
+   "Cr(CO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) hydrogen carbonate"
+  ],
+  "formulas": [
+   "Cr(HCO3)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) hypochlorite"
+  ],
+  "formulas": [
+   "Cr(ClO)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) chlorite"
+  ],
+  "formulas": [
+   "Cr(ClO2)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) chlorate"
+  ],
+  "formulas": [
+   "Cr(ClO3)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) perchlorate"
+  ],
+  "formulas": [
+   "Cr(ClO4)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) cyanide"
+  ],
+  "formulas": [
+   "Cr(CN)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) sulfate"
+  ],
+  "formulas": [
+   "Cr(SO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) hydrogen sulfate"
+  ],
+  "formulas": [
+   "Cr(HSO4)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) sulfite"
+  ],
+  "formulas": [
+   "Cr(SO3)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) chromate"
+  ],
+  "formulas": [
+   "Cr(CrO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) dichromate"
+  ],
+  "formulas": [
+   "Cr(Cr2O7)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) phosphate"
+  ],
+  "formulas": [
+   "Cr(PO4)2"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) hydrogen phosphate"
+  ],
+  "formulas": [
+   "Cr(HPO4)3"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) dihydrogen phosphate"
+  ],
+  "formulas": [
+   "Cr(H2PO4)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) nitrite"
+  ],
+  "formulas": [
+   "Cr(NO2)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) nitrate"
+  ],
+  "formulas": [
+   "Cr(NO3)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) permanganate"
+  ],
+  "formulas": [
+   "Cr(MnO4)6"
+  ]
+ },
+ {
+  "names": [
+   "chromium(VI) hydroxide"
+  ],
+  "formulas": [
+   "Cr(OH)6"
+  ]
+ }
+]

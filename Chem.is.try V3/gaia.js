@@ -15,6 +15,7 @@ Object.prototype.properties = function(){
 	}
 	return data;
 };
+
 // Array Prototypes //
 Array.prototype.indexOf = function(v, n){
 	n = (n == null) ? 0 : n; var m = this.length;

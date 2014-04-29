@@ -1,0 +1,452 @@
+[
+ {
+  "names": [
+   "hydrogen"
+  ],
+  "formulas": [
+   "H"
+  ],
+  "atomicNumber": "1"
+ },
+ {
+  "names": [
+   "helium"
+  ],
+  "formulas": [
+   "He"
+  ],
+  "atomicNumber": "2"
+ },
+ {
+  "names": [
+   "lithium"
+  ],
+  "formulas": [
+   "Li"
+  ],
+  "atomicNumber": "3"
+ },
+ {
+  "names": [
+   "beryllium"
+  ],
+  "formulas": [
+   "Be"
+  ],
+  "atomicNumber": "4"
+ },
+ {
+  "names": [
+   "boron"
+  ],
+  "formulas": [
+   "B"
+  ],
+  "atomicNumber": "5"
+ },
+ {
+  "names": [
+   "carbon"
+  ],
+  "formulas": [
+   "C"
+  ],
+  "atomicNumber": "6"
+ },
+ {
+  "names": [
+   "nitrogen"
+  ],
+  "formulas": [
+   "N"
+  ],
+  "atomicNumber": "7"
+ },
+ {
+  "names": [
+   "oxygen"
+  ],
+  "formulas": [
+   "O"
+  ],
+  "atomicNumber": "8"
+ },
+ {
+  "names": [
+   "fluorine"
+  ],
+  "formulas": [
+   "F"
+  ],
+  "atomicNumber": "9"
+ },
+ {
+  "names": [
+   "neon"
+  ],
+  "formulas": [
+   "Ne"
+  ],
+  "atomicNumber": "10"
+ },
+ {
+  "names": [
+   "sodium"
+  ],
+  "formulas": [
+   "Na"
+  ],
+  "atomicNumber": "11"
+ },
+ {
+  "names": [
+   "magnesium"
+  ],
+  "formulas": [
+   "Mg"
+  ],
+  "atomicNumber": "12"
+ },
+ {
+  "names": [
+   "aluminum"
+  ],
+  "formulas": [
+   "Al"
+  ],
+  "atomicNumber": "13"
+ },
+ {
+  "names": [
+   "silicon"
+  ],
+  "formulas": [
+   "Si"
+  ],
+  "atomicNumber": "14"
+ },
+ {
+  "names": [
+   "phosphorus"
+  ],
+  "formulas": [
+   "P"
+  ],
+  "atomicNumber": "15"
+ },
+ {
+  "names": [
+   "sulfur"
+  ],
+  "formulas": [
+   "S"
+  ],
+  "atomicNumber": "16"
+ },
+ {
+  "names": [
+   "chlorine"
+  ],
+  "formulas": [
+   "Cl"
+  ],
+  "atomicNumber": "17"
+ },
+ {
+  "names": [
+   "argon"
+  ],
+  "formulas": [
+   "Ar"
+  ],
+  "atomicNumber": "18"
+ },
+ {
+  "names": [
+   "potassium"
+  ],
+  "formulas": [
+   "K"
+  ],
+  "atomicNumber": "19"
+ },
+ {
+  "names": [
+   "calcium"
+  ],
+  "formulas": [
+   "Ca"
+  ],
+  "atomicNumber": "20"
+ },
+ {
+  "names": [
+   "titanium"
+  ],
+  "formulas": [
+   "Ti"
+  ],
+  "atomicNumber": "21"
+ },
+ {
+  "names": [
+   "chromium"
+  ],
+  "formulas": [
+   "Cr"
+  ],
+  "atomicNumber": "22"
+ },
+ {
+  "names": [
+   "manganese"
+  ],
+  "formulas": [
+   "Mn"
+  ],
+  "atomicNumber": "23"
+ },
+ {
+  "names": [
+   "iron"
+  ],
+  "formulas": [
+   "Fe"
+  ],
+  "atomicNumber": "24"
+ },
+ {
+  "names": [
+   "cobalt"
+  ],
+  "formulas": [
+   "Co"
+  ],
+  "atomicNumber": "25"
+ },
+ {
+  "names": [
+   "nickel"
+  ],
+  "formulas": [
+   "Ni"
+  ],
+  "atomicNumber": "26"
+ },
+ {
+  "names": [
+   "copper"
+  ],
+  "formulas": [
+   "Cu"
+  ],
+  "atomicNumber": "27"
+ },
+ {
+  "names": [
+   "zinc"
+  ],
+  "formulas": [
+   "Zn"
+  ],
+  "atomicNumber": "28"
+ },
+ {
+  "names": [
+   "arsenic"
+  ],
+  "formulas": [
+   "As"
+  ],
+  "atomicNumber": "29"
+ },
+ {
+  "names": [
+   "bromine"
+  ],
+  "formulas": [
+   "Br"
+  ],
+  "atomicNumber": "30"
+ },
+ {
+  "names": [
+   "krypton"
+  ],
+  "formulas": [
+   "Kr"
+  ],
+  "atomicNumber": "31"
+ },
+ {
+  "names": [
+   "strontium"
+  ],
+  "formulas": [
+   "Sr"
+  ],
+  "atomicNumber": "32"
+ },
+ {
+  "names": [
+   "silver"
+  ],
+  "formulas": [
+   "Ag"
+  ],
+  "atomicNumber": "33"
+ },
+ {
+  "names": [
+   "cadmium"
+  ],
+  "formulas": [
+   "Cd"
+  ],
+  "atomicNumber": "34"
+ },
+ {
+  "names": [
+   "tin"
+  ],
+  "formulas": [
+   "Sn"
+  ],
+  "atomicNumber": "35"
+ },
+ {
+  "names": [
+   "antimony"
+  ],
+  "formulas": [
+   "Sb"
+  ],
+  "atomicNumber": "36"
+ },
+ {
+  "names": [
+   "iodine"
+  ],
+  "formulas": [
+   "I"
+  ],
+  "atomicNumber": "37"
+ },
+ {
+  "names": [
+   "xenon"
+  ],
+  "formulas": [
+   "Xe"
+  ],
+  "atomicNumber": "38"
+ },
+ {
+  "names": [
+   "cesium"
+  ],
+  "formulas": [
+   "Cs"
+  ],
+  "atomicNumber": "39"
+ },
+ {
+  "names": [
+   "barium"
+  ],
+  "formulas": [
+   "Ba"
+  ],
+  "atomicNumber": "40"
+ },
+ {
+  "names": [
+   "tungsten"
+  ],
+  "formulas": [
+   "W"
+  ],
+  "atomicNumber": "41"
+ },
+ {
+  "names": [
+   "platinum"
+  ],
+  "formulas": [
+   "Pt"
+  ],
+  "atomicNumber": "42"
+ },
+ {
+  "names": [
+   "gold"
+  ],
+  "formulas": [
+   "Au"
+  ],
+  "atomicNumber": "43"
+ },
+ {
+  "names": [
+   "mercury"
+  ],
+  "formulas": [
+   "Hg"
+  ],
+  "atomicNumber": "44"
+ },
+ {
+  "names": [
+   "lead"
+  ],
+  "formulas": [
+   "Pb"
+  ],
+  "atomicNumber": "45"
+ },
+ {
+  "names": [
+   "bismuth"
+  ],
+  "formulas": [
+   "Bi"
+  ],
+  "atomicNumber": "46"
+ },
+ {
+  "names": [
+   "radon"
+  ],
+  "formulas": [
+   "Rn"
+  ],
+  "atomicNumber": "47"
+ },
+ {
+  "names": [
+   "radium"
+  ],
+  "formulas": [
+   "Ra"
+  ],
+  "atomicNumber": "48"
+ },
+ {
+  "names": [
+   "uranium"
+  ],
+  "formulas": [
+   "U"
+  ],
+  "atomicNumber": "49"
+ },
+ {
+  "names": [
+   "plutonium"
+  ],
+  "formulas": [
+   "Pu"
+  ],
+  "atomicNumber": "50"
+ }
+]

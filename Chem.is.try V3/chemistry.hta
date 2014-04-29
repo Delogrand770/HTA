@@ -1,0 +1,78 @@
+<html>
+<head><title>Chem.is.try V3</title>
+<script src="gaia.js"></script>
+<script src="json2.js"></script>
+<script src="chemdata.js"></script>
+
+<style>
+body{
+  font-size: 11;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  font-family:arial,sans-serif;
+}
+</style>
+
+<script>
+var testing = {
+	ini:function(){
+		var input = XS.file('elements.txt', 'open');
+		var elements = JSON.parse(input);
+	}
+};
+
+
+var conversion = {
+	ini:function(){
+		conversion.convert(element_table, "elements");
+		conversion.convert(nonionic_table, "nonionic");
+		conversion.convert(ions_table, "ions");
+		conversion.convert(alkanes_table, "alkanes");
+		conversion.convert(acid_table, "acids");
+		conversion.convert(ionic_table, "ionic");
+	},
+	convert:function(table, name){
+		var output = [];
+		var source = table;
+		for (var i = 1; i < source.length; i++){
+			var data = source[i].split(':');
+			var obj = {names: [data[3]], formulas: [data[1]]};
+
+			if (name == "nonionic"){
+				var obj = (data[4]) ? {names: [data[3], data[4]], formulas: [data[1]]} : {names: [data[3]], formulas: [data[1]]};
+			} else if (name == "ions"){
+				var obj = (data[4]) ? {names: [data[3]], formulas: [data[1], data[4]]} : {names: [data[3]], formulas: [data[1]]};
+			} else if (name == "elements"){
+				var obj = {names: [data[2]], formulas: [data[1]], atomicNumber: data[0]};
+			} 
+
+			output.push(obj);
+		}
+		XS.file(name + '.txt', 'create', JSON.stringify(output, null, '\t'));		
+	}
+}
+</script>
+</head>
+<body onload="testing.ini();">
+<HTA:APPLICATION ID="chem"
+    APPLICATIONNAME="chem"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="ico.ico"
+    SCROLL="no"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    INNERBORDER="no"
+    CONTEXTMENU="no"
+    SINGLEINSTANCE="no"
+    WINDOWSTATE="normal"
+    SYSMENU="yes"
+    SHOWINTASKBAR="yes"
+    SCROLLFLAT="yes"
+    NAVIGABLE="no"
+    SELECTION="no">
+
+</body>
+</html>
