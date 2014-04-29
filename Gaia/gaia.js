@@ -10,7 +10,7 @@ Object.prototype.properties = function(){
 	var data = "";
 	for (var prop in this){
 		if (prop != "properties"){
-			data += "<b>" + prop + "</b>: " + this[prop] + "<br>";
+			data += "" + prop + ": " + this[prop] + "\n";
 		}
 	}
 	return data;
